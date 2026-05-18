@@ -43,8 +43,8 @@ export const ProcessSection = () => {
   return (
     <section className="relative overflow-hidden bg-[#f5f3ee] py-32 text-slate-900">
       {/* Soft hairline separators */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink-950 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-300/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-slate-300/70" />
 
       {/* Blueprint grid */}
       <div
@@ -134,7 +134,7 @@ export const ProcessSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
-              className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_30px_70px_-25px_rgba(4,159,217,0.25)] lg:p-8"
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_60px_-20px_rgba(4,159,217,0.25)] lg:p-8"
               style={{ boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(15,23,42,0.04), 0 20px 40px -28px rgba(15,23,42,0.18)' }}
             >
               {/* Top hairline */}
@@ -143,7 +143,7 @@ export const ProcessSection = () => {
               {/* Phase header */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-accent">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent">
                     <p.Icon className="h-5 w-5" />
                   </div>
                   <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">

@@ -302,15 +302,10 @@ const OperationalTheatre = () => {
 const CoreReactor = () => {
   const reduce = useReducedMotion();
   return (
-    <div className="relative h-[140%] w-[140%] max-w-[1400px]">
-      {/* Soft halo — wide, very diffused */}
-      <div className="absolute inset-[15%] rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.22),transparent_75%)] blur-3xl" />
-      <div className="absolute inset-[25%] rounded-full bg-[radial-gradient(closest-side,rgba(125,211,252,0.10),transparent_80%)] blur-3xl" />
-      <svg viewBox="0 0 600 600" className="absolute inset-0 h-full w-full"
-        style={{
-          maskImage: 'radial-gradient(circle at 50% 50%, #000 35%, rgba(0,0,0,0.6) 60%, transparent 90%)',
-          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, #000 35%, rgba(0,0,0,0.6) 60%, transparent 90%)',
-        }}>
+    <div className="relative h-[120%] w-[120%] max-w-[1200px]">
+      {/* Soft halo */}
+      <div className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.18),transparent_60%)] blur-2xl" />
+      <svg viewBox="0 0 600 600" className="absolute inset-0 h-full w-full">
         <defs>
           <radialGradient id="hReactorCore" cx="50%" cy="50%" r="50%">
             <stop offset="0%"  stopColor="#7dd3fc" stopOpacity="0.55" />
@@ -552,7 +547,7 @@ const FloatingPanels = () => {
 };
 
 const PanelShell = ({ children }: { children: React.ReactNode }) => (
-  <div className="relative rounded-3xl border border-white/[0.08] bg-ink-900/75 p-5 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.05)]">
+  <div className="relative rounded-2xl border border-white/[0.08] bg-ink-900/75 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.05)]">
     <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     {children}
   </div>
@@ -641,7 +636,7 @@ const DashboardMock = () => {
       <div className="absolute inset-x-12 -inset-y-4 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/15 via-sky-400/10 to-transparent opacity-50 blur-3xl" />
 
       {/* Frame */}
-      <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]">
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]">
         {/* Top gradient hairline */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
         {/* Window header */}
@@ -651,7 +646,7 @@ const DashboardMock = () => {
             <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
           </div>
-          <div className="flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.04] px-3.5 py-1 font-mono text-[11px] text-slate-300">
+          <div className="flex items-center gap-2 rounded-md border border-white/[0.06] bg-white/[0.04] px-3 py-1 font-mono text-[11px] text-slate-300">
             <Lock className="h-3 w-3 text-slate-500" />
             celoxus.app/operations
           </div>
@@ -764,8 +759,8 @@ export const TrustBanner = () => {
   return (
     <section className="relative overflow-hidden bg-[#f5f3ee] py-24">
       {/* Hairline edges */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink-950 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-300/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-slate-300/70" />
       {/* Subtle blueprint grid */}
       <div
         aria-hidden
@@ -816,8 +811,8 @@ export const TrustBanner = () => {
 export const Manifesto = () => {
   return (
     <section className="relative overflow-hidden bg-[#f5f3ee] py-32 lg:py-40">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink-950 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-300/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-slate-300/70" />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-50"
@@ -981,7 +976,7 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="ring-gradient group relative h-full overflow-hidden rounded-3xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)]"
+        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)]"
         style={{ transition: 'transform 700ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 700ms cubic-bezier(0.16, 1, 0.3, 1), border-color 600ms cubic-bezier(0.16, 1, 0.3, 1)' }}
       >
         {/* Cursor spotlight */}
@@ -1085,7 +1080,7 @@ export const SplitMission = () => {
             transition={{ duration: 1, ease: EASE_SOFT }}
             className="relative"
           >
-            <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
               <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-accent/20 blur-3xl" />
 
               <div className="flex items-center justify-between">
