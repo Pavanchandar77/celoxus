@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
 import { CoreTopology } from '../components/CoreTopology';
 import { LiveMesh } from '../components/LiveMesh';
+import { LightSlab } from '../components/LightSlab';
 
 // Premium easing curves
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];        // signal-ease
@@ -762,33 +763,9 @@ const DashboardMock = () => {
 export const TrustBanner = () => {
   const logos = ['Cisco', 'Webex', 'AWS', 'Azure', 'ServiceNow', 'Splunk', 'Salesforce'];
   return (
-    <section className="relative overflow-hidden bg-[#f5f3ee] py-24">
-      {/* Hairline edges */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink-950 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
-      {/* Subtle blueprint grid */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(15,23,42,0.04) 1px, transparent 1px),' +
-            'linear-gradient(to bottom, rgba(15,23,42,0.04) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
-        }}
-      />
-      <div className="pointer-events-none absolute -top-32 left-1/2 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.10),transparent_70%)] blur-3xl" />
-
+    <LightSlab chapter="Built on · Integrated with" className="py-20 lg:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
-        <div className="mx-auto mb-3 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_2px_10px_rgba(15,23,42,0.04)]">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-700">
-            Built on · Integrated with
-          </span>
-        </div>
-        <h3 className="mx-auto max-w-2xl font-display text-2xl font-medium leading-[1.2] tracking-[-0.025em] text-slate-900 sm:text-3xl">
+        <h3 className="mx-auto max-w-2xl font-display text-2xl font-semibold leading-[1.2] tracking-[-0.025em] text-slate-900 sm:text-3xl">
           The stack our customers already run.
         </h3>
         <div className="mt-12 grid grid-cols-2 items-center gap-x-10 gap-y-8 sm:grid-cols-4 lg:grid-cols-7">
@@ -806,7 +783,7 @@ export const TrustBanner = () => {
           ))}
         </div>
       </div>
-    </section>
+    </LightSlab>
   );
 };
 
@@ -815,42 +792,13 @@ export const TrustBanner = () => {
    ============================================================ */
 export const Manifesto = () => {
   return (
-    <section className="relative overflow-hidden bg-[#f5f3ee] py-32 lg:py-40">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink-950 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(15,23,42,0.04) 1px, transparent 1px),' +
-            'linear-gradient(to bottom, rgba(15,23,42,0.04) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
-        }}
-      />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.10),transparent_70%)] blur-3xl" />
-
+    <LightSlab chapter="Manifesto · Why we exist" className="py-32 lg:py-40">
       <div className="relative z-10 mx-auto max-w-5xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 1, ease: EASE_SOFT }}
-          className="mx-auto mb-12 inline-flex w-fit items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_2px_10px_rgba(15,23,42,0.04)]"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-700">
-            Manifesto · Why we exist
-          </span>
-        </motion.div>
-
         <motion.blockquote
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 1.1, delay: 0.1, ease: EASE_SOFT }}
+          transition={{ duration: 1.1, ease: EASE_SOFT }}
           className="font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-slate-900 sm:text-4xl lg:text-[3rem]"
         >
           A bad minute in a contact center is paid for in dollars, in trust,
@@ -873,7 +821,7 @@ export const Manifesto = () => {
           <span className="text-[15px] font-medium">Ship voice software that runs quietly.</span>
         </motion.div>
       </div>
-    </section>
+    </LightSlab>
   );
 };
 
