@@ -6,6 +6,7 @@ import { ArrowRight, ArrowUpRight, Sparkles, Activity, Cloud, Headphones, Shield
 import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
 import { CoreTopology } from '../components/CoreTopology';
+import { LiveMesh } from '../components/LiveMesh';
 
 // Premium easing curves
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];        // signal-ease
@@ -40,10 +41,12 @@ export const Hero = () => {
       className="relative min-h-screen w-full overflow-hidden bg-ink-950 pt-32 pb-28"
     >
       {/* Animated grid */}
-      <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-70" />
+      <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-50" />
 
-      {/* Particle field */}
-      <ParticleField count={28} />
+      {/* The Celoxus signature: living intelligence mesh */}
+      <div className="pointer-events-none absolute inset-0 radial-fade opacity-90">
+        <LiveMesh density={0.8} connectionDistance={140} />
+      </div>
 
       {/* Aurora gradient */}
       <motion.div
@@ -792,7 +795,7 @@ export const BentoGrid = () => {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.9, ease: EASE }}
+          transition={{ duration: 1, ease: EASE_SOFT }}
           className="mx-auto mb-20 max-w-3xl text-center"
         >
           <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
@@ -813,37 +816,37 @@ export const BentoGrid = () => {
             className="md:col-span-4"
             icon={Headphones}
             eyebrow="Webex Contact Center"
-            title="Customer experience, re-architected."
-            body="Unified voice, digital, and AI journeys with real-time supervisor intelligence."
+            title="Every call routed with intent."
+            body="Voice, digital, and AI journeys converge into a single supervisor signal — the system anticipates the room before you do."
             featured
           />
           <BentoCard
             className="md:col-span-2"
             icon={Cloud}
             eyebrow="Cloud Migration"
-            title="Zero-downtime migrations."
-            body="Cisco cloud-native deployments engineered by CCIE architects."
+            title="Cutovers without the night-shift."
+            body="Zero-downtime moves to Cisco-native cloud, engineered phase by phase by CCIEs."
           />
           <BentoCard
             className="md:col-span-2"
             icon={Code}
             eyebrow="APIs & Integration"
-            title="Bridge any legacy system."
-            body="Custom middleware that connects across fragmented enterprise tools."
+            title="Bridge anything to anything."
+            body="Bespoke middleware that makes your legacy stack feel like one product."
           />
           <BentoCard
             className="md:col-span-2"
             icon={Activity}
             eyebrow="Observability"
-            title="See every signal, live."
-            body="Proactive monitoring with anomaly detection for Cisco infrastructure."
+            title="Sub-second signal capture."
+            body="From SIP trunk to agent desktop, every leg of the call is visible and queryable."
           />
           <BentoCard
             className="md:col-span-2"
             icon={Shield}
             eyebrow="Security & Compliance"
-            title="Enterprise-grade, by default."
-            body="SOC 2, GDPR, and NDA-first engagements for regulated verticals."
+            title="Designed for regulated rooms."
+            body="SOC 2 Type II, air-gapped logic, and NDA-first engagements as the default — not the upgrade."
           />
         </div>
       </div>
@@ -876,13 +879,14 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.8, ease: EASE }}
+      transition={{ duration: 0.95, ease: EASE_SOFT }}
       className={className}
     >
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-white/[0.14] hover:shadow-[0_30px_80px_-30px_rgba(4,159,217,0.4)]"
+        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)]"
+        style={{ transition: 'transform 700ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 700ms cubic-bezier(0.16, 1, 0.3, 1), border-color 600ms cubic-bezier(0.16, 1, 0.3, 1)' }}
       >
         {/* Cursor spotlight */}
         <div
@@ -928,17 +932,19 @@ export const SplitMission = () => {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.9, ease: EASE }}
+            transition={{ duration: 1, ease: EASE_SOFT }}
           >
             <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
-              Why teams choose Celoxus
+              The people behind the platform
             </p>
-            <h2 className="mt-5 font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.5rem]">
-              Architecture trusted by the
-              <span className="text-gradient-accent"> world's leading teams.</span>
+            <h2 className="mt-5 font-display text-4xl font-bold leading-[1.02] tracking-[-0.035em] text-white sm:text-5xl lg:text-[3.75rem]">
+              Senior engineers.
+              <span className="text-gradient-accent"> Discreet engagements.</span>
             </h2>
-            <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-slate-400">
-              We specialize in complex technology swaps and greenfield builds — ensuring your infrastructure is ready for the next decade.
+            <p className="mt-6 max-w-lg text-[17px] font-light leading-[1.6] text-slate-400">
+              We're the team you bring in when the cutover can't fail and the room
+              can't know about it. Eight years of complex swaps and greenfield
+              builds — none of which are ours to talk about.
             </p>
 
             <ul className="mt-10 space-y-1">
@@ -980,7 +986,7 @@ export const SplitMission = () => {
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.9, ease: EASE }}
+            transition={{ duration: 1, ease: EASE_SOFT }}
             className="relative"
           >
             <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
@@ -1058,11 +1064,15 @@ export const SplitMission = () => {
 export const CTASection = () => {
   return (
     <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-40">
-      <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-50" />
+      <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-40" />
+      {/* Signature mesh — subtle echo of the hero */}
+      <div className="pointer-events-none absolute inset-0 radial-fade opacity-70">
+        <LiveMesh density={0.5} connectionDistance={150} maxOpacity={0.6} />
+      </div>
       <motion.div
-        animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.25),transparent_70%)] blur-3xl"
+        animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.08, 1] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.22),transparent_70%)] blur-3xl"
       />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
