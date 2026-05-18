@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Compass, PenTool, Activity, ArrowUpRight } from 'lucide-react';
-import { LightSlab } from './LightSlab';
 
 /**
  * ProcessSection — light "white paper" band on a warm paper tone.
@@ -42,7 +41,28 @@ const PHASES = [
 
 export const ProcessSection = () => {
   return (
-    <LightSlab chapter="Chapter / 07 · Process" className="py-32 text-slate-900">
+    <section className="relative overflow-hidden bg-[#f5f3ee] py-32 text-slate-900">
+      {/* Soft hairline separators */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink-950 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
+
+      {/* Blueprint grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(15,23,42,0.045) 1px, transparent 1px),' +
+            'linear-gradient(to bottom, rgba(15,23,42,0.045) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          maskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+        }}
+      />
+
+      {/* Warm accent wash */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.12),transparent_70%)] blur-3xl" />
+
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -53,6 +73,12 @@ export const ProcessSection = () => {
           className="mb-20 grid grid-cols-12 items-end gap-8"
         >
           <div className="col-span-12 lg:col-span-8">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_2px_10px_rgba(15,23,42,0.04)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-700">
+                Chapter / 07 · Process
+              </span>
+            </div>
             <h2 className="font-display text-[2.5rem] font-bold leading-[1.0] tracking-[-0.035em] text-slate-900 sm:text-5xl lg:text-[3.75rem]">
               Architecture, in three
               <span className="block text-accent-600">considered movements.</span>
@@ -160,6 +186,6 @@ export const ProcessSection = () => {
           ))}
         </div>
       </div>
-    </LightSlab>
+    </section>
   );
 };
