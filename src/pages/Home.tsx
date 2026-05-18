@@ -1,400 +1,408 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, Variants } from 'framer-motion';
-import { ArrowRight, Cloud, Activity, Globe, Headphones, ChevronRight, Code, Shield, Database, Layers } from 'lucide-react';
+import { motion, useScroll, useTransform, useReducedMotion, Variants } from 'framer-motion';
+import {
+  ArrowRight, ArrowUpRight, Sparkles, Activity, Cloud, Headphones, Shield,
+  Layers, Code, Database, ChevronRight, Cpu, Globe, LineChart, Lock,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { NetworkTopology } from '../components/NetworkTopology';
 import { MagneticButton } from '../components/MagneticButton';
-import { CoreTopology } from '../components/CoreTopology';
 
-const SIGNAL_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const headlineVariant: Variants = {
-  hidden: { opacity: 0, y: 48, clipPath: 'inset(0 0 100% 0)' },
-  shown: {
-    opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)',
-    transition: { duration: 1.4, ease: SIGNAL_EASE, delay: 0.35 },
-  },
-};
-const subcopyVariant: Variants = {
-  hidden: { opacity: 0, y: 30, clipPath: 'inset(0 0 100% 0)' },
-  shown: {
-    opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)',
-    transition: { duration: 1.1, ease: SIGNAL_EASE, delay: 0.7 },
-  },
-};
-const ctaVariant: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  shown: { opacity: 1, y: 0, transition: { duration: 0.7, ease: SIGNAL_EASE, delay: 1.05 } },
-};
-const labelVariant: Variants = {
-  hidden: { opacity: 0 },
-  shown: { opacity: 1, transition: { duration: 0.6, delay: 0.25 } },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  shown: (i: number = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.9, ease: EASE, delay: 0.05 * i },
+  }),
 };
 
+/* ============================================================
+   HERO — cinematic, dashboard mockup, animated grid + aurora
+   ============================================================ */
 export const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
-  const topologyY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
-  const hazeY = useTransform(scrollYProgress, [0, 1], ['0%', '-8%']);
-  const headlineY = useTransform(scrollYProgress, [0, 1], ['0%', '-5%']);
-  const bgImageY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const dashY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const headlineY = useTransform(scrollYProgress, [0, 1], ['0%', '-6%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.4]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen w-screen bg-[#020617] overflow-hidden"
+      className="relative min-h-screen w-full overflow-hidden bg-ink-950 pt-32 pb-24"
     >
-      {/* ----- Layer 1: image background with hue shift ----- */}
+      {/* Animated grid */}
+      <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-70" />
+
+      {/* Aurora gradient */}
       <motion.div
-        style={{ y: bgImageY }}
-        className="absolute inset-0 -top-[10%] h-[120%] z-0 pointer-events-none"
+        aria-hidden
+        animate={reduce ? undefined : { opacity: [0.6, 0.85, 0.6] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute inset-x-0 -top-1/3 h-[80vh]"
       >
-        <img
-          src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=2400&q=80"
-          alt=""
-          loading="eager"
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover opacity-[0.18] mix-blend-screen"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/40 via-[#020617]/70 to-[#020617]"></div>
+        <div className="absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.35),transparent_70%)] blur-3xl" />
+        <div className="absolute left-[20%] top-[15%] h-[40vh] w-[40vw] rounded-full bg-[radial-gradient(closest-side,rgba(139,92,246,0.25),transparent_70%)] blur-3xl" />
+        <div className="absolute right-[15%] top-[5%] h-[35vh] w-[35vw] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.18),transparent_70%)] blur-3xl" />
       </motion.div>
 
-      {/* ----- Layer 2: architectural grid ----- */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000_60%,transparent_100%)] opacity-30"
-      />
+      {/* Top hairline */}
+      <div className="pointer-events-none absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      {/* ----- Layer 3: subtle ambient wash (toned down) ----- */}
-      <motion.div
-        animate={{ opacity: [0.04, 0.07, 0.04] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-[10%] left-[10%] w-[600px] h-[600px] rounded-full bg-[#049fd9] blur-[140px] mix-blend-screen pointer-events-none z-[1]"
-      />
-
-      {/* ----- Layer 4: chapter cipher 01 ----- */}
-      <div className="pointer-events-none absolute bottom-0 left-0 z-[2] h-[55%] w-auto overflow-hidden leading-none">
-        <span className="block font-display font-light leading-none text-[20vw] text-white/[0.025]" style={{ lineHeight: 1 }}>
-          01
-        </span>
-      </div>
-
-      {/* ----- Layer 5: mouse-reactive topology (right half) ----- */}
-      <motion.div
-        style={{ y: topologyY }}
-        className="pointer-events-auto absolute top-0 right-0 hidden lg:block h-full w-[55%] z-[3]"
-      >
-        <div
-          className="absolute inset-0 -right-[6%]"
-          style={{ transform: 'perspective(1200px) rotateX(8deg) rotateY(-6deg)', transformOrigin: '60% 50%' }}
+      <motion.div style={{ opacity }} className="relative z-10 mx-auto max-w-7xl px-6">
+        {/* Eyebrow */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="shown"
+          className="mx-auto mb-8 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-md"
         >
-          <NetworkTopology showLabels />
-        </div>
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-300">
+            Now in production · v4.2
+          </span>
+          <span className="text-slate-600">·</span>
+          <span className="text-[11px] text-slate-400">CCIE-certified architects</span>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          style={{ y: headlineY }}
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="shown"
+          className="font-display mx-auto max-w-5xl text-balance text-center text-[2.75rem] font-medium leading-[1.02] tracking-[-0.035em] text-white sm:text-6xl lg:text-[5.25rem]"
+        >
+          The infrastructure layer for
+          <span className="block text-gradient-accent">modern enterprise voice.</span>
+        </motion.h1>
+
+        {/* Subhead */}
+        <motion.p
+          custom={2}
+          variants={fadeUp}
+          initial="hidden"
+          animate="shown"
+          className="mx-auto mt-7 max-w-2xl text-balance text-center text-lg font-light leading-relaxed text-slate-400 sm:text-xl"
+        >
+          Celoxus unifies Cisco calling, contact center, and observability into one
+          always-on operational fabric — engineered for global scale.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          custom={3}
+          variants={fadeUp}
+          initial="hidden"
+          animate="shown"
+          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+        >
+          <MagneticButton to="/contact" strength={0.25}>
+            <div className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-6 py-3.5 text-sm font-medium text-ink-950 shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)] transition-transform">
+              <span className="relative">Book a demo</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            </div>
+          </MagneticButton>
+
+          <Link
+            to="/products"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-md transition-all hover:border-white/20 hover:bg-white/[0.06]"
+          >
+            <span>Explore the platform</span>
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </motion.div>
+
+        {/* Trust pills */}
+        <motion.div
+          custom={4}
+          variants={fadeUp}
+          initial="hidden"
+          animate="shown"
+          className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500"
+        >
+          <span className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> SOC 2 Type II</span>
+          <span className="inline-flex items-center gap-1.5"><Shield className="h-3.5 w-3.5" /> Cisco Premier Partner</span>
+          <span className="inline-flex items-center gap-1.5"><Globe className="h-3.5 w-3.5" /> 99.997% SLA</span>
+          <span className="inline-flex items-center gap-1.5"><Cpu className="h-3.5 w-3.5" /> Built for enterprise</span>
+        </motion.div>
+
+        {/* Dashboard mockup */}
+        <motion.div
+          style={{ y: dashY }}
+          initial={{ opacity: 0, y: 60, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.6, ease: EASE }}
+          className="relative mx-auto mt-20 max-w-6xl"
+        >
+          <DashboardMock />
+        </motion.div>
       </motion.div>
 
-      {/* ----- Layer 6: haze separator ----- */}
-      <motion.div
-        style={{ y: hazeY }}
-        className="pointer-events-none absolute inset-x-0 top-[55%] hidden lg:block h-[40vh] z-[4]"
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(80% 100% at 70% 50%, rgba(2,6,23,0.65) 0%, rgba(2,6,23,0.0) 70%)',
-            filter: 'blur(20px)',
-          }}
-        />
-      </motion.div>
-
-      {/* ----- Layer 7: typography (celoxus-2 editorial system) ----- */}
-      <motion.div style={{ y: headlineY }} className="absolute inset-0 z-[10]">
-        <div className="mx-auto h-full w-full max-w-7xl px-6 lg:px-8 grid grid-cols-12 gap-4">
-          <div className="col-span-12 col-start-1 lg:col-span-7 lg:col-start-2 self-start pt-[36vh] lg:pt-[40vh]">
-            {/* Mono spec label */}
-            <motion.p
-              variants={labelVariant}
-              initial="hidden"
-              animate="shown"
-              className="font-mono text-[0.7rem] text-slate-500 uppercase tracking-[0.1em]"
-            >
-              CELOXUS / SYSTEMS INTEGRATION
-            </motion.p>
-
-            {/* Headline — font-display font-light, single line, no gradient */}
-            <h1 className="mt-6 font-display font-light text-white text-[3rem] leading-[1.0] sm:text-[4.5rem] lg:text-[6rem] xl:text-[7rem] tracking-[-0.015em] break-words">
-              <motion.span
-                variants={headlineVariant}
-                initial="hidden"
-                animate="shown"
-                className="block"
-              >
-                Infrastructure without friction.
-              </motion.span>
-            </h1>
-
-            {/* Subcopy — intentionally narrow + indented to col 4 */}
-            <motion.p
-              variants={subcopyVariant}
-              initial="hidden"
-              animate="shown"
-              className="mt-10 max-w-[300px] font-body font-light text-slate-400 text-[1rem] leading-relaxed lg:ml-[16.6667%]"
-            >
-              Cloud communications. Contact centers. Persistent operational visibility.
-            </motion.p>
-
-            {/* CTA — text-only, accent, hover nudges arrow */}
-            <motion.div
-              variants={ctaVariant}
-              initial="hidden"
-              animate="shown"
-              className="mt-8 lg:ml-[16.6667%]"
-            >
-              <Link
-                to="/products"
-                className="group inline-flex items-baseline gap-2 font-body font-light text-[#049fd9] text-[0.95rem] tracking-[0.02em]"
-              >
-                <span>Initialize the system</span>
-                <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-[4px]">→</span>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* ----- Quiet baseline rule ----- */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px z-[11] bg-white/10" />
+      {/* Bottom fade */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-ink-950" />
     </section>
   );
 };
 
-/* ========================================================================== */
-
-export const TrustBanner = () => {
+/* Floating dashboard mock */
+const DashboardMock = () => {
   return (
-    <div className="bg-[#020617] py-32 relative z-20 overflow-hidden border-y border-white/5">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px] opacity-30 pointer-events-none"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.04] pointer-events-none">
-        <Globe className="w-full h-full text-[#049fd9]" />
-      </div>
+    <div className="relative">
+      {/* Glow halo */}
+      <div className="absolute inset-x-12 -inset-y-8 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/30 via-violet-500/20 to-transparent opacity-60 blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-6 text-center mb-20 relative z-10">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.32em] mb-5 flex justify-center items-center gap-2"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          Industry Leaders
-        </motion.p>
-        <motion.h3
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: SIGNAL_EASE }}
-          className="text-3xl md:text-5xl font-light text-white tracking-tight font-display"
-        >
-          Enterprise solutions powered by <br />
-          <span className="inline-block pb-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-[#049fd9] to-blue-300">CCIE-certified architects.</span>
-        </motion.h3>
-      </div>
+      {/* Frame */}
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8)]">
+        {/* Window header */}
+        <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-5 py-3">
+          <div className="flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+          </div>
+          <div className="rounded-md bg-white/5 px-3 py-1 font-mono text-[11px] text-slate-400">
+            celoxus.app/operations
+          </div>
+          <div className="font-mono text-[11px] text-slate-500">v4.2.0</div>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: 'Cisco Premier', sub: 'Certified Partner', icon: Shield },
-            { label: 'CCIE Collaboration', sub: 'Certified Architects', icon: Layers },
-            { label: 'Advanced Data Center', sub: 'Specialized', icon: Database },
-            { label: 'Zero-Downtime SLA', sub: '24/7 Operations', icon: Activity },
-          ].map((b, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: SIGNAL_EASE }}
-              whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 text-center p-7 bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/[0.06] hover:border-[#049fd9]/30 transition-colors duration-500 relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#049fd9]/0 to-[#049fd9]/0 group-hover:from-[#049fd9]/10 group-hover:to-transparent transition-all duration-700"></div>
-              <div className="relative w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-500">
-                <b.icon className="w-7 h-7 text-[#049fd9]" />
+        {/* Body */}
+        <div className="grid grid-cols-12 gap-4 p-5">
+          {/* Sidebar */}
+          <div className="col-span-3 hidden flex-col gap-1 md:flex">
+            {['Overview', 'Voice Routing', 'Contact Center', 'Webex Cloud', 'Observability', 'Integrations'].map((label, i) => (
+              <div
+                key={label}
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs ${
+                  i === 0 ? 'bg-white/[0.06] text-white' : 'text-slate-400 hover:bg-white/[0.03]'
+                }`}
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-accent/80" />
+                {label}
               </div>
-              <div className="relative font-normal text-sm tracking-tight text-white">{b.label}</div>
-              <div className="relative font-mono text-[10px] text-slate-400 uppercase tracking-[0.18em]">{b.sub}</div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
+
+          {/* Main */}
+          <div className="col-span-12 md:col-span-9">
+            {/* KPI row */}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { k: 'Active sessions', v: '24,816', d: '+12.4%', tone: 'emerald' },
+                { k: 'Avg. handle time', v: '1m 42s', d: '−8.1%', tone: 'emerald' },
+                { k: 'SLA', v: '99.997%', d: 'Nominal', tone: 'indigo' },
+              ].map((kpi) => (
+                <div key={kpi.k} className="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+                  <div className="text-[11px] uppercase tracking-wider text-slate-500">{kpi.k}</div>
+                  <div className="mt-1 font-display text-2xl font-medium tracking-tight text-white">{kpi.v}</div>
+                  <div className={`mt-1 text-[11px] ${kpi.tone === 'emerald' ? 'text-emerald-400' : 'text-accent-300'}`}>{kpi.d}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Chart */}
+            <div className="mt-3 rounded-xl border border-white/5 bg-white/[0.02] p-4">
+              <div className="flex items-center justify-between">
+                <div className="text-xs text-slate-400">Global voice traffic · last 24h</div>
+                <div className="flex gap-1 text-[10px]">
+                  <span className="rounded-full bg-white/5 px-2 py-0.5 text-slate-400">24H</span>
+                  <span className="rounded-full bg-white/10 px-2 py-0.5 text-white">7D</span>
+                  <span className="rounded-full bg-white/5 px-2 py-0.5 text-slate-400">30D</span>
+                </div>
+              </div>
+              <svg viewBox="0 0 600 140" className="mt-3 h-32 w-full">
+                <defs>
+                  <linearGradient id="lg1" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity="0.5" />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M0,110 C40,90 80,70 120,80 C160,90 200,40 240,45 C280,50 320,90 360,70 C400,55 440,30 480,42 C520,52 560,28 600,18 L600,140 L0,140 Z"
+                  fill="url(#lg1)"
+                />
+                <motion.path
+                  d="M0,110 C40,90 80,70 120,80 C160,90 200,40 240,45 C280,50 320,90 360,70 C400,55 440,30 480,42 C520,52 560,28 600,18"
+                  fill="none"
+                  stroke="#a5b4fc"
+                  strokeWidth="2"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 2, delay: 1, ease: 'easeOut' }}
+                />
+              </svg>
+            </div>
+
+            {/* Live rows */}
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              {[
+                { l: 'Calling Cluster · APAC', s: 'Healthy', t: 'emerald' },
+                { l: 'Contact Center · EMEA', s: 'Healthy', t: 'emerald' },
+                { l: 'Webex Sync', s: 'Syncing', t: 'indigo' },
+                { l: 'Observability Pipeline', s: 'Nominal', t: 'emerald' },
+              ].map((r) => (
+                <div key={r.l} className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className={`h-1.5 w-1.5 rounded-full ${r.t === 'emerald' ? 'bg-emerald-400' : 'bg-accent-400'}`} />
+                    <div className="text-xs text-slate-300">{r.l}</div>
+                  </div>
+                  <div className="font-mono text-[10px] uppercase text-slate-500">{r.s}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Floating panels */}
+      <motion.div
+        initial={{ opacity: 0, x: -30, y: 20 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 1, delay: 1.1, ease: EASE }}
+        className="absolute -left-6 top-24 hidden w-56 rounded-2xl border border-white/10 bg-ink-900/80 p-4 backdrop-blur-2xl shadow-2xl lg:block"
+      >
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-4 w-4 text-accent-300" />
+          <span className="text-xs font-medium text-white">AI Insight</span>
+        </div>
+        <p className="mt-2 text-[11px] leading-relaxed text-slate-400">
+          Predicted call surge in APAC within 38 minutes. Auto-scaling recommended.
+        </p>
+        <button className="mt-3 w-full rounded-md bg-white/5 py-1.5 text-[11px] text-white hover:bg-white/10">
+          Apply
+        </button>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: 30, y: 20 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 1, delay: 1.3, ease: EASE }}
+        className="absolute -right-4 bottom-16 hidden w-60 rounded-2xl border border-white/10 bg-ink-900/80 p-4 backdrop-blur-2xl shadow-2xl lg:block"
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-white">Uptime · 90d</span>
+          <span className="font-mono text-[11px] text-emerald-400">99.997%</span>
+        </div>
+        <div className="mt-3 flex gap-[2px]">
+          {Array.from({ length: 30 }).map((_, i) => (
+            <span
+              key={i}
+              className={`h-6 flex-1 rounded-sm ${i === 17 ? 'bg-amber-400/70' : 'bg-emerald-400/70'}`}
+            />
+          ))}
+        </div>
+        <p className="mt-2 text-[10px] text-slate-500">1 minor incident · resolved automatically</p>
+      </motion.div>
     </div>
   );
 };
 
-/* ========================================================================== */
-
-const CORE_LABELS = [
-  { i: '0.01', t: 'Fragmented systems create operational friction.' },
-  { i: '0.02', t: 'Cisco calling and contact center, unified.' },
-  { i: '0.03', t: 'One system. Uninterrupted continuity.' },
-] as const;
-
-export const CoreSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const op1 = useTransform(scrollYProgress, [0, 0.06, 0.28, 0.36], [1, 1, 1, 0]);
-  const op2 = useTransform(scrollYProgress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0]);
-  const op3 = useTransform(scrollYProgress, [0.62, 0.7, 1.0], [0, 1, 1]);
-
+/* ============================================================
+   LOGO BAR — replaces TrustBanner
+   ============================================================ */
+export const TrustBanner = () => {
+  const logos = ['Cisco', 'Webex', 'AWS', 'Azure', 'ServiceNow', 'Splunk', 'Salesforce'];
   return (
-    <section ref={containerRef} className="relative w-full md:h-[300vh] bg-[#020617]">
-      <div className="hidden md:block h-full">
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          {/* bg accents */}
-          <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#049fd9]/[0.04] blur-[120px] rounded-full"></div>
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/[0.05] blur-[140px] rounded-full"></div>
-
-          {/* chapter cipher */}
-          <span aria-hidden className="pointer-events-none absolute -left-[2vw] -top-[6vw] block font-display font-light leading-none text-[20vw] text-white/[0.025]">
-            02
-          </span>
-
-          <div className="mx-auto h-full max-w-7xl px-6 lg:px-8 grid grid-cols-12 gap-4">
-            {/* Left text */}
-            <div className="col-span-5 flex flex-col justify-center relative z-10">
-              <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-6">
-                Chapter / 02 · The Core
-              </p>
-              <h2 className="font-display font-light text-white text-[3rem] lg:text-[5rem] leading-[0.95] mb-10">
-                Convergence is the architecture.
-              </h2>
-              <p className="max-w-md text-lg text-slate-400 leading-relaxed font-light mb-12">
-                Cisco calling, contact center, and observability stacks unified into one always-on operational fabric.
-              </p>
-              <div className="font-mono text-[10px] text-slate-500 uppercase leading-[1.9] tracking-[0.18em] max-w-md">
-                Calling <span className="text-slate-700 px-2">/</span>
-                Contact Center <span className="text-slate-700 px-2">/</span>
-                Cloud <span className="text-slate-700 px-2">/</span>
-                Monitoring <span className="text-slate-700 px-2">/</span>
-                Notifications <span className="text-slate-700 px-2">/</span>
-                Integration
-              </div>
-            </div>
-
-            {/* Right topology */}
-            <div className="col-span-7 flex flex-col items-center justify-center relative z-10">
-              <div className="relative aspect-square w-full max-w-[640px]">
-                <CoreTopology progress={scrollYProgress} />
-              </div>
-              <div className="relative mt-6 h-12 w-full max-w-[480px] text-center">
-                {CORE_LABELS.map((label, i) => (
-                  <motion.div
-                    key={i}
-                    style={{ opacity: i === 0 ? op1 : i === 1 ? op2 : op3 }}
-                    className="absolute inset-x-0 top-0"
-                  >
-                    <span className="font-mono text-[10px] text-[#049fd9] tracking-[0.3em] mr-3">[{label.i}]</span>
-                    <span className="font-body text-slate-400 text-[0.95rem]">{label.t}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile */}
-      <div className="block md:hidden px-6 py-24">
-        <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-4">Chapter / 02</p>
-        <h2 className="font-display font-light text-white text-[2.5rem] leading-[0.95] mb-6">The Core</h2>
-        <p className="text-base text-slate-400 leading-relaxed font-light mb-12">
-          Cisco calling, contact center, and observability unified into one always-on fabric.
+    <section className="relative border-y border-hairline bg-ink-950 py-20">
+      <div className="mx-auto max-w-7xl px-6 text-center">
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">
+          Trusted by industry leaders & integrated with
         </p>
-        {CORE_LABELS.map((label, i) => (
-          <div key={i} className="border-t border-white/10 py-10">
-            <span className="font-mono text-[10px] text-[#049fd9] tracking-[0.3em] block mb-2">[{label.i}]</span>
-            <span className="text-slate-300 text-lg">{label.t}</span>
-          </div>
-        ))}
+        <div className="mt-10 grid grid-cols-2 items-center gap-x-10 gap-y-6 sm:grid-cols-4 lg:grid-cols-7">
+          {logos.map((logo, i) => (
+            <motion.div
+              key={logo}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}
+              className="font-display text-xl font-medium tracking-tight text-slate-500 transition-colors hover:text-white"
+            >
+              {logo}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-/* ========================================================================== */
-
+/* ============================================================
+   BENTO GRID — premium feature cards
+   ============================================================ */
 export const BentoGrid = () => {
   return (
-    <section className="py-32 bg-[#020617] relative z-10 overflow-hidden border-t border-white/5">
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.04] pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:80px_80px]"></div>
-      </div>
-      <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-[#049fd9]/[0.06] rounded-full blur-[140px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/[0.05] rounded-full blur-[120px] pointer-events-none"></div>
+    <section className="relative overflow-hidden bg-ink-950 py-32">
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-30 radial-fade" />
+      <div className="pointer-events-none absolute -top-40 left-1/3 h-[500px] w-[500px] rounded-full bg-accent/10 blur-[140px]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: SIGNAL_EASE }}
-          className="mb-20 max-w-3xl"
+          transition={{ duration: 0.9, ease: EASE }}
+          className="mx-auto mb-20 max-w-3xl text-center"
         >
-          <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-5">Chapter / 03 · Capability</p>
-          <h2 className="text-4xl md:text-6xl font-display font-light text-white tracking-tight mb-6 leading-[1.0]">
-            Transforming complexity into <span className="text-[#049fd9]">modern advantage.</span>
+          <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+            Platform · Capabilities
+          </p>
+          <h2 className="mt-5 font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
+            One platform.<br />
+            <span className="text-gradient-accent">Every layer of the stack.</span>
           </h2>
-          <p className="text-xl text-slate-400 font-light">
-            From seamless Webex collaboration to bespoke software integrations, we architect the systems that drive enterprise efficiency.
+          <p className="mx-auto mt-6 max-w-xl text-lg font-light text-slate-400">
+            From global call routing to AI-powered insights, Celoxus replaces fragmented tooling with one elegant operational fabric.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
           <BentoCard
-            span={2}
-            delay={0.1}
+            className="md:col-span-4"
             icon={Headphones}
-            title="Webex Contact Center"
-            body="Deliver exceptional customer experiences with unified communications and AI-powered journey mapping."
-            cta="Explore Platform"
-            to="/products"
-            image="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1600&q=80"
-          />
-          <BentoCard
-            delay={0.2}
-            icon={Code}
-            title="Enterprise APIs"
-            body="Custom middleware driving interoperability across fragmented legacy architectures."
-            cta="View Architecture"
-            to="/services"
-          />
-          <BentoCard
-            delay={0.3}
-            icon={Activity}
-            title="Network Ops"
-            body="Proactive monitoring and real-time observability for your Cisco infrastructure."
-            cta="See Tooling"
-            to="/contact"
-            image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
-          />
-          <BentoCard
-            span={2}
-            delay={0.4}
-            icon={Cloud}
-            title="Cisco Cloud Migration"
-            body="Accelerate your transition to Cisco cloud-native application ecosystems with certified engineering precision."
-            cta="Discover Services"
-            to="/services"
-            image="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1600&q=80"
+            eyebrow="Webex Contact Center"
+            title="Customer experience, re-architected."
+            body="Unified voice, digital, and AI journeys with real-time supervisor intelligence."
             featured
+          />
+          <BentoCard
+            className="md:col-span-2"
+            icon={Cloud}
+            eyebrow="Cloud Migration"
+            title="Zero-downtime migrations."
+            body="Cisco cloud-native deployments engineered by CCIE architects."
+          />
+          <BentoCard
+            className="md:col-span-2"
+            icon={Code}
+            eyebrow="APIs & Integration"
+            title="Bridge any legacy system."
+            body="Custom middleware that connects across fragmented enterprise tools."
+          />
+          <BentoCard
+            className="md:col-span-2"
+            icon={Activity}
+            eyebrow="Observability"
+            title="See every signal, live."
+            body="Proactive monitoring with anomaly detection for Cisco infrastructure."
+          />
+          <BentoCard
+            className="md:col-span-2"
+            icon={Shield}
+            eyebrow="Security & Compliance"
+            title="Enterprise-grade, by default."
+            body="SOC 2, GDPR, and NDA-first engagements for regulated verticals."
           />
         </div>
       </div>
@@ -403,203 +411,198 @@ export const BentoGrid = () => {
 };
 
 type BentoCardProps = {
-  span?: number;
-  delay: number;
-  icon: any;
+  className?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  eyebrow: string;
   title: string;
   body: string;
-  cta: string;
-  to: string;
-  image?: string;
   featured?: boolean;
 };
-const BentoCard = ({ span, delay, icon: Icon, title, body, cta, to, image, featured }: BentoCardProps) => {
+const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured }: BentoCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  // tilt
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    el.style.setProperty('--mx', `${x * 100}%`);
-    el.style.setProperty('--my', `${y * 100}%`);
-    el.style.transform = `perspective(1200px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg) translateZ(0)`;
-  };
-  const onLeave = () => {
-    if (!ref.current) return;
-    ref.current.style.transform = 'perspective(1200px) rotateX(0) rotateY(0) translateZ(0)';
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    el.style.setProperty('--mx', `${x}%`);
+    el.style.setProperty('--my', `${y}%`);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.7, delay, ease: SIGNAL_EASE }}
-      className={span === 2 ? 'md:col-span-2' : ''}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.8, ease: EASE }}
+      className={className}
     >
       <div
         ref={ref}
         onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        style={{ transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)' }}
-        className="relative overflow-hidden rounded-[2rem] bg-[#0b1120]/60 backdrop-blur-xl p-10 md:p-12 border border-white/10 group h-full hover:border-[#049fd9]/40 transition-colors duration-500"
+        className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-colors hover:border-white/[0.14]"
       >
-        {/* cursor radial spotlight */}
+        {/* Cursor spotlight */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
-            background: 'radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(4,159,217,0.18), transparent 60%)',
+            background: 'radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(99,102,241,0.18), transparent 55%)',
           }}
         />
+        {/* Top accent line */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
-        {image && (
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <img
-              src={image}
-              alt=""
-              loading="lazy"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover opacity-[0.10] mix-blend-screen group-hover:scale-[1.04] group-hover:opacity-[0.15] transition-all duration-1000 ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#020617] via-[#020617]/85 to-[#020617]/40"></div>
+        <div className="relative flex h-full flex-col">
+          <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${featured ? 'bg-accent text-white shadow-glow-accent' : 'bg-white/[0.04] text-accent-300 border border-white/10'}`}>
+            <Icon className="h-5 w-5" />
           </div>
-        )}
-
-        <div className="relative z-10 flex flex-col h-full min-h-[260px]">
-          <div className={`w-14 h-14 rounded-2xl ${featured ? 'bg-[#049fd9] shadow-lg shadow-[#049fd9]/30' : 'bg-white/5 border border-white/10 backdrop-blur-md'} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
-            <Icon className={`w-7 h-7 ${featured ? 'text-white' : 'text-[#049fd9]'}`} />
+          <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">
+            {eyebrow}
           </div>
-          <h3 className="text-2xl md:text-3xl font-display font-light text-white mb-4 tracking-tight">{title}</h3>
-          <p className="text-base md:text-lg text-slate-400 leading-relaxed flex-1 font-light max-w-xl">{body}</p>
-          <Link
-            to={to}
-            className="mt-10 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#049fd9] hover:gap-3 transition-all"
-          >
-            {cta} <ChevronRight className="w-4 h-4" />
-          </Link>
+          <h3 className="mt-2 font-display text-xl font-medium tracking-tight text-white sm:text-2xl">
+            {title}
+          </h3>
+          <p className="mt-3 text-sm font-light leading-relaxed text-slate-400 sm:text-[15px]">
+            {body}
+          </p>
         </div>
       </div>
     </motion.div>
   );
 };
 
-/* ========================================================================== */
-
+/* ============================================================
+   SPLIT MISSION — preserved API, redesigned
+   ============================================================ */
 export const SplitMission = () => {
   return (
-    <section className="py-32 bg-[#020617] overflow-hidden border-t border-white/5 relative">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#049fd9]/[0.08] blur-[120px] rounded-full"></div>
+    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-32">
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[140px]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-20">
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease: SIGNAL_EASE }}
-            className="lg:w-1/2"
+            transition={{ duration: 0.9, ease: EASE }}
           >
-            <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-6 flex items-center gap-2">
-              <Shield className="w-3.5 h-3.5" /> Chapter / 04 · Trust
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+              Why teams choose Celoxus
             </p>
-            <h2 className="text-4xl md:text-6xl font-display font-light tracking-tight text-white mb-8 leading-[1.0]">
-              Architecture trusted by the <span className="text-[#049fd9]">world's leading</span> organizations.
+            <h2 className="mt-5 font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.5rem]">
+              Architecture trusted by the
+              <span className="text-gradient-accent"> world's leading teams.</span>
             </h2>
-            <p className="text-xl text-slate-400 mb-12 leading-relaxed font-light">
-              We specialize in complex technology swaps and greenfield builds, ensuring your infrastructure is ready for the next decade of enterprise scale.
+            <p className="mt-6 max-w-lg text-lg font-light leading-relaxed text-slate-400">
+              We specialize in complex technology swaps and greenfield builds — ensuring your infrastructure is ready for the next decade.
             </p>
 
-            <ul className="space-y-6 mb-12">
+            <ul className="mt-10 space-y-1">
               {[
-                { h: 'Cisco Systems Specialists', b: 'Deployment and optimization of Collaboration and Enterprise Networking.' },
-                { h: 'High Availability Protocols', b: 'Resilient architectures designed for 24/7 mission-critical operations.' },
-                { h: 'NDA-First Engagements', b: 'Discreet engineering relationships for regulated enterprise verticals.' },
+                { h: 'CCIE-certified specialists', b: 'Deployment and optimization of collaboration and enterprise networking.' },
+                { h: 'High availability protocols', b: 'Resilient architectures designed for 24/7 mission-critical operations.' },
+                { h: 'NDA-first engagements', b: 'Discreet engineering relationships for regulated verticals.' },
               ].map((item, i) => (
                 <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
+                  key={item.h}
+                  initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="flex items-start gap-5"
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
+                  className="group flex items-start gap-4 border-b border-white/5 py-5 last:border-b-0"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#049fd9]/10 flex items-center justify-center flex-shrink-0 mt-1 border border-[#049fd9]/30">
-                    <span className="text-[#049fd9] font-mono text-xs">0{i + 1}</span>
-                  </div>
+                  <span className="mt-1 font-mono text-[10px] tracking-widest text-accent-300">
+                    0{i + 1}
+                  </span>
                   <div>
-                    <h4 className="text-xl font-display font-light text-white mb-1.5 tracking-tight">{item.h}</h4>
-                    <p className="text-slate-400 font-light">{item.b}</p>
+                    <h4 className="font-display text-lg font-medium tracking-tight text-white">{item.h}</h4>
+                    <p className="mt-1 text-sm font-light text-slate-400">{item.b}</p>
                   </div>
+                  <ArrowUpRight className="ml-auto h-4 w-4 flex-shrink-0 text-slate-600 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                 </motion.li>
               ))}
             </ul>
 
-            <MagneticButton to="/about" strength={0.2}>
-              <button className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-light hover:bg-white/10 hover:border-[#049fd9]/30 transition-all duration-500 backdrop-blur-md">
-                Meet our architects <ArrowRight className="inline w-4 h-4 ml-2" />
-              </button>
-            </MagneticButton>
+            <div className="mt-10">
+              <MagneticButton to="/about" strength={0.2}>
+                <button className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all hover:border-white/20 hover:bg-white/[0.06]">
+                  Meet our architects <ArrowRight className="h-4 w-4" />
+                </button>
+              </MagneticButton>
+            </div>
           </motion.div>
 
-          {/* Animated rack */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.9, ease: SIGNAL_EASE }}
-            className="lg:w-1/2 relative w-full h-[640px] flex items-center justify-center"
+            transition={{ duration: 0.9, ease: EASE }}
+            className="relative"
           >
-            <div className="w-full h-full bg-gradient-to-br from-[#0b1120] to-[#020617] rounded-[3rem] flex items-center justify-center border border-white/5 shadow-2xl relative overflow-hidden">
-              {/* image bg */}
-              <img
-                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80"
-                alt=""
-                loading="lazy"
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover opacity-[0.08] mix-blend-screen"
-              />
-              <div className="absolute inset-0 bg-[radial-gradient(#049fd9_1px,transparent_1px)] bg-[size:24px_24px] opacity-10"></div>
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
+              <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-accent/20 blur-3xl" />
 
-              {/* Rack stack */}
-              <div className="relative z-10 flex flex-col items-center gap-5 w-full px-12">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <LineChart className="h-4 w-4 text-accent-300" />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                    Operations · Live
+                  </span>
+                </div>
+                <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                  All systems normal
+                </span>
+              </div>
+
+              <div className="mt-6 space-y-3">
                 {[
-                  { label: 'CALL ROUTING', stat: '99.997%' },
-                  { label: 'CONTACT CENTER', stat: 'ACTIVE' },
-                  { label: 'WEBEX CLOUD', stat: 'SYNC' },
-                  { label: 'OBSERVABILITY', stat: 'NOMINAL' },
+                  { label: 'Call routing', stat: '99.997%', icon: Layers },
+                  { label: 'Contact center', stat: 'Active', icon: Headphones },
+                  { label: 'Webex cloud', stat: 'Sync', icon: Cloud },
+                  { label: 'Observability', stat: 'Nominal', icon: Activity },
                 ].map((row, i) => (
                   <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -30 }}
+                    key={row.label}
+                    initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.15, duration: 0.7, ease: SIGNAL_EASE }}
-                    className="w-full max-w-md h-16 bg-white/[0.04] backdrop-blur-md rounded-2xl border border-white/10 flex items-center px-6 gap-4 shadow-lg group hover:border-[#049fd9]/30 transition-colors"
+                    transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: EASE }}
+                    className="flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3.5"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-[#049fd9]/15 border border-[#049fd9]/20 flex items-center justify-center flex-shrink-0">
-                      <Layers className="w-4 h-4 text-[#049fd9]" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
+                      <row.icon className="h-4 w-4 text-accent-300" />
                     </div>
                     <div className="flex-1">
-                      <div className="font-mono text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1">{row.label}</div>
-                      <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{row.label}</div>
+                      <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-white/5">
                         <motion.div
                           initial={{ x: '-100%' }}
                           animate={{ x: '120%' }}
-                          transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.6, ease: 'easeInOut' }}
-                          className="h-full w-2/3 bg-gradient-to-r from-transparent via-[#049fd9] to-transparent"
+                          transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.5, ease: 'easeInOut' }}
+                          className="h-full w-2/3 bg-gradient-to-r from-transparent via-accent-400 to-transparent"
                         />
                       </div>
                     </div>
-                    <span className="font-mono text-[10px] text-[#049fd9] tracking-[0.15em]">{row.stat}</span>
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-accent-300">{row.stat}</span>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#049fd9]/15 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-blue-600/15 rounded-full blur-3xl"></div>
+              <div className="mt-6 grid grid-cols-3 gap-3">
+                {[
+                  { l: 'Regions', v: '14' },
+                  { l: 'Clusters', v: '38' },
+                  { l: 'Engineers', v: '120+' },
+                ].map((s) => (
+                  <div key={s.l} className="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
+                    <div className="font-display text-2xl font-medium text-white">{s.v}</div>
+                    <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500">{s.l}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -608,61 +611,99 @@ export const SplitMission = () => {
   );
 };
 
-/* ========================================================================== */
-
+/* ============================================================
+   CTA — cinematic close
+   ============================================================ */
 export const CTASection = () => {
   return (
-    <section className="relative py-40 bg-[#020617] overflow-hidden border-t border-white/5">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:60px_60px] opacity-20 [mask-image:radial-gradient(ellipse_60%_70%_at_50%_50%,#000_50%,transparent_100%)]"></div>
+    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-40">
+      <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-50" />
       <motion.div
-        animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
+        animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,#049fd933_0%,transparent_60%)]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.25),transparent_70%)] blur-3xl"
       />
 
-      <div className="relative z-20 max-w-4xl mx-auto px-6 text-center">
+      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.32em] mb-6"
+          transition={{ duration: 0.7 }}
+          className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300"
         >
-          Chapter / 05 · Initiate
+          Ready when you are
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 30, clipPath: 'inset(0 0 100% 0)' }}
-          whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: SIGNAL_EASE }}
-          className="text-5xl md:text-7xl lg:text-8xl font-display font-light text-white tracking-tight mb-10 leading-[0.95]"
-        >
-          Evolve your <br className="hidden md:block" />
-          <span className="inline-block pb-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-white via-[#049fd9] to-blue-300">enterprise network.</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.15, duration: 0.8 }}
-          className="text-xl md:text-2xl text-slate-400 font-light mb-14 max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 1, ease: EASE }}
+          className="mt-5 font-display text-5xl font-medium leading-[1.0] tracking-[-0.035em] text-white sm:text-6xl lg:text-7xl"
+        >
+          Evolve your<br />
+          <span className="text-gradient-accent">enterprise network.</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.8 }}
+          className="mx-auto mt-7 max-w-xl text-lg font-light leading-relaxed text-slate-400"
         >
           Partner with CCIE-certified architects to modernize your Webex infrastructure and contact center performance.
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, type: 'spring', stiffness: 180 }}
-          className="inline-block"
+          transition={{ delay: 0.25, duration: 0.8 }}
+          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
         >
-          <MagneticButton to="/contact" strength={0.35}>
-            <div className="inline-flex items-center gap-3 px-14 py-6 rounded-full bg-[#049fd9] text-white font-normal shadow-[0_10px_30px_rgba(4,159,217,0.2)] text-lg relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
-              <span className="relative">Book a Strategic Assessment</span>
-              <ArrowRight className="relative w-5 h-5" />
+          <MagneticButton to="/contact" strength={0.3}>
+            <div className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-7 py-4 text-sm font-medium text-ink-950 shadow-[0_10px_50px_-10px_rgba(255,255,255,0.5)]">
+              <span className="relative">Book a strategic assessment</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-ink-950/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </div>
           </MagneticButton>
+          <Link
+            to="/products"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-7 py-4 text-sm font-medium text-white backdrop-blur-md transition-all hover:border-white/20 hover:bg-white/[0.06]"
+          >
+            View documentation <ChevronRight className="h-4 w-4" />
+          </Link>
         </motion.div>
+      </div>
+    </section>
+  );
+};
+
+/* ============================================================
+   CoreSection — minimal export to preserve App.tsx import safety
+   (no longer rendered by Home, but kept for back-compat).
+   ============================================================ */
+export const CoreSection = () => {
+  return (
+    <section className="relative bg-ink-950 py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+          The Core
+        </p>
+        <h2 className="mt-5 max-w-3xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
+          Convergence is the architecture.
+        </h2>
+        <p className="mt-6 max-w-xl text-lg font-light text-slate-400">
+          Cisco calling, contact center, and observability stacks unified into one always-on operational fabric.
+        </p>
+        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3">
+          {['Calling', 'Contact Center', 'Cloud', 'Monitoring', 'Notifications', 'Integration'].map((label) => (
+            <div key={label} className="rounded-xl border border-white/5 bg-white/[0.02] px-5 py-4 text-sm text-slate-300">
+              <Database className="mb-3 h-4 w-4 text-accent-300" />
+              {label}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

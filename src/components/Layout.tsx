@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, PlayCircle, Shield, Globe, Cloud, Headphones, Server, ChevronRight, Activity, Code, Database, Phone, Mail } from 'lucide-react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Menu, X, ArrowRight, Phone, Mail } from 'lucide-react';
+import { Outlet, Link } from 'react-router-dom';
 
 export const CeloxusLogo = ({ className = "w-10 h-10" }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,63 +51,98 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navClass = scrolled
-    ? 'bg-[#020617]/70 backdrop-blur-3xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)] py-4'
-    : 'bg-transparent py-6';
-
-  const textColorClass = 'text-white';
-  const logoTextClass = 'text-white';
-
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${navClass}`}>
-      <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <CeloxusLogo className={`w-9 h-9 group-hover:scale-110 transition-transform duration-500`} />
-          <span className={`text-2xl font-light tracking-tight ${logoTextClass} transition-colors uppercase`}>Celoxus</span>
-        </Link>
-
-        <nav className={`hidden md:flex gap-10 text-sm font-normal tracking-widest uppercase ${textColorClass} transition-colors`}>
-          <Link to="/products" className="hover:text-[#049fd9] transition-all">Products</Link>
-          <Link to="/services" className="hover:text-[#049fd9] transition-all">Services</Link>
-          <Link to="/case-studies" className="hover:text-[#049fd9] transition-all">Case Studies</Link>
-          <Link to="/about" className="hover:text-[#049fd9] transition-all">About</Link>
-        </nav>
-
-        <div className="flex items-center gap-6">
-          <Link 
-            to="/contact" 
-            className="hidden md:flex items-center gap-2 px-7 py-2.5 rounded-full text-xs font-light tracking-widest uppercase transition-all duration-300 bg-[#049fd9] text-white hover:bg-[#037bb0] hover:scale-105 shadow-lg shadow-[#049fd9]/20"
-          >
-            Get Started
+    <header className={`fixed top-0 z-50 w-full transition-all duration-500 ${scrolled ? 'py-3' : 'py-5'}`}>
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.div
+          initial={false}
+          animate={{
+            backgroundColor: scrolled ? 'rgba(12,12,16,0.65)' : 'rgba(12,12,16,0)',
+            borderColor: scrolled ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0)',
+          }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="flex h-14 items-center justify-between rounded-full border px-5 backdrop-blur-xl"
+          style={{ backdropFilter: scrolled ? 'blur(20px) saturate(140%)' : 'none' }}
+        >
+          <Link to="/" className="group flex items-center gap-2.5">
+            <CeloxusLogo className="h-7 w-7 text-white transition-transform duration-500 group-hover:scale-110" />
+            <span className="font-display text-lg font-medium tracking-tight text-white">Celoxus</span>
           </Link>
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X className={`w-6 h-6 flex-shrink-0 ${textColorClass}`} /> : <Menu className={`w-6 h-6 flex-shrink-0 ${textColorClass}`} />}
-          </button>
-        </div>
+
+          <nav className="hidden items-center gap-1 md:flex">
+            {[
+              { to: '/products', label: 'Products' },
+              { to: '/services', label: 'Services' },
+              { to: '/case-studies', label: 'Customers' },
+              { to: '/about', label: 'Company' },
+            ].map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="rounded-full px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/[0.05] hover:text-white"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <Link
+              to="/contact"
+              className="hidden items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink-950 transition-all hover:bg-white/90 hover:shadow-[0_8px_30px_-8px_rgba(255,255,255,0.5)] md:inline-flex"
+            >
+              Book a demo
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <button
+              className="rounded-full border border-white/10 bg-white/5 p-2 text-white md:hidden"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+          </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className={`md:hidden absolute top-full left-0 w-full p-6 flex flex-col gap-6 shadow-2xl border-b transition-colors duration-500 ${scrolled ? 'bg-white text-slate-900 border-slate-200' : 'bg-[#0b1120] text-white border-white/10'}`}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="mx-auto mt-2 max-w-7xl px-6 md:hidden"
           >
-            <Link to="/products" onClick={() => setIsOpen(false)} className="font-normal text-lg hover:text-[#049fd9] transition-colors">Products</Link>
-            <Link to="/services" onClick={() => setIsOpen(false)} className="font-normal text-lg hover:text-[#049fd9] transition-colors">Professional Services</Link>
-            <Link to="/case-studies" onClick={() => setIsOpen(false)} className="font-normal text-lg hover:text-[#049fd9] transition-colors">Case Studies</Link>
-            <Link to="/about" onClick={() => setIsOpen(false)} className="font-normal text-lg hover:text-[#049fd9] transition-colors">About</Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)} className="bg-[#049fd9] text-white w-full rounded-full px-6 py-4 text-center text-sm font-normal mt-4 shadow-xl shadow-[#049fd9]/20 block hover:bg-[#037bb0] transition-colors">
-              Contact Us
-            </Link>
+            <div className="flex flex-col gap-1 rounded-2xl border border-white/10 bg-ink-900/80 p-3 backdrop-blur-xl">
+              {[
+                { to: '/products', label: 'Products' },
+                { to: '/services', label: 'Professional Services' },
+                { to: '/case-studies', label: 'Customers' },
+                { to: '/about', label: 'Company' },
+              ].map((l) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-xl px-4 py-3 text-sm font-medium text-slate-200 hover:bg-white/5"
+                >
+                  {l.label}
+                </Link>
+              ))}
+              <Link
+                to="/contact"
+                onClick={() => setIsOpen(false)}
+                className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-xl bg-white px-4 py-3 text-sm font-medium text-ink-950"
+              >
+                Book a demo <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -117,75 +152,62 @@ export const Navbar = () => {
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#0b1120] text-slate-400 pt-32 pb-12 border-t-4 border-[#049fd9] relative overflow-hidden">
-      {/* Background glow effects */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#049fd9]/5 blur-[110px] rounded-full pointer-events-none"></div>
+    <footer className="relative overflow-hidden border-t border-white/[0.06] bg-ink-950 pb-10 pt-24 text-slate-400">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-accent/5 blur-[140px]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-20">
-          <div className="lg:col-span-4 relative pr-8">
-            <Link to="/" className="flex items-center gap-3 mb-8 group">
-               <CeloxusLogo className="w-8 h-8 group-hover:scale-110 transition-all duration-500" />
-               <span className="text-2xl font-light tracking-tight text-white group-hover:text-[#049fd9] transition-colors uppercase">Celoxus</span>
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-12 md:gap-12">
+          <div className="col-span-2 md:col-span-4">
+            <Link to="/" className="group flex items-center gap-2.5">
+              <CeloxusLogo className="h-7 w-7 text-white transition-transform duration-500 group-hover:scale-110" />
+              <span className="font-display text-lg font-medium tracking-tight text-white">Celoxus</span>
             </Link>
-            <p className="text-base leading-relaxed mb-8 max-w-sm font-light text-slate-400">
-              Celoxus transforms how enterprises connect. We deliver next-generation Cisco collaboration architectures with CCIE-certified precision.
+            <p className="mt-5 max-w-sm text-sm font-light leading-relaxed text-slate-400">
+              The infrastructure layer for modern enterprise voice — engineered by CCIE-certified architects.
             </p>
-            <div className="flex flex-col gap-4 font-normal text-sm tracking-widest uppercase">
-              <a href="tel:+14699944602" className="hover:text-[#049fd9] transition-colors flex items-center gap-4 group">
-                <Phone className="w-4 h-4 text-[#049fd9]" />
+            <div className="mt-6 flex flex-col gap-2.5 text-sm">
+              <a href="tel:+14699944602" className="group inline-flex items-center gap-2.5 text-slate-400 transition-colors hover:text-white">
+                <Phone className="h-3.5 w-3.5 text-accent-300" />
                 +1 469 994 4602
               </a>
-              <a href="mailto:info@celoxus.com" className="hover:text-[#049fd9] transition-colors flex items-center gap-4 group">
-                <Mail className="w-4 h-4 text-[#049fd9]" />
+              <a href="mailto:info@celoxus.com" className="group inline-flex items-center gap-2.5 text-slate-400 transition-colors hover:text-white">
+                <Mail className="h-3.5 w-3.5 text-accent-300" />
                 info@celoxus.com
               </a>
             </div>
           </div>
-          
-          <div className="lg:col-span-3">
-            <h4 className="text-white font-normal mb-8 uppercase tracking-widest text-sm flex items-center gap-2">
-               <Database className="w-4 h-4 text-[#049fd9]" /> Products
-            </h4>
-            <ul className="space-y-4">
-              <li><Link to="/products" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Finesse Notifications</Link></li>
-              <li><Link to="/products" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Contact Center Monitoring</Link></li>
-              <li><Link to="/products" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Custom Integration</Link></li>
-            </ul>
-          </div>
 
-          <div className="lg:col-span-3">
-            <h4 className="text-white font-normal mb-8 uppercase tracking-widest text-sm flex items-center gap-2">
-               <Server className="w-4 h-4 text-[#049fd9]" /> Professional Services
-            </h4>
-            <ul className="space-y-4">
-              <li><Link to="/services" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Cisco Calling Solution</Link></li>
-              <li><Link to="/services" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Cisco Contact Center Solution</Link></li>
-              <li><Link to="/services" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Cisco Cloud Applications</Link></li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="text-white font-normal mb-8 uppercase tracking-widest text-sm flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[#049fd9]" /> Quick Links
-            </h4>
-            <ul className="space-y-4">
-              <li><Link to="/" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Home</Link></li>
-              <li><Link to="/about" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">About Firm</Link></li>
-              <li><Link to="/case-studies" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Case Studies</Link></li>
-              <li><Link to="/contact" className="font-light text-slate-400 hover:text-white hover:translate-x-1 inline-block transition-transform">Contact Us</Link></li>
-            </ul>
-          </div>
+          <FooterCol title="Products" links={[
+            { to: '/products', label: 'Finesse Notifications' },
+            { to: '/products', label: 'Contact Center Monitoring' },
+            { to: '/products', label: 'Custom Integration' },
+          ]} />
+          <FooterCol title="Services" links={[
+            { to: '/services', label: 'Cisco Calling' },
+            { to: '/services', label: 'Cisco Contact Center' },
+            { to: '/services', label: 'Cloud Applications' },
+          ]} />
+          <FooterCol title="Company" links={[
+            { to: '/about', label: 'About' },
+            { to: '/case-studies', label: 'Customers' },
+            { to: '/contact', label: 'Contact' },
+          ]} />
+          <FooterCol title="Legal" links={[
+            { to: '/legal/privacy', label: 'Privacy' },
+            { to: '/legal/terms', label: 'Terms' },
+          ]} />
         </div>
 
-        <div className="border-t border-white/5 pt-8 flex flex-col lg:flex-row justify-between items-center gap-6">
-          <div className="text-slate-500 text-sm font-light text-center lg:text-left">
-            &copy; {new Date().getFullYear()} Celoxus Systems Inc. All Rights Reserved. <br className="lg:hidden" />
-            Based in Bangalore, India.
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/[0.06] pt-8 text-xs font-light text-slate-500 md:flex-row md:items-center">
+          <div>
+            &copy; {new Date().getFullYear()} Celoxus Systems Inc. · Based in Bangalore, India
           </div>
-          <div className="flex flex-wrap justify-center gap-8 text-sm font-light text-slate-500">
-            <Link to="/legal/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/legal/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            </span>
+            All systems operational
           </div>
         </div>
       </div>
@@ -193,11 +215,26 @@ export const Footer = () => {
   );
 };
 
+const FooterCol = ({ title, links }: { title: string; links: { to: string; label: string }[] }) => (
+  <div className="col-span-1 md:col-span-2">
+    <h4 className="mb-5 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">{title}</h4>
+    <ul className="space-y-3">
+      {links.map((l) => (
+        <li key={l.label}>
+          <Link to={l.to} className="text-sm font-light text-slate-300 transition-colors hover:text-white">
+            {l.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 export const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-[#049fd9] selection:text-white">
+    <div className="flex min-h-screen flex-col bg-ink-950 font-sans selection:bg-accent selection:text-white">
       <Navbar />
-      <main className="flex-1 bg-[#020617]">
+      <main className="flex-1 bg-ink-950">
         <Outlet />
       </main>
       <Footer />
