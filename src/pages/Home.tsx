@@ -1283,25 +1283,25 @@ export const CoreSection = () => {
           {/* Scroll progress bar */}
           <CoreProgressBar scrollYProgress={scrollYProgress} />
 
-          <div className="mx-auto grid h-full max-w-7xl grid-cols-12 items-center gap-8 px-6 lg:px-8">
+          <div className="mx-auto grid h-full max-w-7xl grid-cols-12 items-center gap-8 px-6 pt-20 lg:px-8">
             {/* LEFT: heading + feature list with sliding highlight */}
             <div className="relative z-10 col-span-5 flex flex-col">
-              <div className="mb-6 flex items-center gap-3">
+              <div className="mb-4 flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
                   Chapter / 02 · The Core
                 </p>
               </div>
-              <h2 className="mb-7 font-display text-[2.75rem] font-bold leading-[0.98] tracking-[-0.04em] text-white lg:text-[4.25rem]">
+              <h2 className="mb-5 font-display text-[2.5rem] font-bold leading-[0.98] tracking-[-0.04em] text-white lg:text-[3.25rem] xl:text-[3.75rem]">
                 Convergence is the<br />
                 <span className="text-gradient-accent">architecture.</span>
               </h2>
-              <p className="mb-10 max-w-md text-[15px] font-light leading-relaxed text-slate-400">
+              <p className="mb-7 max-w-md text-[14px] font-light leading-[1.55] text-slate-400">
                 Four fragmented stacks become one. As you scroll, each layer slots into place.
               </p>
 
               {/* Sliding feature stack — fixed-height grid of equal rows */}
-              <div className="relative h-[460px] grid grid-rows-4">
+              <div className="relative grid h-[400px] grid-rows-4">
                 {/* Vertical rail */}
                 <div className="absolute left-0 top-0 h-full w-px bg-white/[0.06]" />
                 {/* Sliding background pane */}
@@ -1325,11 +1325,11 @@ export const CoreSection = () => {
 
             {/* RIGHT: topology */}
             <div className="relative z-10 col-span-7 flex flex-col items-center justify-center">
-              <div className="relative aspect-square w-full max-w-[620px]">
+              <div className="relative aspect-square w-full max-w-[560px]">
                 <CoreTopology progress={scrollYProgress} />
               </div>
               {/* Active-feature caption under topology */}
-              <div className="relative mt-6 h-8 w-full max-w-[560px] overflow-hidden text-center">
+              <div className="relative mt-4 h-6 w-full max-w-[560px] overflow-hidden text-center">
                 {CORE_FEATURES.map((f, i) => (
                   <CoreCaption key={f.i} index={i} activeIndex={activeIndex} feature={f} />
                 ))}
@@ -1401,9 +1401,9 @@ const CoreFeatureRow = ({
     <motion.div
       style={{ opacity: dim, x }}
       transition={{ type: 'spring', stiffness: 220, damping: 30 }}
-      className="relative flex flex-col justify-center pl-7 pr-4"
+      className="relative flex flex-col justify-center pl-6 pr-3"
     >
-      <div className="flex items-baseline gap-4">
+      <div className="flex items-baseline gap-3.5">
         <motion.span
           style={{ color: indexColor }}
           className="font-mono text-[10px] uppercase tracking-[0.24em] tabular-nums"
@@ -1412,12 +1412,12 @@ const CoreFeatureRow = ({
         </motion.span>
         <motion.h3
           style={{ color: titleColor }}
-          className="font-display text-[1.2rem] font-semibold tracking-[-0.01em]"
+          className="font-display text-[1.05rem] font-semibold tracking-[-0.01em]"
         >
           {feature.title}
         </motion.h3>
       </div>
-      <p className="mt-1.5 max-w-md pl-10 text-[13px] font-light leading-relaxed text-slate-400">
+      <p className="mt-1 max-w-md pl-[34px] text-[12.5px] font-light leading-[1.5] text-slate-400">
         {feature.body}
       </p>
     </motion.div>
