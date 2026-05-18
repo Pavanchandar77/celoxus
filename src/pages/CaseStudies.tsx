@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Server, Activity, ArrowRight, Lock, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
+import { LightSlab } from '../components/LightSlab';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const EASE_SOFT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -233,6 +234,28 @@ export const CaseStudies = () => {
           </div>
         </motion.div>
       </section>
+
+      {/* Engagement principle — light slab */}
+      <LightSlab chapter="Why we work this way" className="py-28 lg:py-32">
+        <div className="relative z-10 mx-auto max-w-5xl px-6">
+          <motion.blockquote
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 1.1, ease: EASE_SOFT }}
+            className="font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-slate-900 sm:text-4xl lg:text-[2.75rem]"
+          >
+            The best case studies in our industry are the ones nobody reads.
+            <span className="block text-slate-500">
+              The deployments that quietly run. The cutovers nobody noticed.
+            </span>
+          </motion.blockquote>
+          <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-3 border-t border-slate-300/70 pt-7 text-slate-700">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">— NDA principle</span>
+            <span className="text-[15px] font-medium">Discretion is the deliverable.</span>
+          </div>
+        </div>
+      </LightSlab>
 
       {/* CTA */}
       <section className="relative overflow-hidden bg-ink-950 py-28">

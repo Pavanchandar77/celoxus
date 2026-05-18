@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from './MagneticButton';
+import { LightSlab } from './LightSlab';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const EASE_SOFT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -517,6 +518,44 @@ const RoutingChip = ({
   </motion.div>
 );
 
+/* ============================================================
+   Reusable PrincipleSlab — light architectural page for inner pages
+   ============================================================ */
+const PrincipleSlab = ({
+  chapter, quote, attribution, principle,
+}: {
+  chapter: string;
+  quote: React.ReactNode;
+  attribution: string;
+  principle: string;
+}) => (
+  <LightSlab chapter={chapter} className="py-32 lg:py-36">
+    <div className="relative z-10 mx-auto max-w-5xl px-6">
+      <motion.blockquote
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 1.1, ease: EASE_SOFT }}
+        className="font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-slate-900 sm:text-4xl lg:text-[3rem]"
+      >
+        {quote}
+      </motion.blockquote>
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.9, delay: 0.18, ease: EASE_SOFT }}
+        className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-slate-300/70 pt-8 text-slate-700"
+      >
+        <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">
+          — {attribution}
+        </span>
+        <span className="text-[15px] font-medium">{principle}</span>
+      </motion.div>
+    </div>
+  </LightSlab>
+);
+
 /* ============================================================ */
 
 const FeatureRow = ({
@@ -625,6 +664,20 @@ export const Products = () => {
           visual={<IntegrationVisual />}
         />
       </div>
+
+      <PrincipleSlab
+        chapter="The shipping principle"
+        quote={
+          <>
+            Software for operators should disappear into the work —
+            <span className="block text-slate-500">
+              not draw a roadmap on the screen.
+            </span>
+          </>
+        }
+        attribution="Engineering principle"
+        principle="Every feature earns its pixels."
+      />
 
       <ClosingCTA
         title="Ready to ship voice software that operators love?"
@@ -786,6 +839,21 @@ export const ProfessionalServices = () => {
         />
       </div>
 
+      <PrincipleSlab
+        chapter="How an engagement starts"
+        quote={
+          <>
+            A migration is a promise to a building full of people you'll
+            never meet.
+            <span className="block text-slate-500">
+              We treat it that way from the first call.
+            </span>
+          </>
+        }
+        attribution="Engagement principle"
+        principle="No surprise cutovers. Ever."
+      />
+
       <ClosingCTA
         title="Scope a strategic engagement."
         cta="Book a strategy call"
@@ -938,40 +1006,45 @@ export const About = () => {
           </motion.div>
         </div>
 
-        {/* Matrix */}
-        <div className="mt-28">
+      </div>
+
+      {/* Engineering Matrix — light slab */}
+      <LightSlab chapter="Engineering matrix" className="py-32 lg:py-36 text-slate-900">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center">
-            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">/ Engineering matrix</p>
-            <h2 className="mx-auto mt-5 max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
-              Three disciplines. Zero compromise.
+            <h2 className="mx-auto max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-slate-900 sm:text-5xl lg:text-[3.5rem]">
+              Three disciplines.<br />
+              <span className="text-accent-600">Zero compromise.</span>
             </h2>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
             {[
-              { Icon: Cloud, eyebrow: 'Webex & UCCE', h: 'Cloud center mapping', b: 'Designing, provisioning, and scaling massive hybrid or full-cloud Contact Center topologies.' },
-              { Icon: Code,  eyebrow: 'Finesse / API / Dev', h: 'Custom automations', b: 'Bespoke software and middleware that fills the gaps standard deployments leave behind.' },
-              { Icon: Shield, eyebrow: 'Sovereign focus', h: 'Zero-trust backbone', b: 'Data integrity through air-gapped or localized logic, designed for Fortune 500 networks.' },
+              { Icon: Cloud, eyebrow: 'Webex & UCCE',      h: 'Cloud center mapping', b: 'Designing, provisioning, and scaling massive hybrid or full-cloud Contact Center topologies.' },
+              { Icon: Code,  eyebrow: 'Finesse / API / Dev', h: 'Custom automations',   b: 'Bespoke software and middleware that fills the gaps standard deployments leave behind.' },
+              { Icon: Shield, eyebrow: 'Sovereign focus',  h: 'Zero-trust backbone',   b: 'Data integrity through air-gapped or localized logic, designed for regulated networks.' },
             ].map((c, i) => (
               <motion.div
                 key={c.h}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.8, delay: i * 0.08, ease: EASE }}
-                className="ring-gradient group relative rounded-3xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-white/[0.14]"
+                transition={{ duration: 0.95, delay: i * 0.08, ease: EASE_SOFT }}
+                className="group relative rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_30px_70px_-25px_rgba(4,159,217,0.25)]"
+                style={{ boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(15,23,42,0.04), 0 20px 40px -28px rgba(15,23,42,0.18)' }}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/20 bg-accent/10">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10">
                   <c.Icon className="h-5 w-5 text-accent" />
                 </div>
                 <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">{c.eyebrow}</div>
-                <h3 className="mt-2 font-display text-xl font-medium text-white">{c.h}</h3>
-                <p className="mt-3 text-sm font-light leading-relaxed text-slate-400">{c.b}</p>
+                <h3 className="mt-2 font-display text-xl font-bold tracking-[-0.02em] text-slate-900">{c.h}</h3>
+                <p className="mt-3 text-[14px] font-medium leading-[1.6] text-slate-600">{c.b}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </LightSlab>
 
       <ClosingCTA title="See if we're the right fit." cta="Start a conversation" />
     </div>
