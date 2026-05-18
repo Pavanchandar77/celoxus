@@ -1,152 +1,186 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, BookOpen } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
-export const PrivacyPolicy = () => {
-  return (
-    <div className="bg-[#020617] text-white min-h-screen relative overflow-hidden pt-40 pb-32">
-      <Helmet>
-        <title>Privacy Policy | Celoxus</title>
-        <meta name="description" content="Read the Celoxus Privacy Policy to understand how we collect, use, and protect your personal data and information." />
-      </Helmet>
-      
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-indigo-900/10 blur-[110px] rounded-full pointer-events-none z-0"></div>
-      
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/30 text-indigo-300 text-sm font-normal mb-8 uppercase tracking-widest bg-white/5 backdrop-blur-md">
-             <Shield className="w-4 h-4" /> Legal Framework
-          </div>
-          <h1 className="text-4xl md:text-5xl font-light font-display tracking-tight mb-8">
-            Privacy Policy
-          </h1>
-          <p className="text-slate-400 font-light mb-12">Effective Date: January 1, 2024</p>
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-          <div className="text-slate-300 text-lg leading-[1.8] tracking-wide [&>p]:mb-8 [&>h2]:text-3xl [&>h2]:font-normal [&>h2]:text-white [&>h2]:mt-16 [&>h2]:mb-6 [&>ul]:list-disc [&>ul]:pl-8 [&>ul>li]:mb-4 [&>ul>li>strong]:text-white">
-            <p>
-              Celoxus ("we", "our", or "us") is deeply committed to protecting your privacy and ensuring that your personal data is handled securely and responsibly. This Privacy Policy details the types of information we collect, the purposes for which we use it, your rights regarding your personal data, and the rigorous measures we implement to protect it.
-            </p>
+const LegalShell = ({
+  icon: Icon, label, title, children, meta,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  title: string;
+  children: React.ReactNode;
+  meta: string;
+}) => (
+  <div className="relative min-h-screen overflow-hidden bg-ink-950 pb-32 pt-40">
+    <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-50" />
+    <div className="pointer-events-none absolute left-1/2 top-0 h-[50vh] w-[70vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.15),transparent_70%)] blur-3xl" />
+    <div className="pointer-events-none absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-            <h2>1. Information We Collect</h2>
-            <p>
-              In the course of operating our digital platforms and providing our professional consulting and integration services, we may collect the following categories of information:
-            </p>
-            <ul>
-              <li><strong>Contact Information:</strong> Such as your name, corporate email address, phone number, and physical business address when you initiate contact, request support, or establish a partnership.</li>
-              <li><strong>Professional Details:</strong> Information related to your role, company name, industry, and the nature of your inquiry.</li>
-              <li><strong>Usage and Technical Data:</strong> Automated information collected through your interaction with our website, including IP addresses, browser types, operating systems, and page interaction metrics, which help us optimize the performance and security of our site.</li>
-            </ul>
+    <div className="relative z-10 mx-auto max-w-3xl px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: EASE }}
+      >
+        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-md">
+          <Icon className="h-3.5 w-3.5 text-accent-300" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-300">{label}</span>
+        </div>
+        <h1 className="font-display text-4xl font-bold tracking-[-0.035em] text-white sm:text-5xl">
+          {title}
+        </h1>
+        <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">{meta}</p>
 
-            <h2>2. How We Use Your Information</h2>
-            <p>
-              We process your personal information securely and only for legitimate business purposes. Such purposes include:
-            </p>
-            <ul>
-              <li><strong>Service Delivery:</strong> To respond to your inquiries, deliver requested proposals, and fulfill contractual obligations.</li>
-              <li><strong>Platform Optimization:</strong> To monitor and analyze website traffic, troubleshoot technical issues, and improve the user experience of our digital properties.</li>
-              <li><strong>Communication:</strong> To send administrative information, technical notices, and updates regarding our policies or your ongoing projects.</li>
-              <li><strong>Compliance:</strong> To satisfy legal obligations, resolve disputes, and enforce our agreements.</li>
-            </ul>
-
-            <h2>3. Data Protection and Security</h2>
-            <p>
-              Protecting enterprise data is core to our operational philosophy. We utilize commercially reasonable and industry-standard technical, administrative, and physical safeguards designed to protect your information against loss, unauthorized access, alteration, and misuse. However, please note that no electronic transmission or storage system can be guaranteed to be 100% secure.
-            </p>
-
-            <h2>4. Third-Party Disclosures</h2>
-            <p>
-              We do not sell, rent, or trade your personal information to third parties for their marketing purposes. We may share necessary information with trusted service providers who assist us in operating our website and conducting our business, provided those parties agree to uphold strict confidentiality standards. We may also disclose information when mandated by legal processes or to protect our rights and the safety of our users.
-            </p>
-
-            <h2>5. Your Rights and Choices</h2>
-            <p>
-              Depending on your jurisdiction, you may have the right to request access to, correction of, or deletion of your personal data held by us. You may also have the right to object to or restrict certain data processing activities. To exercise these rights, please contact us using the information provided below.
-            </p>
-            
-            <h2>6. Revisions to this Policy</h2>
-            <p>
-              We reserve the right to modify this Privacy Policy at any time to reflect updates to our practices or relevant legal requirements. We encourage you to periodically review this page for the latest information on our privacy practices.
-            </p>
-
-            <h2>7. Contact Us</h2>
-            <p>
-              If you have any questions or concerns regarding this Privacy Policy or our treatment of your data, please reach out to our privacy compliance team:<br/><br/>
-              <strong>Email:</strong> info@celoxus.com<br/>
-              <strong>Phone:</strong> +1 469 994 4602
-            </p>
-          </div>
-        </motion.div>
-      </div>
+        <div className="prose-legal mt-12 text-[15px] leading-[1.85] text-slate-300">
+          {children}
+        </div>
+      </motion.div>
     </div>
-  );
-};
 
-export const TermsOfService = () => {
-  return (
-    <div className="bg-[#020617] text-white min-h-screen relative overflow-hidden pt-40 pb-32">
-      <Helmet>
-        <title>Terms of Service | Celoxus</title>
-        <meta name="description" content="Read the Celoxus Terms of Service to understand the rules and guidelines governing the use of our website and professional integration services." />
-      </Helmet>
-      
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#049fd9]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
-      
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/30 text-indigo-300 text-sm font-normal mb-8 uppercase tracking-widest bg-white/5 backdrop-blur-md">
-             <BookOpen className="w-4 h-4" /> Legal Framework
-          </div>
-          <h1 className="text-4xl md:text-5xl font-light font-display tracking-tight mb-8">
-            Terms of Service
-          </h1>
-          <p className="text-slate-400 font-light mb-12">Effective Date: January 1, 2024</p>
+    <style>{`
+      .prose-legal p { margin-bottom: 1.25rem; font-weight: 300; }
+      .prose-legal h2 {
+        margin-top: 3rem; margin-bottom: 1rem;
+        font-family: 'Satoshi', 'General Sans', Inter, system-ui, sans-serif;
+        font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em;
+        color: #fff;
+      }
+      .prose-legal ul { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+      .prose-legal ul > li {
+        position: relative; padding-left: 1.5rem; margin-bottom: 0.85rem;
+      }
+      .prose-legal ul > li::before {
+        content: ''; position: absolute; left: 0; top: 0.7em;
+        width: 6px; height: 1px; background: rgba(4,159,217,0.7);
+      }
+      .prose-legal strong { color: #fff; font-weight: 500; }
+    `}</style>
+  </div>
+);
 
-          <div className="text-slate-300 text-lg leading-[1.8] tracking-wide [&>p]:mb-8 [&>h2]:text-3xl [&>h2]:font-normal [&>h2]:text-white [&>h2]:mt-16 [&>h2]:mb-6 [&>ul]:list-disc [&>ul]:pl-8 [&>ul>li]:mb-4 [&>ul>li>strong]:text-white">
-            <p>
-              These Terms of Service ("Terms") constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you"), and Celoxus ("we", "us", or "our"), concerning your access to and use of the Celoxus website and our associated consultative and professional integration services (collectively, the "Services"). By accessing the Services, you agree that you have read, understood, and agree to be bound by all of these Terms.
-            </p>
+export const PrivacyPolicy = () => (
+  <LegalShell icon={Shield} label="Legal · Privacy" title="Privacy Policy" meta="Effective · January 1, 2024">
+    <Helmet>
+      <title>Privacy Policy · Celoxus</title>
+      <meta name="description" content="Celoxus Privacy Policy — how we collect, use, and protect your data." />
+    </Helmet>
 
-            <h2>1. Service Utilization and Scope</h2>
-            <p>
-              Celoxus operates as a technology consulting and systems integration firm. Information provided on this website is for general informational purposes only and does not constitute technical warranties or definitive engineering advice. Formal engineering, architecture mapping, and implementation engagements are strictly governed by individually executed Master Services Agreements (MSAs) or Statements of Work (SOWs) signed by both parties.
-            </p>
+    <p>
+      Celoxus ("we", "our", or "us") is committed to protecting your privacy and handling
+      your personal data responsibly. This Privacy Policy details the information we collect,
+      how we use it, your rights, and the safeguards we maintain to protect it.
+    </p>
 
-            <h2>2. Intellectual Property Rights</h2>
-            <p>
-              Unless otherwise indicated or stipulated in an active MSA, the Site and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics on the Site (collectively, the "Content") and the trademarks, service marks, and logos contained therein are owned or controlled by us or licensed to us. You are granted a limited, non-exclusive, non-transferable license to access the Site for internal informational purposes.
-            </p>
+    <h2>1. Information we collect</h2>
+    <ul>
+      <li><strong>Contact information</strong> — name, corporate email, phone, and business address.</li>
+      <li><strong>Professional details</strong> — role, company, industry, and the nature of your inquiry.</li>
+      <li><strong>Usage and technical data</strong> — IP address, browser type, OS, and interaction metrics.</li>
+    </ul>
 
-            <h2>3. User Representations</h2>
-            <p>
-              By utilizing our Site or submitting inquiries, you represent and warrant that: (1) all information you submit will be true, accurate, current, and complete; (2) you have the legal capacity to comply with these Terms; and (3) you will not access the Site through automated or non-human means strictly for malicious scraping or exploitation.
-            </p>
+    <h2>2. How we use your information</h2>
+    <ul>
+      <li><strong>Service delivery</strong> — to respond to inquiries and fulfill contractual obligations.</li>
+      <li><strong>Platform optimization</strong> — to monitor performance and improve the user experience.</li>
+      <li><strong>Communication</strong> — administrative notices and updates regarding ongoing projects.</li>
+      <li><strong>Compliance</strong> — to satisfy legal obligations and enforce agreements.</li>
+    </ul>
 
-            <h2>4. Disclaimers and Limitation of Liability</h2>
-            <p>
-              THE SITE IS PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN CONNECTION WITH THE SITE AND YOUR USE THEREOF. 
-            </p>
-            <p>
-              In no event will we or our directors, employees, or agents be liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, special, or punitive damages, including lost profit, lost revenue, loss of data, or other damages arising from your use of the site or reliance on any information provided herein.
-            </p>
+    <h2>3. Data protection and security</h2>
+    <p>
+      We use industry-standard technical, administrative, and physical safeguards to protect
+      your information. No electronic transmission or storage system is 100% secure, but we
+      treat customer data as a first-class engineering concern.
+    </p>
 
-            <h2>5. Third-Party Integrations and Affiliations</h2>
-            <p>
-              Celoxus provides integrations and consulting for third-party platforms (such as Cisco, Webex, and other enterprise vendors). We are an independent entity. Any mentions of third-party platforms, trademarks, or registered protocols are the property of their respective owners. Our Terms do not supersede the End User License Agreements (EULAs) required by those third-party vendors.
-            </p>
-            
-            <h2>6. Modifications to Terms</h2>
-            <p>
-              We reserve the right, in our sole discretion, to make changes or modifications to these Terms at any time. We will alert you about any changes by updating the "Effective Date" of these Terms, and you waive any right to receive specific notice of each such change.
-            </p>
+    <h2>4. Third-party disclosures</h2>
+    <p>
+      We do not sell, rent, or trade your personal information. We may share necessary data
+      with trusted service providers who assist us under strict confidentiality, or when
+      required by legal process.
+    </p>
 
-            <h2>7. Governing Law</h2>
-            <p>
-              These Terms and your use of the Site are governed by and construed in accordance with the laws of the applicable jurisdiction in which Celoxus maintains its primary headquarters, without regard to its conflict of law principles.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-};
+    <h2>5. Your rights</h2>
+    <p>
+      Depending on your jurisdiction, you may request access to, correction of, or deletion
+      of your personal data. Contact us using the details below to exercise these rights.
+    </p>
+
+    <h2>6. Revisions</h2>
+    <p>
+      We may modify this Policy to reflect operational or legal changes. Please review this
+      page periodically for the latest version.
+    </p>
+
+    <h2>7. Contact</h2>
+    <p>
+      <strong>Email</strong> · info@celoxus.com<br />
+      <strong>Phone</strong> · +1 469 994 4602
+    </p>
+  </LegalShell>
+);
+
+export const TermsOfService = () => (
+  <LegalShell icon={BookOpen} label="Legal · Terms" title="Terms of Service" meta="Effective · January 1, 2024">
+    <Helmet>
+      <title>Terms of Service · Celoxus</title>
+      <meta name="description" content="Celoxus Terms of Service governing the use of our website and professional services." />
+    </Helmet>
+
+    <p>
+      These Terms constitute a legally binding agreement between you and Celoxus regarding
+      your access to our website and professional services. By accessing the services, you
+      agree to be bound by these Terms.
+    </p>
+
+    <h2>1. Service utilization and scope</h2>
+    <p>
+      Celoxus operates as a technology consulting and systems integration firm. Information
+      on this website is for general informational purposes only. Formal engineering and
+      implementation engagements are governed by individually executed Master Services
+      Agreements or Statements of Work.
+    </p>
+
+    <h2>2. Intellectual property rights</h2>
+    <p>
+      Unless otherwise stipulated in an active MSA, the Site and all content — including
+      source code, designs, text, and graphics — are owned or licensed by Celoxus. You are
+      granted a limited, non-exclusive license to access the Site for internal informational
+      purposes.
+    </p>
+
+    <h2>3. User representations</h2>
+    <p>
+      By using our Site, you represent that all information you submit is true and that you
+      will not access the Site through automated means for malicious scraping or exploitation.
+    </p>
+
+    <h2>4. Disclaimers and limitation of liability</h2>
+    <p>
+      The Site is provided on an as-is and as-available basis. To the fullest extent permitted
+      by law, we disclaim all warranties in connection with the Site. We will not be liable
+      for any indirect, consequential, or punitive damages arising from your use of the Site.
+    </p>
+
+    <h2>5. Third-party integrations</h2>
+    <p>
+      Celoxus provides integrations and consulting for third-party platforms such as Cisco
+      and Webex. We are an independent entity; trademarks remain the property of their
+      respective owners.
+    </p>
+
+    <h2>6. Modifications</h2>
+    <p>
+      We reserve the right to modify these Terms at any time, indicated by updating the
+      "Effective Date" at the top of this page.
+    </p>
+
+    <h2>7. Governing law</h2>
+    <p>
+      These Terms are governed by the laws of the jurisdiction in which Celoxus maintains
+      its primary headquarters, without regard to conflict-of-law principles.
+    </p>
+  </LegalShell>
+);

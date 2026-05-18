@@ -1,115 +1,159 @@
 import { motion } from 'framer-motion';
-import { Server, Activity, ArrowRight, Lock } from 'lucide-react';
+import { Server, Activity, ArrowRight, Lock, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { InteractiveCard } from '../components/InteractiveCard';
 import { MagneticButton } from '../components/MagneticButton';
-import { NetworkTopology } from '../components/NetworkTopology';
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export const CaseStudies = () => {
   return (
-    <div className="bg-[#020617] text-white min-h-[90vh] relative overflow-hidden pt-40 pb-32 flex flex-col justify-center">
-       {/* Background effects */}
-       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#049fd9]/8 blur-[110px] rounded-full pointer-events-none z-0"></div>
-       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#049fd9]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
-       <div className="absolute inset-0 hidden lg:block opacity-25 pointer-events-auto">
-         <NetworkTopology />
-       </div>
+    <div className="min-h-screen bg-ink-950">
+      {/* Hero */}
+      <section className="relative overflow-hidden pt-40 pb-24">
+        <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-60" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.22),transparent_70%)] blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-       <div className="max-w-7xl mx-auto px-6 relative z-10">
-         <div className="text-center max-w-4xl mx-auto mb-20">
-           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-             <h1 className="text-5xl md:text-7xl font-light font-display tracking-tight mb-8">
-               Proven <span className="inline-block pb-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-[#8fa1d5]">Implementations.</span>
-             </h1>
-             <p className="text-xl text-slate-300 font-light leading-relaxed">
-               Due to strict Non-Disclosure Agreements (NDAs), we do not publish identifiable client metadata. Below is a sanitized architectural brief demonstrating our capability baseline.
-             </p>
-           </motion.div>
-         </div>
+        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="mx-auto mb-7 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-md"
+          >
+            <Lock className="h-3 w-3 text-accent-300" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-300">
+              Anonymized · Under NDA
+            </span>
+          </motion.div>
 
-         <div className="space-y-24 max-w-5xl mx-auto">
-             <motion.div
-               initial={{ opacity: 0, y: 40 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true, margin: "-100px" }}
-               transition={{ duration: 0.7 }}
-             >
-             <InteractiveCard className="bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-16 relative overflow-hidden hover:border-[#049fd9]/40 transition-colors">
-               <div className="absolute inset-0 bg-[#049fd9]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-               
-               {/* Header */}
-               <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 border-b border-white/10 pb-12 relative z-10">
-                 <div>
-                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-400/20 text-indigo-300 text-sm font-normal tracking-widest uppercase mb-4 backdrop-blur-md">
-                     <Lock className="w-4 h-4" /> Anonymized Brief
-                   </div>
-                   <h2 className="text-3xl md:text-5xl font-light font-display text-white">Fortune 500 Global Logistics</h2>
-                 </div>
-                 <div className="flex items-center gap-4 hidden sm:flex">
-                   <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/20">
-                     <Server className="w-6 h-6 text-blue-400" />
-                   </div>
-                   <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/20">
-                     <Activity className="w-6 h-6 text-emerald-400" />
-                   </div>
-                 </div>
-               </div>
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.05, ease: EASE }}
+            className="font-display text-balance text-[2.75rem] font-bold leading-[0.98] tracking-[-0.04em] text-white sm:text-6xl lg:text-[5rem]"
+          >
+            Proven deployments,
+            <span className="block text-gradient-accent">discreetly delivered.</span>
+          </motion.h1>
 
-               {/* Content */}
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10 mb-16">
-                 <div>
-                   <h3 className="text-2xl font-normal mb-4 text-white">The Challenge</h3>
-                   <p className="text-lg text-slate-300 leading-relaxed">
-                     A leading global logistics provider was operating on a heavily fragmented, legacy on-premise UCCX system. Escalating call volumes were causing unacceptable queue delays, and agents lacked real-time visibility into incoming freight priority metrics due to disparate CRM platforms.
-                   </p>
-                 </div>
-                 <div>
-                   <h3 className="text-2xl font-normal mb-4 text-white">Our Solution</h3>
-                   <p className="text-lg text-slate-300 leading-relaxed">
-                     Celoxus CCIE architects orchestrated a completely zero-downtime, phased migration to Cisco Webex Contact Center. We engineered custom middleware to bridge their proprietary freight tracking databases directly into the agent desktop via real-time Finesse pop-overs, instantly mapping caller ID to active global shipments.
-                   </p>
-                 </div>
-               </div>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
+            className="mx-auto mt-7 max-w-2xl text-lg font-light leading-relaxed text-slate-400"
+          >
+            We don't publish client metadata. What follows is a sanitized architectural
+            brief — representative of the work we ship under NDA.
+          </motion.p>
+        </div>
+      </section>
 
-               {/* Metrics */}
-               <div className="bg-[#020617]/50 border border-white/5 rounded-3xl p-8 relative z-10">
-                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-                   <div className="sm:border-r sm:border-white/10">
-                     <div className="text-4xl md:text-5xl font-light inline-block pb-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-2">2,500+</div>
-                     <div className="text-sm font-normal text-slate-400 uppercase tracking-widest">Seats Migrated</div>
-                   </div>
-                   <div className="sm:border-r sm:border-white/10">
-                     <div className="text-4xl md:text-5xl font-light inline-block pb-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 mb-2">-40%</div>
-                     <div className="text-sm font-normal text-slate-400 uppercase tracking-widest">Avg Handle Time (AHT)</div>
-                   </div>
-                   <div>
-                     <div className="text-4xl md:text-5xl font-light inline-block pb-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">99.999%</div>
-                     <div className="text-sm font-normal text-slate-400 uppercase tracking-widest">Architecture Uptime</div>
-                   </div>
-                 </div>
-               </div>
-             </InteractiveCard>
-             </motion.div>
-         </div>
+      {/* Case Brief */}
+      <section className="relative mx-auto max-w-5xl px-6 pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="ring-gradient relative overflow-hidden rounded-3xl border border-white/[0.07] bg-ink-900/60 p-8 backdrop-blur-2xl shadow-card md:p-12"
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="pointer-events-none absolute -top-20 right-10 h-60 w-60 rounded-full bg-accent/15 blur-3xl" />
 
-         {/* CTA */}
-         <motion.div 
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="mt-24 text-center max-w-2xl mx-auto"
-         >
-           <h3 className="text-2xl font-normal text-white mb-6">Need the full technical spec?</h3>
-           <MagneticButton to="/contact">
-             <div className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#049fd9] text-white font-normal shadow-[0_10px_25px_rgba(4,159,217,0.18)] relative overflow-hidden group">
-               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
-               <span className="relative">Contact Engineering for Capabilities Brief</span>
-               <ArrowRight className="relative w-5 h-5" />
-             </div>
-           </MagneticButton>
-         </motion.div>
+          {/* Header */}
+          <div className="flex flex-col items-start justify-between gap-6 border-b border-white/[0.06] pb-10 md:flex-row md:items-end">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+                / Brief 01 · Fortune 500
+              </p>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-[-0.03em] text-white md:text-5xl">
+                Global logistics, unified.
+              </h2>
+              <p className="mt-3 max-w-xl text-sm font-light text-slate-400">
+                Webex Contact Center migration · Custom Finesse middleware · Zero-downtime cutover
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                <Server className="h-4 w-4 text-accent-300" />
+              </div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                <Activity className="h-4 w-4 text-emerald-300" />
+              </div>
+            </div>
+          </div>
 
-       </div>
+          {/* Body */}
+          <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">/ The challenge</p>
+              <p className="mt-3 text-[15px] font-light leading-relaxed text-slate-300">
+                A leading global logistics provider was running a fragmented legacy
+                UCCX deployment. Escalating call volumes were producing unacceptable
+                queue delays, and agents had no real-time visibility into incoming
+                freight priority due to disparate CRMs.
+              </p>
+            </div>
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">/ Our solution</p>
+              <p className="mt-3 text-[15px] font-light leading-relaxed text-slate-300">
+                Celoxus CCIE architects executed a zero-downtime, phased migration to
+                Cisco Webex Contact Center, and engineered custom middleware that
+                bridged proprietary freight tracking databases directly into the agent
+                desktop via real-time Finesse pop-overs.
+              </p>
+            </div>
+          </div>
+
+          {/* Metrics */}
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[
+              { v: '2,500+',   l: 'Seats migrated' },
+              { v: '−40%',     l: 'Avg. handle time' },
+              { v: '99.999%',  l: 'Architecture uptime' },
+            ].map((s) => (
+              <div key={s.l} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 text-center">
+                <div className="font-display text-3xl font-bold text-white">{s.v}</div>
+                <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative overflow-hidden bg-ink-950 py-28">
+        <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-40" />
+        <motion.div
+          animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.22),transparent_70%)] blur-3xl"
+        />
+        <div className="relative z-10 mx-auto max-w-2xl px-6 text-center">
+          <h3 className="font-display text-3xl font-bold tracking-[-0.03em] text-white sm:text-4xl">
+            Need the full technical brief?
+          </h3>
+          <p className="mt-3 text-base font-light text-slate-400">
+            Reach our engineering leads — we share deeper specs under NDA.
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <MagneticButton to="/contact" strength={0.25}>
+              <div className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-6 py-3.5 text-sm font-medium text-ink-950 shadow-[0_10px_40px_-10px_rgba(255,255,255,0.45)]">
+                <span className="relative">Request capabilities brief</span>
+                <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              </div>
+            </MagneticButton>
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-md transition-all hover:border-white/20 hover:bg-white/[0.06]"
+            >
+              See services <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
