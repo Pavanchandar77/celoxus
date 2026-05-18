@@ -97,7 +97,7 @@ const ProductsHeroVisual = () => {
         <motion.div
           animate={reduce ? undefined : { y: [0, -8, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-          className="rounded-3xl border border-white/[0.08] bg-ink-900/80 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
+          className="rounded-2xl border border-white/[0.08] bg-ink-900/80 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
           style={{ transform: 'rotate(-6deg)' }}
         >
           <div className="flex items-center gap-2">
@@ -127,7 +127,7 @@ const ProductsHeroVisual = () => {
         <motion.div
           animate={reduce ? undefined : { y: [0, -6, 0] }}
           transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }}
-          className="rounded-3xl border border-white/[0.1] bg-ink-900/90 p-5 backdrop-blur-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)]"
+          className="rounded-2xl border border-white/[0.1] bg-ink-900/90 p-5 backdrop-blur-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)]"
         >
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-400">Operations</span>
@@ -166,7 +166,7 @@ const ProductsHeroVisual = () => {
           animate={reduce ? undefined : { y: [0, -10, 0] }}
           transition={{ duration: 7.4, repeat: Infinity, ease: 'easeInOut' }}
           style={{ transform: 'rotate(6deg)' }}
-          className="rounded-3xl border border-white/[0.08] bg-ink-900/80 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
+          className="rounded-2xl border border-white/[0.08] bg-ink-900/80 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
         >
           <div className="flex items-center gap-2">
             <Settings className="h-4 w-4 text-accent-300" />
@@ -605,7 +605,7 @@ const FeatureRow = ({
 );
 
 const VisualPanel = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-  <div className={`relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card ${className}`}>
+  <div className={`relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card ${className}`}>
     <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-accent/15 blur-3xl" />
     {children}
@@ -1030,7 +1030,7 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.95, delay: i * 0.08, ease: EASE_SOFT }}
-                className="group relative rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_30px_70px_-25px_rgba(4,159,217,0.25)]"
+                className="group relative rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_30px_70px_-25px_rgba(4,159,217,0.25)]"
                 style={{ boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(15,23,42,0.04), 0 20px 40px -28px rgba(15,23,42,0.18)' }}
               >
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />

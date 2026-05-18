@@ -64,7 +64,7 @@ export const Hero = () => {
       {/* Top hairline */}
       <div className="pointer-events-none absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <motion.div style={{ opacity }} className="relative z-10 mx-auto max-w-7xl px-6">
+      <motion.div style={{ opacity }} className="relative z-10 mx-auto max-w-[1400px] px-6">
         {/* Eyebrow */}
         <motion.div
           variants={fadeUp}
@@ -152,7 +152,7 @@ export const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.6, delay: 0.45, ease: EASE_SOFT }}
-          className="relative mx-auto mt-24 max-w-6xl"
+          className="relative mx-auto mt-24 w-full max-w-[1320px]"
         >
           <OperationalTheatre />
         </motion.div>
@@ -553,7 +553,7 @@ const FloatingPanels = () => {
 };
 
 const PanelShell = ({ children }: { children: React.ReactNode }) => (
-  <div className="relative rounded-3xl border border-white/[0.08] bg-ink-900/75 p-5 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.05)]">
+  <div className="relative rounded-2xl border border-white/[0.08] bg-ink-900/75 p-5 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.05)]">
     <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     {children}
   </div>
@@ -642,7 +642,7 @@ const DashboardMock = () => {
       <div className="absolute inset-x-12 -inset-y-4 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/15 via-sky-400/10 to-transparent opacity-50 blur-3xl" />
 
       {/* Frame */}
-      <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]">
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]">
         {/* Top gradient hairline */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
         {/* Window header */}
@@ -929,7 +929,7 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="ring-gradient group relative h-full overflow-hidden rounded-3xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)]"
+        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)]"
         style={{ transition: 'transform 700ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 700ms cubic-bezier(0.16, 1, 0.3, 1), border-color 600ms cubic-bezier(0.16, 1, 0.3, 1)' }}
       >
         {/* Cursor spotlight */}
@@ -1033,7 +1033,7 @@ export const SplitMission = () => {
             transition={{ duration: 1, ease: EASE_SOFT }}
             className="relative"
           >
-            <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
               <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-accent/20 blur-3xl" />
 
               <div className="flex items-center justify-between">

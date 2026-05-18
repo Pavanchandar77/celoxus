@@ -26,7 +26,7 @@ const MetricsReveal = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.1 + i * 0.12, ease: EASE_SOFT }}
-            className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-900/60 p-6 text-left backdrop-blur-xl"
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-900/60 p-6 text-left backdrop-blur-xl"
           >
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
             <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-accent/10 blur-2xl" />
@@ -169,7 +169,7 @@ export const CaseStudies = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="ring-gradient relative overflow-hidden rounded-3xl border border-white/[0.07] bg-ink-900/60 p-8 backdrop-blur-2xl shadow-card md:p-12"
+          className="ring-gradient relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-8 backdrop-blur-2xl shadow-card md:p-12"
         >
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           <div className="pointer-events-none absolute -top-20 right-10 h-60 w-60 rounded-full bg-accent/15 blur-3xl" />
@@ -226,7 +226,7 @@ export const CaseStudies = () => {
               { v: '−40%',     l: 'Avg. handle time' },
               { v: '99.999%',  l: 'Architecture uptime' },
             ].map((s) => (
-              <div key={s.l} className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-5 text-center">
+              <div key={s.l} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 text-center">
                 <div className="font-display text-3xl font-bold text-white">{s.v}</div>
                 <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">{s.l}</div>
               </div>
