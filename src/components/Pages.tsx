@@ -1,23 +1,30 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import {
   Shield, Settings, Activity, ArrowRight, ArrowUpRight, Headphones, Phone, Mail,
   Database, CheckCircle2, XCircle, Code, Cloud, LayoutTemplate, ChevronRight,
-  Sparkles, Lock, Globe, Cpu,
+  Sparkles, Lock, Globe, Cpu, Bell, Send, MapPin, Zap, Compass, PenTool,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from './MagneticButton';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_SOFT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /* ============================================================
    Shared building blocks
    ============================================================ */
 const PageHero = ({
-  eyebrow, title, accent, sub,
-}: { eyebrow: string; title: string; accent: string; sub: string }) => (
-  <section className="relative overflow-hidden bg-ink-950 pt-40 pb-28">
+  eyebrow, title, accent, sub, visual,
+}: {
+  eyebrow: string;
+  title: string;
+  accent: string;
+  sub: string;
+  visual?: React.ReactNode;
+}) => (
+  <section className="relative overflow-hidden bg-ink-950 pt-40 pb-24">
     <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-60" />
     <div className="pointer-events-none absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.22),transparent_70%)] blur-3xl" />
     <div className="pointer-events-none absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -26,7 +33,7 @@ const PageHero = ({
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: EASE }}
+        transition={{ duration: 0.7, ease: EASE_SOFT }}
         className="mx-auto mb-7 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-md"
       >
         <span className="rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-accent-300">
@@ -37,8 +44,8 @@ const PageHero = ({
       <motion.h1
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.05, ease: EASE }}
-        className="font-display mx-auto max-w-5xl text-balance text-[2.75rem] font-bold leading-[0.98] tracking-[-0.04em] text-white sm:text-6xl lg:text-[5.5rem]"
+        transition={{ duration: 1, delay: 0.05, ease: EASE_SOFT }}
+        className="font-display mx-auto max-w-5xl text-balance text-[2.75rem] font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-6xl lg:text-[5.5rem]"
       >
         {title}{' '}
         <span className="block text-gradient-accent">{accent}</span>
@@ -47,14 +54,470 @@ const PageHero = ({
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
-        className="mx-auto mt-7 max-w-2xl text-balance text-lg font-light leading-relaxed text-slate-400 sm:text-xl"
+        transition={{ duration: 1, delay: 0.18, ease: EASE_SOFT }}
+        className="mx-auto mt-7 max-w-2xl text-balance text-[17px] font-light leading-[1.6] text-slate-400 sm:text-xl"
       >
         {sub}
       </motion.p>
+
+      {visual && (
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: EASE_SOFT }}
+          className="relative mx-auto mt-16"
+        >
+          {visual}
+        </motion.div>
+      )}
     </div>
   </section>
 );
+
+/* ============================================================
+   PRODUCTS hero — floating product card stack
+   Three product UI fragments hovering at different depths,
+   each breathing on its own cadence with a parallax tilt.
+   ============================================================ */
+const ProductsHeroVisual = () => {
+  const reduce = useReducedMotion();
+  return (
+    <div className="relative mx-auto h-[300px] w-full max-w-3xl">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.18),transparent_70%)] blur-2xl" />
+
+      {/* Card 1 — Finesse alert (back, left) */}
+      <motion.div
+        initial={{ opacity: 0, x: -40, y: 10, rotate: -8 }}
+        animate={{ opacity: 1, x: 0, y: 0, rotate: -6 }}
+        transition={{ duration: 1.1, delay: 0.5, ease: EASE_SOFT }}
+        className="absolute left-[6%] top-[28%] hidden w-56 sm:block"
+      >
+        <motion.div
+          animate={reduce ? undefined : { y: [0, -8, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          className="rounded-2xl border border-white/[0.08] bg-ink-900/80 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
+          style={{ transform: 'rotate(-6deg)' }}
+        >
+          <div className="flex items-center gap-2">
+            <Bell className="h-4 w-4 text-red-400" />
+            <span className="text-xs font-medium text-white">RONA · Agent 4216</span>
+            <motion.span
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 1.6, repeat: Infinity }}
+              className="ml-auto h-1.5 w-1.5 rounded-full bg-red-400"
+            />
+          </div>
+          <div className="mt-3 space-y-1.5">
+            <div className="h-1.5 w-full rounded-full bg-white/[0.06]" />
+            <div className="h-1.5 w-3/4 rounded-full bg-white/[0.06]" />
+            <div className="h-1.5 w-1/2 rounded-full bg-white/[0.06]" />
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Card 2 — Monitoring chart (middle, foremost) */}
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1.2, delay: 0.7, ease: EASE_SOFT }}
+        className="absolute left-1/2 top-[14%] w-72 -translate-x-1/2"
+      >
+        <motion.div
+          animate={reduce ? undefined : { y: [0, -6, 0] }}
+          transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="rounded-2xl border border-white/[0.1] bg-ink-900/90 p-5 backdrop-blur-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-400">Operations</span>
+            <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[9px] font-medium text-emerald-300">Live</span>
+          </div>
+          <svg viewBox="0 0 240 60" className="mt-3 h-14 w-full">
+            <defs>
+              <linearGradient id="phlg" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#7dd3fc" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#7dd3fc" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M0,42 C20,38 40,22 60,28 C80,34 100,16 120,18 C140,20 160,38 180,30 C200,22 220,12 240,8 L240,60 L0,60 Z" fill="url(#phlg)" />
+            <motion.path
+              d="M0,42 C20,38 40,22 60,28 C80,34 100,16 120,18 C140,20 160,38 180,30 C200,22 220,12 240,8"
+              fill="none" stroke="#7dd3fc" strokeWidth="1.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, delay: 1, ease: 'easeOut' }}
+            />
+          </svg>
+          <div className="mt-2 grid grid-cols-3 gap-2 text-center">
+            <Kpi v="24,816" l="active" />
+            <Kpi v="1m 42s" l="aht" />
+            <Kpi v="99.99%" l="sla" />
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Card 3 — Integration orbital (back, right) */}
+      <motion.div
+        initial={{ opacity: 0, x: 40, y: 10, rotate: 8 }}
+        animate={{ opacity: 1, x: 0, y: 0, rotate: 6 }}
+        transition={{ duration: 1.1, delay: 0.55, ease: EASE_SOFT }}
+        className="absolute right-[6%] top-[28%] hidden w-52 sm:block"
+      >
+        <motion.div
+          animate={reduce ? undefined : { y: [0, -10, 0] }}
+          transition={{ duration: 7.4, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ transform: 'rotate(6deg)' }}
+          className="rounded-2xl border border-white/[0.08] bg-ink-900/80 p-4 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
+        >
+          <div className="flex items-center gap-2">
+            <Settings className="h-4 w-4 text-accent-300" />
+            <span className="text-xs font-medium text-white">Integrations</span>
+            <span className="ml-auto font-mono text-[10px] text-slate-500">14</span>
+          </div>
+          <div className="mt-3 grid grid-cols-3 gap-1.5">
+            {[Cloud, Database, Code, Headphones, Globe, Activity].map((Ic, i) => (
+              <div key={i} className="flex h-8 w-full items-center justify-center rounded-md border border-white/[0.06] bg-white/[0.03]">
+                <Ic className="h-3.5 w-3.5 text-slate-300" />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
+const Kpi = ({ v, l }: { v: string; l: string }) => (
+  <div className="rounded-md border border-white/[0.06] bg-white/[0.02] px-1.5 py-1.5">
+    <div className="font-display text-[13px] font-semibold tabular-nums text-white">{v}</div>
+    <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.18em] text-slate-500">{l}</div>
+  </div>
+);
+
+/* ============================================================
+   SERVICES hero — Engagement Arc
+   A horizontal flowing arc through three phases with a traveling
+   photon and pulsing milestone nodes.
+   ============================================================ */
+const ServicesHeroVisual = () => {
+  const reduce = useReducedMotion();
+  const phases = [
+    { Icon: Compass, label: 'Discover',  i: '01' },
+    { Icon: PenTool, label: 'Architect', i: '02' },
+    { Icon: Activity, label: 'Operate',  i: '03' },
+  ];
+  return (
+    <div className="relative mx-auto w-full max-w-3xl">
+      <div className="relative h-32">
+        <svg viewBox="0 0 600 120" className="absolute inset-0 h-full w-full">
+          <defs>
+            <linearGradient id="arcStroke" x1="0" x2="1">
+              <stop offset="0%"   stopColor="rgba(125,211,252,0)" />
+              <stop offset="50%"  stopColor="rgba(125,211,252,0.7)" />
+              <stop offset="100%" stopColor="rgba(125,211,252,0)" />
+            </linearGradient>
+          </defs>
+          {/* Base arc */}
+          <path
+            d="M 60 80 Q 300 -10 540 80"
+            fill="none"
+            stroke="rgba(255,255,255,0.08)"
+            strokeWidth="1"
+            strokeDasharray="3 5"
+          />
+          {/* Animated draw-on arc */}
+          <motion.path
+            d="M 60 80 Q 300 -10 540 80"
+            fill="none"
+            stroke="url(#arcStroke)"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2.4, delay: 0.6, ease: 'easeOut' }}
+          />
+          {/* Traveling photon */}
+          {!reduce && (
+            <motion.circle
+              r="3.2"
+              fill="#7dd3fc"
+              animate={{
+                cx: Array.from({ length: 60 }).map((_, i) => {
+                  const t = i / 59;
+                  return 60 + (540 - 60) * t;
+                }),
+                cy: Array.from({ length: 60 }).map((_, i) => {
+                  const t = i / 59;
+                  // Quadratic curve: y(t) = (1-t)^2 * 80 + 2(1-t)t * -10 + t^2 * 80
+                  return (1 - t) * (1 - t) * 80 + 2 * (1 - t) * t * -10 + t * t * 80;
+                }),
+              }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2.2 }}
+            />
+          )}
+        </svg>
+        {/* Milestone nodes */}
+        {[
+          { x: '10%', y: '66%' },
+          { x: '50%', y: '-8%' },
+          { x: '90%', y: '66%' },
+        ].map((p, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.9 + i * 0.25, ease: EASE_SOFT }}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: p.x, top: p.y }}
+          >
+            <div className="relative">
+              <motion.div
+                animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
+                transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.4 }}
+                className="absolute inset-0 rounded-full border border-accent"
+              />
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-ink-900/80 backdrop-blur-md">
+                {(() => {
+                  const Icon = phases[i].Icon;
+                  return <Icon className="h-5 w-5 text-accent" />;
+                })()}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      {/* Labels */}
+      <div className="mt-6 flex justify-between px-4">
+        {phases.map((p, i) => (
+          <motion.div
+            key={p.label}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.1 + i * 0.15, ease: EASE_SOFT }}
+            className="text-center"
+          >
+            <div className="font-mono text-[10px] tracking-[0.24em] text-accent-300">{p.i}</div>
+            <div className="mt-1 font-display text-sm font-medium text-white">{p.label}</div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ============================================================
+   ABOUT hero — World network
+   A stylized globe with great-circle arcs flying between regions,
+   pulsing region nodes, and orbital stat rings.
+   ============================================================ */
+const AboutHeroVisual = () => {
+  const reduce = useReducedMotion();
+  // Region nodes (lat-ish, lon-ish projected to viewBox)
+  const nodes = [
+    { x: 130, y: 95,  label: 'NA' },
+    { x: 200, y: 80,  label: 'EU' },
+    { x: 240, y: 130, label: 'IN' },
+    { x: 290, y: 110, label: 'APAC' },
+    { x: 95,  y: 145, label: 'LATAM' },
+  ];
+  const arcs = [
+    [0, 1], [1, 2], [2, 3], [0, 4], [1, 3], [0, 2],
+  ];
+  return (
+    <div className="relative mx-auto h-[280px] w-full max-w-3xl">
+      <svg viewBox="0 0 400 220" className="absolute inset-0 h-full w-full">
+        <defs>
+          <radialGradient id="globeFill" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(4,159,217,0.15)" />
+            <stop offset="70%" stopColor="rgba(4,159,217,0.03)" />
+            <stop offset="100%" stopColor="rgba(4,159,217,0)" />
+          </radialGradient>
+        </defs>
+        {/* Globe disk */}
+        <circle cx="200" cy="110" r="100" fill="url(#globeFill)" />
+        {/* Latitudes */}
+        {[60, 90, 120, 150].map((y) => (
+          <motion.ellipse
+            key={y}
+            cx="200" cy={y}
+            rx="100"
+            ry={Math.max(8, 100 - Math.abs(y - 110) * 1.6)}
+            fill="none"
+            stroke="rgba(255,255,255,0.06)"
+            strokeDasharray="2 4"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1.6, delay: 0.4, ease: 'easeOut' }}
+          />
+        ))}
+        {/* Longitudes */}
+        {[200].map((cx) => (
+          <ellipse key={cx} cx={cx} cy="110" rx="100" ry="100" fill="none" stroke="rgba(255,255,255,0.06)" strokeDasharray="2 4" />
+        ))}
+        {/* Outer ring */}
+        <motion.circle
+          cx="200" cy="110" r="105"
+          fill="none"
+          stroke="rgba(125,211,252,0.25)"
+          strokeWidth="0.6"
+          strokeDasharray="4 8"
+          style={{ transformOrigin: '200px 110px' }}
+          animate={reduce ? undefined : { rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+        />
+
+        {/* Arcs between nodes */}
+        {arcs.map(([a, b], i) => {
+          const A = nodes[a], B = nodes[b];
+          const midX = (A.x + B.x) / 2;
+          const midY = Math.min(A.y, B.y) - 18 - i * 4;
+          return (
+            <motion.path
+              key={i}
+              d={`M ${A.x} ${A.y} Q ${midX} ${midY} ${B.x} ${B.y}`}
+              fill="none"
+              stroke="rgba(125,211,252,0.55)"
+              strokeWidth="0.6"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 2, delay: 0.8 + i * 0.18, ease: 'easeOut' }}
+            />
+          );
+        })}
+
+        {/* Nodes */}
+        {nodes.map((n, i) => (
+          <g key={n.label}>
+            <motion.circle
+              cx={n.x} cy={n.y}
+              fill="none"
+              stroke="#049fd9"
+              strokeWidth="0.6"
+              animate={{ r: [2, 6, 2], opacity: [0.7, 0, 0.7] }}
+              transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.3 }}
+            />
+            <circle cx={n.x} cy={n.y} r="2.2" fill="#7dd3fc" />
+            <text
+              x={n.x + 6} y={n.y + 3}
+              fontSize="6"
+              fontFamily="'JetBrains Mono', monospace"
+              letterSpacing="0.18em"
+              fill="rgba(226,232,240,0.7)"
+            >
+              {n.label}
+            </text>
+          </g>
+        ))}
+      </svg>
+
+      {/* Orbital stat chips */}
+      {[
+        { label: 'Founded · 2018', pos: 'left-[6%] top-[6%]'  },
+        { label: '120+ engineers',  pos: 'right-[6%] top-[14%]' },
+        { label: '14 regions',      pos: 'left-[8%] bottom-[8%]' },
+        { label: 'CCIE · 80+ yrs',  pos: 'right-[8%] bottom-[6%]' },
+      ].map((s, i) => (
+        <motion.div
+          key={s.label}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 1.4 + i * 0.12, ease: EASE_SOFT }}
+          className={`absolute ${s.pos} rounded-full border border-white/[0.08] bg-ink-900/70 px-3 py-1.5 backdrop-blur-md`}
+        >
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate-300">{s.label}</span>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+/* ============================================================
+   CONTACT hero — Signal routing
+   A message traveling through three router nodes toward an
+   "Engineers online" endpoint, with a path drawing in.
+   ============================================================ */
+const ContactHeroVisual = () => {
+  const reduce = useReducedMotion();
+  return (
+    <div className="relative mx-auto w-full max-w-3xl">
+      <div className="relative flex items-center justify-between gap-2 px-2">
+        {/* Source */}
+        <RoutingChip Icon={Send} primary>You</RoutingChip>
+        {/* Hops */}
+        <RoutingChip Icon={Zap}>Edge</RoutingChip>
+        <RoutingChip Icon={Activity}>Routing</RoutingChip>
+        <RoutingChip Icon={MapPin}>Bangalore</RoutingChip>
+        {/* Endpoint */}
+        <RoutingChip Icon={Headphones} accent>
+          <span className="flex items-center gap-1.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            </span>
+            Engineers
+          </span>
+        </RoutingChip>
+      </div>
+
+      {/* Connecting line + traveling photon */}
+      <div className="pointer-events-none absolute inset-x-6 top-1/2 -z-0 h-px -translate-y-1/2">
+        <div className="relative h-px w-full">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.6, delay: 0.6, ease: 'easeOut' }}
+            style={{ transformOrigin: 'left' }}
+            className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+          />
+          {!reduce && (
+            <motion.span
+              className="absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_12px_2px_rgba(4,159,217,0.7)]"
+              animate={{ left: ['0%', '100%'] }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: 'linear', delay: 2.2 }}
+            />
+          )}
+        </div>
+      </div>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.4, duration: 0.8 }}
+        className="mt-7 text-center font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500"
+      >
+        Median response · 4h 12m · 24-hour SLA
+      </motion.p>
+    </div>
+  );
+};
+
+const RoutingChip = ({
+  Icon, children, primary, accent,
+}: {
+  Icon: React.ComponentType<{ className?: string }>;
+  children: React.ReactNode;
+  primary?: boolean;
+  accent?: boolean;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 12 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.4 + Math.random() * 0.3, ease: EASE_SOFT }}
+    className={`relative z-10 flex items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-medium backdrop-blur-xl ${
+      primary
+        ? 'border-white/15 bg-white text-ink-950 shadow-[0_8px_30px_-8px_rgba(255,255,255,0.4)]'
+        : accent
+        ? 'border-accent/30 bg-accent/10 text-accent-200'
+        : 'border-white/[0.08] bg-ink-900/80 text-slate-300'
+    }`}
+  >
+    <Icon className="h-3.5 w-3.5" />
+    {children}
+  </motion.div>
+);
+
+/* ============================================================ */
 
 const FeatureRow = ({
   index, eyebrow, title, body, items, reverse, visual,
@@ -132,6 +595,7 @@ export const Products = () => {
         title="Software that gives operators"
         accent="time back."
         sub="Three production-grade products built on top of Cisco — for the teams running enterprise voice every day."
+        visual={<ProductsHeroVisual />}
       />
 
       <div className="mx-auto max-w-7xl space-y-32 px-6 py-24">
@@ -291,6 +755,7 @@ export const ProfessionalServices = () => {
         title="CCIE engineering,"
         accent="on demand."
         sub="From greenfield Webex deployments to zero-downtime cloud migrations — delivered by senior architects, not generalists."
+        visual={<ServicesHeroVisual />}
       />
 
       <div className="mx-auto max-w-7xl space-y-32 px-6 py-24">
@@ -392,6 +857,7 @@ export const About = () => {
         title="Engineering the"
         accent="intelligence age."
         sub="Celoxus was founded on a single premise: enterprise voice deserves surgical precision — not off-the-shelf compromises."
+        visual={<AboutHeroVisual />}
       />
 
       <div className="mx-auto max-w-7xl px-6 py-24">
@@ -555,6 +1021,7 @@ export const Contact = () => {
         title="Architect your"
         accent="digital evolution."
         sub="Reach our senior engineers and deployment specialists. We typically respond within 24 hours."
+        visual={<ContactHeroVisual />}
       />
 
       <div className="relative mx-auto max-w-7xl px-6 pb-32">

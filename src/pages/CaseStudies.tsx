@@ -1,9 +1,116 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Server, Activity, ArrowRight, Lock, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_SOFT: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+/* CaseStudies signature: Animated metric reveal */
+const MetricsReveal = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const metrics = [
+    { v: 2500, suffix: '+',  label: 'Seats migrated',     duration: 1800, format: 'comma' as const },
+    { v: 40,   suffix: '%',  label: 'AHT reduction',      duration: 1400, prefix: '−' },
+    { v: 99.999, suffix: '%', label: 'Architecture uptime', duration: 2000, decimals: 3 },
+  ];
+  return (
+    <div ref={ref} className="relative mx-auto w-full max-w-4xl">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {metrics.map((m, i) => (
+          <motion.div
+            key={m.label}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.1 + i * 0.12, ease: EASE_SOFT }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-900/60 p-6 text-left backdrop-blur-xl"
+          >
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+            <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-accent/10 blur-2xl" />
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent-300">
+              / {String(i + 1).padStart(2, '0')}
+            </div>
+            <div className="mt-4">
+              <Counter
+                value={m.v}
+                duration={m.duration}
+                decimals={m.decimals}
+                format={m.format}
+                prefix={m.prefix}
+                suffix={m.suffix}
+                inView={inView}
+              />
+            </div>
+            <div className="mt-3 font-display text-sm font-medium text-slate-300">{m.label}</div>
+            {/* Sparkline */}
+            <svg viewBox="0 0 200 30" className="mt-4 h-6 w-full">
+              <motion.path
+                d={
+                  i === 0
+                    ? 'M0,24 L40,18 L80,20 L120,12 L160,8 L200,4'
+                    : i === 1
+                    ? 'M0,8 L40,12 L80,14 L120,18 L160,22 L200,26'
+                    : 'M0,14 L40,12 L80,15 L120,12 L160,13 L200,11'
+                }
+                fill="none"
+                stroke="#7dd3fc"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0.4 }}
+                animate={inView ? { pathLength: 1, opacity: 0.8 } : {}}
+                transition={{ duration: 1.8, delay: 0.4 + i * 0.12, ease: 'easeOut' }}
+              />
+            </svg>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Counter = ({
+  value, duration, decimals = 0, format, prefix, suffix, inView,
+}: {
+  value: number;
+  duration: number;
+  decimals?: number;
+  format?: 'comma';
+  prefix?: string;
+  suffix?: string;
+  inView: boolean;
+}) => {
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setShown(value * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value, duration]);
+
+  const display =
+    format === 'comma'
+      ? Math.floor(shown).toLocaleString('en-US')
+      : decimals
+      ? shown.toFixed(decimals)
+      : Math.floor(shown).toString();
+
+  return (
+    <div className="font-display text-4xl font-bold leading-none tracking-[-0.035em] text-white sm:text-5xl">
+      {prefix}
+      <span className="tabular-nums">{display}</span>
+      <span className="text-accent">{suffix}</span>
+    </div>
+  );
+};
 
 export const CaseStudies = () => {
   return (
@@ -46,6 +153,11 @@ export const CaseStudies = () => {
             We don't publish client metadata. What follows is a sanitized architectural
             brief — representative of the work we ship under NDA.
           </motion.p>
+
+          {/* Signature metric reveal */}
+          <div className="mt-16">
+            <MetricsReveal />
+          </div>
         </div>
       </section>
 
