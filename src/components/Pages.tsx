@@ -410,10 +410,10 @@ const AboutHeroVisual = () => {
 
       {/* Orbital stat chips */}
       {[
-        { label: 'Founded · 2018', pos: 'left-[6%] top-[6%]'  },
-        { label: '120+ engineers',  pos: 'right-[6%] top-[14%]' },
-        { label: '14 regions',      pos: 'left-[8%] bottom-[8%]' },
-        { label: 'CCIE · 80+ yrs',  pos: 'right-[8%] bottom-[6%]' },
+        { label: 'CCIE-led',          pos: 'left-[6%] top-[6%]'  },
+        { label: 'Cisco Premier',     pos: 'right-[6%] top-[14%]' },
+        { label: 'NDA-first',         pos: 'left-[8%] bottom-[8%]' },
+        { label: 'Bangalore · India', pos: 'right-[8%] bottom-[6%]' },
       ].map((s, i) => (
         <motion.div
           key={s.label}
@@ -814,9 +814,9 @@ const ServiceStat = ({ title, sub, Icon }: { title: string; sub: string; Icon: R
     </div>
     <div className="mt-8 grid grid-cols-3 gap-3">
       {[
-        { l: 'Regions',   v: '14' },
-        { l: 'Engineers', v: '120+' },
-        { l: 'Uptime',    v: '99.997%' },
+        { l: 'Discipline', v: 'CCIE' },
+        { l: 'Tier',       v: 'Premier' },
+        { l: 'Uptime SLA', v: '99.997%' },
       ].map((s) => (
         <div key={s.l} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
           <div className="font-display text-lg font-medium text-white">{s.v}</div>
@@ -835,7 +835,7 @@ export const About = () => {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     'name': 'About Celoxus',
-    'description': 'Founded in 2018, Celoxus is a full-stack engineering firm delivering zero-trust infrastructure to the Fortune 500.',
+    'description': 'Celoxus is a full-stack engineering firm delivering zero-trust Cisco infrastructure to enterprise teams.',
     'mainEntity': {
       '@type': 'Organization',
       'name': 'Celoxus',
@@ -856,7 +856,7 @@ export const About = () => {
         eyebrow="About"
         title="Engineering the"
         accent="intelligence age."
-        sub="Celoxus was founded on a single premise: enterprise voice deserves surgical precision — not off-the-shelf compromises."
+        sub="Celoxus was built on a single premise: enterprise voice deserves surgical precision — not off-the-shelf compromises."
         visual={<AboutHeroVisual />}
       />
 
@@ -910,10 +910,10 @@ export const About = () => {
                   </div>
                   <div className="mt-8 grid grid-cols-2 gap-4">
                     {[
-                      { l: 'Founded',     v: '2018' },
-                      { l: 'Engineers',   v: '120+' },
-                      { l: 'CCIE years',  v: '80+' },
-                      { l: 'Industries',  v: '14' },
+                      { l: 'Discipline',   v: 'CCIE' },
+                      { l: 'Tier',         v: 'Premier' },
+                      { l: 'Verticals',    v: 'Regulated' },
+                      { l: 'HQ',           v: 'Bangalore' },
                     ].map((s) => (
                       <div key={s.l} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
                         <div className="font-display text-3xl font-medium text-white">{s.v}</div>

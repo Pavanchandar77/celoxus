@@ -48,7 +48,7 @@ export const OutcomesSection = () => {
               Chapter / 06 — Outcomes
             </p>
             <h2 className="font-display font-light text-slate-900 text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] leading-[1.0] tracking-tight">
-              The numbers from <span className="text-[#049fd9]">eight years</span> of zero-downtime deployments.
+              The numbers behind <span className="text-[#049fd9]">zero-downtime</span> Cisco deployments.
             </h2>
           </div>
           <div className="lg:col-span-4 lg:col-start-9 self-end">

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Layout } from './components/Layout';
-import { Hero, TrustBanner, BentoGrid, SplitMission, CTASection, CoreSection } from './pages/Home';
+import { Hero, TrustBanner, BentoGrid, SplitMission, CTASection, CoreSection, Manifesto } from './pages/Home';
 import { Products, ProfessionalServices, About, Contact } from './components/Pages';
 import { CaseStudies } from './pages/CaseStudies';
 import { NotFound } from './pages/NotFound';
@@ -20,6 +20,7 @@ const Home = () => {
       <CoreSection />
       <RuptureSection />
       <BentoGrid />
+      <Manifesto />
       <IntelligenceSection />
       <ProcessSection />
       <SplitMission />

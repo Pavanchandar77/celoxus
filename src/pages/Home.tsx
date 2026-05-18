@@ -484,7 +484,7 @@ const FloatingPanels = () => {
             <div className="flex items-center gap-2">
               <Globe className="h-4 w-4 text-accent-300" />
               <span className="text-xs font-medium text-white">Global routing</span>
-              <span className="ml-auto rounded-full bg-emerald-400/10 px-1.5 py-0.5 text-[9px] font-medium text-emerald-300">14 regions</span>
+              <span className="ml-auto rounded-full bg-emerald-400/10 px-1.5 py-0.5 text-[9px] font-medium text-emerald-300">Live</span>
             </div>
             <svg viewBox="0 0 200 90" className="mt-3 h-20 w-full">
               {/* Dotted globe latitudes */}
@@ -757,25 +757,116 @@ const DashboardMock = () => {
 export const TrustBanner = () => {
   const logos = ['Cisco', 'Webex', 'AWS', 'Azure', 'ServiceNow', 'Splunk', 'Salesforce'];
   return (
-    <section className="relative border-y border-hairline bg-ink-950 py-20">
-      <div className="mx-auto max-w-7xl px-6 text-center">
-        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">
-          Trusted by industry leaders & integrated with
-        </p>
-        <div className="mt-10 grid grid-cols-2 items-center gap-x-10 gap-y-6 sm:grid-cols-4 lg:grid-cols-7">
+    <section className="relative overflow-hidden bg-[#f5f3ee] py-24">
+      {/* Hairline edges */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-300/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-slate-300/70" />
+      {/* Subtle blueprint grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(15,23,42,0.04) 1px, transparent 1px),' +
+            'linear-gradient(to bottom, rgba(15,23,42,0.04) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          maskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+        }}
+      />
+      <div className="pointer-events-none absolute -top-32 left-1/2 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.10),transparent_70%)] blur-3xl" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
+        <div className="mx-auto mb-3 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_2px_10px_rgba(15,23,42,0.04)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-700">
+            Built on · Integrated with
+          </span>
+        </div>
+        <h3 className="mx-auto max-w-2xl font-display text-2xl font-medium leading-[1.2] tracking-[-0.025em] text-slate-900 sm:text-3xl">
+          The stack our customers already run.
+        </h3>
+        <div className="mt-12 grid grid-cols-2 items-center gap-x-10 gap-y-8 sm:grid-cols-4 lg:grid-cols-7">
           {logos.map((logo, i) => (
             <motion.div
               key={logo}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}
-              className="font-display text-xl font-medium tracking-tight text-slate-500 transition-colors hover:text-white"
+              transition={{ duration: 0.85, delay: i * 0.05, ease: EASE_SOFT }}
+              className="font-display text-xl font-semibold tracking-tight text-slate-400 transition-colors duration-500 hover:text-slate-900"
             >
               {logo}
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+};
+
+/* ============================================================
+   MANIFESTO — light paper section, breaks the dark mid-page
+   ============================================================ */
+export const Manifesto = () => {
+  return (
+    <section className="relative overflow-hidden bg-[#f5f3ee] py-32 lg:py-40">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-300/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-slate-300/70" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(15,23,42,0.04) 1px, transparent 1px),' +
+            'linear-gradient(to bottom, rgba(15,23,42,0.04) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          maskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+        }}
+      />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.10),transparent_70%)] blur-3xl" />
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 1, ease: EASE_SOFT }}
+          className="mx-auto mb-12 inline-flex w-fit items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_2px_10px_rgba(15,23,42,0.04)]"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-700">
+            Manifesto · Why we exist
+          </span>
+        </motion.div>
+
+        <motion.blockquote
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 1.1, delay: 0.1, ease: EASE_SOFT }}
+          className="font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-slate-900 sm:text-4xl lg:text-[3rem]"
+        >
+          A bad minute in a contact center is paid for in dollars, in trust,
+          and in the next quarter's revenue.
+          <span className="block text-slate-500">
+            We make sure those minutes don't happen.
+          </span>
+        </motion.blockquote>
+
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.9, delay: 0.25, ease: EASE_SOFT }}
+          className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-slate-300/70 pt-8 text-slate-700"
+        >
+          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">
+            — Engineering principle
+          </span>
+          <span className="text-[15px] font-medium">Ship voice software that runs quietly.</span>
+        </motion.div>
       </div>
     </section>
   );
@@ -943,8 +1034,8 @@ export const SplitMission = () => {
             </h2>
             <p className="mt-6 max-w-lg text-[17px] font-light leading-[1.6] text-slate-400">
               We're the team you bring in when the cutover can't fail and the room
-              can't know about it. Eight years of complex swaps and greenfield
-              builds — none of which are ours to talk about.
+              can't know about it. Complex swaps, greenfield builds, regulated
+              verticals — none of which are ours to talk about.
             </p>
 
             <ul className="mt-10 space-y-1">
@@ -1040,9 +1131,9 @@ export const SplitMission = () => {
 
               <div className="mt-6 grid grid-cols-3 gap-3">
                 {[
-                  { l: 'Regions', v: '14' },
-                  { l: 'Clusters', v: '38' },
-                  { l: 'Engineers', v: '120+' },
+                  { l: 'Tier',       v: 'CCIE' },
+                  { l: 'Vertical',   v: 'Regulated' },
+                  { l: 'Engagement', v: 'NDA' },
                 ].map((s) => (
                   <div key={s.l} className="rounded-xl border border-white/5 bg-white/[0.02] p-3 text-center">
                     <div className="font-display text-2xl font-medium text-white">{s.v}</div>
