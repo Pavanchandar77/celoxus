@@ -97,7 +97,7 @@ export const IntelligenceSection = () => {
 
           {/* RIGHT: live decision telemetry */}
           <div className="col-span-12 lg:col-span-5">
-            <div className="relative rounded-2xl border border-white/[0.07] bg-ink-900/60 p-5 backdrop-blur-xl">
+            <div className="relative rounded-3xl border border-white/[0.07] bg-ink-900/60 p-5 backdrop-blur-xl">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
               <div className="mb-4 flex items-center justify-between">
