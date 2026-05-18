@@ -101,21 +101,8 @@
     background-size: 64px 64px;
   }
   .radial-fade {
-    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, #000 30%, rgba(0,0,0,0.6) 60%, transparent 100%);
-            mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, #000 30%, rgba(0,0,0,0.6) 60%, transparent 100%);
-  }
-  /* Smooth dark→light section transition: a feathered band */
-  .feather-dark-top {
-    background: linear-gradient(to bottom, transparent 0%, #08080b 80%);
-  }
-  .feather-dark-bottom {
-    background: linear-gradient(to top, transparent 0%, #08080b 80%);
-  }
-  .feather-paper-top {
-    background: linear-gradient(to bottom, transparent 0%, #f5f3ee 80%);
-  }
-  .feather-paper-bottom {
-    background: linear-gradient(to top, transparent 0%, #f5f3ee 80%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, #000 50%, transparent 100%);
+            mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, #000 50%, transparent 100%);
   }
 }
 
