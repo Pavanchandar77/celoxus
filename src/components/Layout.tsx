@@ -94,10 +94,11 @@ export const Navbar = () => {
           <div className="flex items-center gap-2">
             <Link
               to="/contact"
-              className="hidden items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink-950 transition-all hover:bg-white/90 hover:shadow-[0_8px_30px_-8px_rgba(255,255,255,0.5)] md:inline-flex"
+              className="group relative hidden items-center gap-1.5 overflow-hidden rounded-full bg-white px-4 py-2 text-sm font-medium text-ink-950 shadow-[0_4px_20px_-4px_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.08)] transition-all hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.6),inset_0_-1px_0_rgba(0,0,0,0.08)] md:inline-flex"
             >
-              Book a demo
-              <ArrowRight className="h-3.5 w-3.5" />
+              <span className="relative">Book a demo</span>
+              <ArrowRight className="relative h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </Link>
             <button
               className="rounded-full border border-white/10 bg-white/5 p-2 text-white md:hidden"

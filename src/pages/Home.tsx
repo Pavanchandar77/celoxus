@@ -34,10 +34,13 @@ export const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen w-full overflow-hidden bg-ink-950 pt-32 pb-24"
+      className="relative min-h-screen w-full overflow-hidden bg-ink-950 pt-32 pb-28"
     >
       {/* Animated grid */}
       <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-70" />
+
+      {/* Particle field */}
+      <ParticleField count={28} />
 
       {/* Aurora gradient */}
       <motion.div
@@ -60,17 +63,15 @@ export const Hero = () => {
           variants={fadeUp}
           initial="hidden"
           animate="shown"
-          className="mx-auto mb-8 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-md"
+          className="group mx-auto mb-9 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-md transition-colors hover:border-white/20 hover:bg-white/[0.05]"
         >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          <span className="rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-accent-300">
+            New
           </span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-300">
-            Now in production · v4.2
+          <span className="text-[12px] font-medium text-slate-200">
+            AI-assisted operations · v4.2
           </span>
-          <span className="text-slate-600">·</span>
-          <span className="text-[11px] text-slate-400">CCIE-certified architects</span>
+          <ArrowRight className="h-3.5 w-3.5 text-slate-400 transition-transform group-hover:translate-x-0.5" />
         </motion.div>
 
         {/* Headline */}
@@ -80,10 +81,10 @@ export const Hero = () => {
           variants={fadeUp}
           initial="hidden"
           animate="shown"
-          className="font-display mx-auto max-w-5xl text-balance text-center text-[2.75rem] font-medium leading-[1.02] tracking-[-0.035em] text-white sm:text-6xl lg:text-[5.25rem]"
+          className="font-display mx-auto max-w-5xl text-balance text-center text-[3rem] font-bold leading-[0.98] tracking-[-0.04em] text-white sm:text-7xl lg:text-[6.25rem]"
         >
-          The infrastructure layer for
-          <span className="block text-gradient-accent">modern enterprise voice.</span>
+          Enterprise voice,
+          <span className="block text-gradient-accent">re-engineered.</span>
         </motion.h1>
 
         {/* Subhead */}
@@ -94,8 +95,9 @@ export const Hero = () => {
           animate="shown"
           className="mx-auto mt-7 max-w-2xl text-balance text-center text-lg font-light leading-relaxed text-slate-400 sm:text-xl"
         >
-          Celoxus unifies Cisco calling, contact center, and observability into one
-          always-on operational fabric — engineered for global scale.
+          Celoxus is the intelligence layer for Cisco voice infrastructure —
+          one operational fabric for calling, contact center, and observability
+          at planetary scale.
         </motion.p>
 
         {/* CTAs */}
@@ -149,9 +151,51 @@ export const Hero = () => {
         </motion.div>
       </motion.div>
 
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6, duration: 1 }}
+        className="pointer-events-none absolute inset-x-0 bottom-10 z-10 flex flex-col items-center gap-2"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-slate-500">
+          Scroll
+        </span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="h-8 w-px bg-gradient-to-b from-white/30 to-transparent"
+        />
+      </motion.div>
+
       {/* Bottom fade */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-ink-950" />
     </section>
+  );
+};
+
+/* Ambient particle field */
+const ParticleField = ({ count = 24 }: { count?: number }) => {
+  const reduce = useReducedMotion();
+  const particles = Array.from({ length: count }).map((_, i) => ({
+    id: i,
+    x: (i * 137.5) % 100,
+    y: (i * 73.3) % 100,
+    s: 1 + ((i * 17) % 3),
+    d: 6 + ((i * 11) % 10),
+  }));
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-[1]">
+      {particles.map((p) => (
+        <motion.span
+          key={p.id}
+          className="absolute rounded-full bg-white"
+          style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.s, height: p.s, opacity: 0.18 }}
+          animate={reduce ? undefined : { y: [0, -24, 0], opacity: [0.1, 0.35, 0.1] }}
+          transition={{ duration: p.d, repeat: Infinity, ease: 'easeInOut', delay: p.id * 0.13 }}
+        />
+      ))}
+    </div>
   );
 };
 
@@ -163,7 +207,9 @@ const DashboardMock = () => {
       <div className="absolute inset-x-12 -inset-y-8 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/30 via-violet-500/20 to-transparent opacity-60 blur-3xl" />
 
       {/* Frame */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8)]">
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]">
+        {/* Top gradient hairline */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
         {/* Window header */}
         <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-5 py-3">
           <div className="flex items-center gap-2">
@@ -441,7 +487,7 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-colors hover:border-white/[0.14]"
+        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-white/[0.14] hover:shadow-[0_30px_80px_-30px_rgba(99,102,241,0.4)]"
       >
         {/* Cursor spotlight */}
         <div
