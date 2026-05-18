@@ -44,11 +44,11 @@ export const OutcomesSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 relative z-10">
           <div className="lg:col-span-7">
-            <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-6">
+            <p className="font-mono text-[11px] text-[#6366f1] uppercase tracking-[0.28em] mb-6">
               Chapter / 06 — Outcomes
             </p>
             <h2 className="font-display font-light text-slate-900 text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] leading-[1.0] tracking-tight">
-              The numbers from <span className="text-[#049fd9]">eight years</span> of zero-downtime deployments.
+              The numbers from <span className="text-[#6366f1]">eight years</span> of zero-downtime deployments.
             </h2>
           </div>
           <div className="lg:col-span-4 lg:col-start-9 self-end">
@@ -81,7 +81,7 @@ export const OutcomesSection = () => {
                 className="bg-[#f4f4f4] py-12 px-6 flex flex-col items-center justify-center text-center group hover:bg-white transition-colors duration-500"
                 data-cursor="hover"
               >
-                <ind.icon className="w-7 h-7 text-slate-400 mb-4 group-hover:text-[#049fd9] transition-colors duration-500" strokeWidth={1.25} />
+                <ind.icon className="w-7 h-7 text-slate-400 mb-4 group-hover:text-[#6366f1] transition-colors duration-500" strokeWidth={1.25} />
                 <div className="font-mono text-[10px] text-slate-500 uppercase tracking-[0.22em] group-hover:text-slate-900 transition-colors duration-500">
                   {ind.label}
                 </div>
@@ -134,12 +134,12 @@ function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
       </p>
       <div className="font-display font-light text-slate-900 text-[3rem] lg:text-[4rem] leading-none tracking-tight tabular-nums">
         {display}
-        <span className="text-[#049fd9]">{stat.suffix}</span>
+        <span className="text-[#6366f1]">{stat.suffix}</span>
       </div>
       <div className="mt-6 text-slate-600 font-light text-[0.95rem] leading-relaxed">
         {stat.label}
       </div>
-      <div className="mt-6 h-px w-12 bg-slate-300 group-hover:w-24 group-hover:bg-[#049fd9] transition-all duration-700"></div>
+      <div className="mt-6 h-px w-12 bg-slate-300 group-hover:w-24 group-hover:bg-[#6366f1] transition-all duration-700"></div>
     </motion.div>
   );
 }

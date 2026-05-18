@@ -39,7 +39,7 @@ export const RuptureSection = () => {
           className="absolute inset-0 flex flex-col items-center justify-center px-6"
           style={{ opacity: typeOpacity, scale: typeScale, willChange: 'transform, opacity' }}
         >
-          <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.32em] mb-8">
+          <p className="font-mono text-[11px] text-[#6366f1] uppercase tracking-[0.32em] mb-8">
             Chapter / 03 — Visibility
           </p>
           <MaskedVisibility />
@@ -77,7 +77,7 @@ function AmbientField({ dashoffset }: { dashoffset: ReturnType<typeof useTransfo
         <motion.circle
           key={`p-${i}`}
           r={0.4}
-          fill="#049fd9"
+          fill="#6366f1"
           initial={{ cx: 0, cy: l.y }}
           animate={{ cx: [0, 100, 100] }}
           transition={{
@@ -148,7 +148,7 @@ function MaskedVisibility() {
             key={`il-${i}`}
             x1={0} y1={l.y}
             x2={1000} y2={l.y}
-            stroke="#049fd9"
+            stroke="#6366f1"
             strokeWidth="0.6"
             initial={{ opacity: 0.2 }}
             animate={{ opacity: [0.2, 0.55, 0.2] }}
@@ -160,7 +160,7 @@ function MaskedVisibility() {
             key={`ic-${i}`}
             r={3.5}
             cy={l.y}
-            fill="#049fd9"
+            fill="#6366f1"
             initial={{ cx: -10 }}
             animate={{ cx: [-10, 1010] }}
             transition={{ duration: 4 + i * 0.35, repeat: Infinity, ease: 'linear', delay: i * 0.2 }}

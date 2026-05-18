@@ -53,7 +53,7 @@ export const CustomCursor = () => {
             opacity: hover ? 0.45 : 0.9,
           }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-full bg-[#049fd9] -translate-x-1/2 -translate-y-1/2"
+          className="rounded-full bg-[#6366f1] -translate-x-1/2 -translate-y-1/2"
           style={{ filter: 'drop-shadow(0 0 8px rgba(4,159,217,0.6)) mix-blend-mode(screen)', mixBlendMode: 'screen' }}
         />
       </motion.div>

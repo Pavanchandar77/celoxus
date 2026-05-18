@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion, Variants } from 'framer-motion';
-import {
-  ArrowRight, ArrowUpRight, Sparkles, Activity, Cloud, Headphones, Shield,
-  Layers, Code, Database, ChevronRight, Cpu, Globe, LineChart, Lock,
+import { ArrowRight, ArrowUpRight, Sparkles, Activity, Cloud, Headphones, Shield,
+  Layers, Code, ChevronRight, Cpu, Globe, LineChart, Lock,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
+import { CoreTopology } from '../components/CoreTopology';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -680,30 +680,93 @@ export const CTASection = () => {
 };
 
 /* ============================================================
-   CoreSection — minimal export to preserve App.tsx import safety
-   (no longer rendered by Home, but kept for back-compat).
+   CORE — sticky scroll-driven topology (the "visibility" beat)
    ============================================================ */
+const CORE_LABELS = [
+  { i: '0.01', t: 'Fragmented systems create operational friction.' },
+  { i: '0.02', t: 'Cisco calling and contact center, unified.' },
+  { i: '0.03', t: 'One system. Uninterrupted continuity.' },
+] as const;
+
 export const CoreSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const op1 = useTransform(scrollYProgress, [0, 0.06, 0.28, 0.36], [1, 1, 1, 0]);
+  const op2 = useTransform(scrollYProgress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0]);
+  const op3 = useTransform(scrollYProgress, [0.62, 0.7, 1.0], [0, 1, 1]);
+
   return (
-    <section className="relative bg-ink-950 py-32">
-      <div className="mx-auto max-w-7xl px-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
-          The Core
-        </p>
-        <h2 className="mt-5 max-w-3xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
-          Convergence is the architecture.
-        </h2>
-        <p className="mt-6 max-w-xl text-lg font-light text-slate-400">
-          Cisco calling, contact center, and observability stacks unified into one always-on operational fabric.
-        </p>
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3">
-          {['Calling', 'Contact Center', 'Cloud', 'Monitoring', 'Notifications', 'Integration'].map((label) => (
-            <div key={label} className="rounded-xl border border-white/5 bg-white/[0.02] px-5 py-4 text-sm text-slate-300">
-              <Database className="mb-3 h-4 w-4 text-accent-300" />
-              {label}
+    <section ref={containerRef} className="relative w-full bg-ink-950 md:h-[300vh] border-t border-hairline">
+      <div className="hidden h-full md:block">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 grid-bg opacity-30 radial-fade" />
+          <div className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full bg-accent/10 blur-[140px]" />
+          <div className="pointer-events-none absolute -right-40 bottom-1/3 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[140px]" />
+
+          <span aria-hidden className="pointer-events-none absolute -left-[2vw] -top-[6vw] block font-display font-light leading-none text-[20vw] text-white/[0.025]">
+            02
+          </span>
+
+          <div className="mx-auto grid h-full max-w-7xl grid-cols-12 gap-4 px-6 lg:px-8">
+            <div className="relative z-10 col-span-5 flex flex-col justify-center">
+              <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+                Chapter / 02 · The Core
+              </p>
+              <h2 className="mb-10 font-display text-[3rem] font-medium leading-[1.0] tracking-[-0.035em] text-white lg:text-[4.5rem]">
+                Convergence is the<br />
+                <span className="text-gradient-accent">architecture.</span>
+              </h2>
+              <p className="mb-12 max-w-md text-lg font-light leading-relaxed text-slate-400">
+                Cisco calling, contact center, and observability stacks unified into one always-on operational fabric.
+              </p>
+              <div className="max-w-md font-mono text-[10px] uppercase leading-[1.9] tracking-[0.18em] text-slate-500">
+                Calling <span className="px-2 text-slate-700">/</span>
+                Contact Center <span className="px-2 text-slate-700">/</span>
+                Cloud <span className="px-2 text-slate-700">/</span>
+                Monitoring <span className="px-2 text-slate-700">/</span>
+                Notifications <span className="px-2 text-slate-700">/</span>
+                Integration
+              </div>
             </div>
-          ))}
+
+            <div className="relative z-10 col-span-7 flex flex-col items-center justify-center">
+              <div className="relative aspect-square w-full max-w-[640px]">
+                <CoreTopology progress={scrollYProgress} />
+              </div>
+              <div className="relative mt-6 h-12 w-full max-w-[480px] text-center">
+                {CORE_LABELS.map((label, i) => (
+                  <motion.div
+                    key={i}
+                    style={{ opacity: i === 0 ? op1 : i === 1 ? op2 : op3 }}
+                    className="absolute inset-x-0 top-0"
+                  >
+                    <span className="mr-3 font-mono text-[10px] tracking-[0.3em] text-accent-300">[{label.i}]</span>
+                    <span className="font-body text-[0.95rem] text-slate-400">{label.t}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Mobile */}
+      <div className="block px-6 py-24 md:hidden">
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">Chapter / 02</p>
+        <h2 className="mb-6 font-display text-[2.5rem] font-medium leading-[1.0] tracking-[-0.03em] text-white">The Core</h2>
+        <p className="mb-12 text-base font-light leading-relaxed text-slate-400">
+          Cisco calling, contact center, and observability unified into one always-on fabric.
+        </p>
+        {CORE_LABELS.map((label, i) => (
+          <div key={i} className="border-t border-white/10 py-10">
+            <span className="mb-2 block font-mono text-[10px] tracking-[0.3em] text-accent-300">[{label.i}]</span>
+            <span className="text-lg text-slate-300">{label.t}</span>
+          </div>
+        ))}
       </div>
     </section>
   );

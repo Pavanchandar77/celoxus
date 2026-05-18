@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Layout } from './components/Layout';
-import { Hero, TrustBanner, BentoGrid, SplitMission, CTASection } from './pages/Home';
+import { Hero, TrustBanner, BentoGrid, SplitMission, CTASection, CoreSection } from './pages/Home';
 import { Products, ProfessionalServices, About, Contact } from './components/Pages';
 import { CaseStudies } from './pages/CaseStudies';
 import { NotFound } from './pages/NotFound';
 import { PrivacyPolicy, TermsOfService } from './pages/Legal';
 import { SmoothScroll } from './components/SmoothScroll';
+import { IntelligenceSection } from './components/IntelligenceSection';
+import { OutcomesSection } from './components/OutcomesSection';
 import { CustomCursor } from './components/CustomCursor';
 
 const Home = () => {
@@ -14,7 +16,10 @@ const Home = () => {
     <>
       <Hero />
       <TrustBanner />
+      <CoreSection />
       <BentoGrid />
+      <IntelligenceSection />
+      <OutcomesSection />
       <SplitMission />
       <CTASection />
     </>

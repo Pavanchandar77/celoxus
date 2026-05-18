@@ -37,12 +37,12 @@ export const IntelligenceSection = () => {
       </span>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-12 gap-4">
-        <p className="col-span-12 lg:col-span-9 lg:col-start-2 font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-6">
+        <p className="col-span-12 lg:col-span-9 lg:col-start-2 font-mono text-[11px] text-[#6366f1] uppercase tracking-[0.28em] mb-6">
           Chapter / 04 — Intelligence
         </p>
 
         <h2 className="col-span-12 lg:col-span-9 lg:col-start-2 font-display font-light text-white text-[3rem] sm:text-[4rem] lg:text-[5.5rem] leading-[0.95] tracking-tight">
-          Systems that <span className="text-[#049fd9]">think ahead.</span>
+          Systems that <span className="text-[#6366f1]">think ahead.</span>
         </h2>
 
         <p className="col-span-12 lg:col-span-7 lg:col-start-4 mt-10 max-w-md font-light text-slate-400 text-lg leading-relaxed">
@@ -79,7 +79,7 @@ function DecisionTree({ active }: { active: number }) {
       </g>
 
       {/* Active accent paths */}
-      <g stroke="#049fd9" strokeWidth="1.5" fill="none">
+      <g stroke="#6366f1" strokeWidth="1.5" fill="none">
         <line x1={top.x} y1={top.y + 14} x2={mid.x} y2={mid.y - 14} />
         <motion.line
           x1={mid.x} y1={mid.y + 14}
@@ -91,7 +91,7 @@ function DecisionTree({ active }: { active: number }) {
       {/* Top pill */}
       <g>
         <rect x={top.x - 70} y={top.y - 14} width={140} height={28} rx={14}
-          fill="#0b1120" stroke="#049fd9" strokeWidth="1" />
+          fill="#0b1120" stroke="#6366f1" strokeWidth="1" />
         <text x={top.x} y={top.y + 4} textAnchor="middle" fontSize="11" fill="#e2e8f0"
           fontFamily="JetBrains Mono, monospace" letterSpacing="0.16em">
           INTERACTION
@@ -113,10 +113,10 @@ function DecisionTree({ active }: { active: number }) {
           <g key={l.label}>
             <rect x={l.x - 70} y={l.y - 14} width={140} height={28} rx={14}
               fill="#0b1120"
-              stroke={isActive ? '#049fd9' : 'rgba(255,255,255,0.10)'}
+              stroke={isActive ? '#6366f1' : 'rgba(255,255,255,0.10)'}
               strokeWidth="1" />
             <text x={l.x} y={l.y + 4} textAnchor="middle" fontSize="11"
-              fill={isActive ? '#049fd9' : 'rgba(226,232,240,0.5)'}
+              fill={isActive ? '#6366f1' : 'rgba(226,232,240,0.5)'}
               fontFamily="JetBrains Mono, monospace" letterSpacing="0.16em">
               {l.label}
             </text>
@@ -127,7 +127,7 @@ function DecisionTree({ active }: { active: number }) {
       {/* Traveling photon down the active path */}
       <motion.circle
         r={3}
-        fill="#049fd9"
+        fill="#6366f1"
         animate={{
           cx: [top.x, mid.x, live.x],
           cy: [top.y + 14, mid.y, live.y - 14],

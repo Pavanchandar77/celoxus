@@ -9,8 +9,8 @@ export const CaseStudies = () => {
   return (
     <div className="bg-[#020617] text-white min-h-[90vh] relative overflow-hidden pt-40 pb-32 flex flex-col justify-center">
        {/* Background effects */}
-       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#049fd9]/8 blur-[110px] rounded-full pointer-events-none z-0"></div>
-       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#049fd9]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
+       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#6366f1]/8 blur-[110px] rounded-full pointer-events-none z-0"></div>
+       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#6366f1]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
        <div className="absolute inset-0 hidden lg:block opacity-25 pointer-events-auto">
          <NetworkTopology />
        </div>
@@ -34,8 +34,8 @@ export const CaseStudies = () => {
                viewport={{ once: true, margin: "-100px" }}
                transition={{ duration: 0.7 }}
              >
-             <InteractiveCard className="bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-16 relative overflow-hidden hover:border-[#049fd9]/40 transition-colors">
-               <div className="absolute inset-0 bg-[#049fd9]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+             <InteractiveCard className="bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-16 relative overflow-hidden hover:border-[#6366f1]/40 transition-colors">
+               <div className="absolute inset-0 bg-[#6366f1]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                
                {/* Header */}
                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 border-b border-white/10 pb-12 relative z-10">
@@ -101,7 +101,7 @@ export const CaseStudies = () => {
          >
            <h3 className="text-2xl font-normal text-white mb-6">Need the full technical spec?</h3>
            <MagneticButton to="/contact">
-             <div className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#049fd9] text-white font-normal shadow-[0_10px_25px_rgba(4,159,217,0.18)] relative overflow-hidden group">
+             <div className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#6366f1] text-white font-normal shadow-[0_10px_25px_rgba(4,159,217,0.18)] relative overflow-hidden group">
                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
                <span className="relative">Contact Engineering for Capabilities Brief</span>
                <ArrowRight className="relative w-5 h-5" />

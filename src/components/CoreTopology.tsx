@@ -83,7 +83,7 @@ export function CoreTopology({ progress, theme = 'dark' }: CoreProps) {
   const mix = useTransform(progress, [0.15, 0.66], [0, 1], { clamp: true });
   const dashoffset = useTransform(progress, [0.33, 0.66], [100, 0], { clamp: true });
   const hubFillProgress = useTransform(progress, [0.62, 0.78], [0, 1], { clamp: true });
-  const hubFill = useTransform(hubFillProgress, [0, 1], [nodeIdle, '#049fd9']);
+  const hubFill = useTransform(hubFillProgress, [0, 1], [nodeIdle, '#6366f1']);
   const pulseOpacity = useTransform(progress, [0.66, 1], [0, 1], { clamp: true });
   // Cluster labels: visible while scattered, fade out as they converge.
   const clusterLabelOpacity = useTransform(progress, [0, 0.2, 0.45], [1, 1, 0]);
@@ -147,7 +147,7 @@ export function CoreTopology({ progress, theme = 'dark' }: CoreProps) {
         fontFamily="JetBrains Mono, monospace"
         fontSize="11"
         letterSpacing="0.32em"
-        fill="#049fd9"
+        fill="#6366f1"
         style={{ opacity: hubLabelOpacity }}
       >
         UNIFIED OPS LAYER
@@ -173,7 +173,7 @@ function NodeCircle({
       {pulseOpacity && (
         <motion.circle
           cx={cx} cy={cy} r={14}
-          fill="#049fd9"
+          fill="#6366f1"
           style={{ opacity: pulseOpacity }}
           animate={{ r: [14, 24, 14], opacity: [0.3, 0, 0.3] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeOut' }}

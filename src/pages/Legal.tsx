@@ -90,7 +90,7 @@ export const TermsOfService = () => {
         <meta name="description" content="Read the Celoxus Terms of Service to understand the rules and guidelines governing the use of our website and professional integration services." />
       </Helmet>
       
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#049fd9]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#6366f1]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
       
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
