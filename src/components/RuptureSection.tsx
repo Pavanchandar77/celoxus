@@ -18,7 +18,7 @@ export const RuptureSection = () => {
   const bg = useTransform(
     scrollYProgress,
     [0, 0.4, 0.7, 1],
-    ['#020617', '#000814', '#000814', '#020617'],
+    ['#08080b', '#05050a', '#05050a', '#08080b'],
   );
 
   const ambientDraw = useTransform(scrollYProgress, [0, 0.4], [1, 0], { clamp: true });
@@ -64,7 +64,7 @@ function AmbientField({ dashoffset }: { dashoffset: ReturnType<typeof useTransfo
           key={i}
           x1={0} y1={l.y}
           x2={100} y2={l.y}
-          stroke="rgba(4,159,217,0.18)"
+          stroke="rgba(129,140,248,0.22)"
           strokeWidth="0.06"
           pathLength={1}
           strokeDasharray="1"
@@ -115,7 +115,7 @@ function MaskedVisibility() {
             x="500"
             y="200"
             textAnchor="middle"
-            fontFamily="Syne, sans-serif"
+            fontFamily="'Space Grotesk', sans-serif"
             fontWeight="300"
             fontSize="280"
             fill="white"
@@ -130,7 +130,7 @@ function MaskedVisibility() {
         x="500"
         y="200"
         textAnchor="middle"
-        fontFamily="Syne, sans-serif"
+        fontFamily="'Space Grotesk', sans-serif"
         fontWeight="300"
         fontSize="280"
         fill="none"
@@ -142,13 +142,13 @@ function MaskedVisibility() {
 
       {/* Inner signal field, only visible inside glyphs */}
       <g mask="url(#text-mask)">
-        <rect x="0" y="0" width="1000" height="280" fill="#001a26" />
+        <rect x="0" y="0" width="1000" height="280" fill="#0c0c1a" />
         {innerLines.map((l, i) => (
           <motion.line
             key={`il-${i}`}
             x1={0} y1={l.y}
             x2={1000} y2={l.y}
-            stroke="#6366f1"
+            stroke="#a5b4fc"
             strokeWidth="0.6"
             initial={{ opacity: 0.2 }}
             animate={{ opacity: [0.2, 0.55, 0.2] }}

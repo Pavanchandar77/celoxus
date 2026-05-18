@@ -9,6 +9,7 @@ import { PrivacyPolicy, TermsOfService } from './pages/Legal';
 import { SmoothScroll } from './components/SmoothScroll';
 import { IntelligenceSection } from './components/IntelligenceSection';
 import { OutcomesSection } from './components/OutcomesSection';
+import { RuptureSection } from './components/RuptureSection';
 import { CustomCursor } from './components/CustomCursor';
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
       <Hero />
       <TrustBanner />
       <CoreSection />
+      <RuptureSection />
       <BentoGrid />
       <IntelligenceSection />
       <OutcomesSection />
