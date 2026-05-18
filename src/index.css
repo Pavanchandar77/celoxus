@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    --accent: #6366f1;
+    --accent: #049fd9;
     --accent-2: #8b5cf6;
     --bg: #08080b;
     --surface: #0c0c10;
@@ -42,8 +42,8 @@
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.25); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
+  ::-webkit-scrollbar-thumb { background: rgba(4,159,217,0.25); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(4,159,217,0.5); }
 
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
@@ -57,7 +57,7 @@
     color: transparent;
   }
   .text-gradient-accent {
-    background: linear-gradient(120deg, #a5b4fc 0%, #8b5cf6 50%, #6366f1 100%);
+    background: linear-gradient(120deg, #7dd3fc 0%, #38bdf8 45%, #049fd9 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -75,7 +75,7 @@
     inset: 0;
     padding: 1px;
     border-radius: inherit;
-    background: linear-gradient(140deg, rgba(165,180,252,0.5), rgba(139,92,246,0.0) 40%, rgba(56,189,248,0.45) 100%);
+    background: linear-gradient(140deg, rgba(125,211,252,0.55), rgba(56,189,248,0.0) 45%, rgba(4,159,217,0.55) 100%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
             mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;

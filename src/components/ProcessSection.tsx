@@ -40,7 +40,7 @@ export const ProcessSection = () => {
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
           <div className="lg:col-span-7">
-            <p className="font-mono text-[11px] text-[#6366f1] uppercase tracking-[0.28em] mb-6">
+            <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-6">
               Chapter / 07 — Process
             </p>
             <h2 className="font-display font-light text-slate-900 text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] leading-[1.0] tracking-tight">
@@ -58,7 +58,7 @@ export const ProcessSection = () => {
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] text-slate-500 uppercase tracking-[0.18em]">
                 <span>celoxus.observe</span>
                 <span className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#049fd9]"></span>
                   Live topology
                 </span>
               </div>
@@ -79,7 +79,7 @@ export const ProcessSection = () => {
               data-cursor="hover"
             >
               <div className="flex items-baseline justify-between mb-8">
-                <span className="font-display font-light text-[#6366f1] text-[3rem] leading-none">
+                <span className="font-display font-light text-[#049fd9] text-[3rem] leading-none">
                   {p.n}
                 </span>
                 <span className="font-mono text-[10px] text-slate-400 uppercase tracking-[0.22em]">
@@ -95,14 +95,14 @@ export const ProcessSection = () => {
               <ul className="border-t border-slate-200 pt-6 space-y-2">
                 {p.items.map((it) => (
                   <li key={it} className="font-mono text-[10px] text-slate-500 uppercase tracking-[0.22em] flex items-center gap-3">
-                    <span className="w-1 h-1 bg-[#6366f1] rounded-full"></span>
+                    <span className="w-1 h-1 bg-[#049fd9] rounded-full"></span>
                     {it}
                   </li>
                 ))}
               </ul>
 
               {/* Hairline that grows on hover */}
-              <div className="absolute left-10 right-10 bottom-10 lg:bottom-12 h-px bg-slate-200 group-hover:bg-[#6366f1] transition-colors duration-700"></div>
+              <div className="absolute left-10 right-10 bottom-10 lg:bottom-12 h-px bg-slate-200 group-hover:bg-[#049fd9] transition-colors duration-700"></div>
             </motion.div>
           ))}
         </div>

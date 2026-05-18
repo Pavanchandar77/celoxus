@@ -185,8 +185,8 @@ export function NetworkTopology({ interactive = true, showLabels = false, theme 
     >
       <defs>
         <radialGradient id="ntCursorGlow" cx="50%" cy="50%">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+          <stop offset="0%" stopColor="#049fd9" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#049fd9" stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -317,7 +317,7 @@ function SignalPulse({ ax, ay, bx, by, period, offset }: {
   return (
     <motion.circle
       r={2}
-      fill="#6366f1"
+      fill="#049fd9"
       initial={{ cx: ax, cy: ay, opacity: 0 }}
       animate={{
         cx: [ax, bx, bx],
@@ -335,7 +335,7 @@ function SignalPulse({ ax, ay, bx, by, period, offset }: {
   );
 }
 
-function DriftNode({ cx, cy, r, periodScale, fill = '#6366f1' }: { cx: number; cy: number; r: number; periodScale: number; fill?: string }) {
+function DriftNode({ cx, cy, r, periodScale, fill = '#049fd9' }: { cx: number; cy: number; r: number; periodScale: number; fill?: string }) {
   const driftCtl = useAnimationControls();
   const pulseCtl = useAnimationControls();
   const alive = useRef(true);
@@ -371,7 +371,7 @@ function DriftNode({ cx, cy, r, periodScale, fill = '#6366f1' }: { cx: number; c
 
   return (
     <>
-      <motion.circle cx={cx} cy={cy} r={r} fill="#6366f1" initial={{ opacity: 0, r }} animate={pulseCtl} style={{ pointerEvents: 'none' }} />
+      <motion.circle cx={cx} cy={cy} r={r} fill="#049fd9" initial={{ opacity: 0, r }} animate={pulseCtl} style={{ pointerEvents: 'none' }} />
       <motion.g initial={{ x: 0, y: 0 }} animate={driftCtl} style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
         <motion.circle
           animate={{ cx, cy }}

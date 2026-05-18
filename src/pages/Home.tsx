@@ -49,7 +49,7 @@ export const Hero = () => {
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         className="pointer-events-none absolute inset-x-0 -top-1/3 h-[80vh]"
       >
-        <div className="absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.35),transparent_70%)] blur-3xl" />
+        <div className="absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.35),transparent_70%)] blur-3xl" />
         <div className="absolute left-[20%] top-[15%] h-[40vh] w-[40vw] rounded-full bg-[radial-gradient(closest-side,rgba(139,92,246,0.25),transparent_70%)] blur-3xl" />
         <div className="absolute right-[15%] top-[5%] h-[35vh] w-[35vw] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.18),transparent_70%)] blur-3xl" />
       </motion.div>
@@ -204,7 +204,7 @@ const DashboardMock = () => {
   return (
     <div className="relative">
       {/* Glow halo */}
-      <div className="absolute inset-x-12 -inset-y-8 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/30 via-violet-500/20 to-transparent opacity-60 blur-3xl" />
+      <div className="absolute inset-x-12 -inset-y-8 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/30 via-sky-400/20 to-transparent opacity-60 blur-3xl" />
 
       {/* Frame */}
       <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-2xl shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]">
@@ -487,14 +487,14 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-white/[0.14] hover:shadow-[0_30px_80px_-30px_rgba(99,102,241,0.4)]"
+        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-white/[0.14] hover:shadow-[0_30px_80px_-30px_rgba(4,159,217,0.4)]"
       >
         {/* Cursor spotlight */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
-            background: 'radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(99,102,241,0.18), transparent 55%)',
+            background: 'radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(4,159,217,0.18), transparent 55%)',
           }}
         />
         {/* Top accent line */}
@@ -525,7 +525,7 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
 export const SplitMission = () => {
   return (
     <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-32">
-      <div className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[140px]" />
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[140px]" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
@@ -667,7 +667,7 @@ export const CTASection = () => {
       <motion.div
         animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.25),transparent_70%)] blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.25),transparent_70%)] blur-3xl"
       />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
@@ -726,12 +726,29 @@ export const CTASection = () => {
 };
 
 /* ============================================================
-   CORE — sticky scroll-driven topology (the "visibility" beat)
+   CORE — sticky scroll-driven topology with sliding feature highlight
    ============================================================ */
-const CORE_LABELS = [
-  { i: '0.01', t: 'Fragmented systems create operational friction.' },
-  { i: '0.02', t: 'Cisco calling and contact center, unified.' },
-  { i: '0.03', t: 'One system. Uninterrupted continuity.' },
+const CORE_FEATURES = [
+  {
+    i: '01',
+    title: 'Unified call routing',
+    body: 'One control plane for Cisco calling across regions, clusters, and CUCM tenants.',
+  },
+  {
+    i: '02',
+    title: 'Live contact-center fabric',
+    body: 'Webex CC, Finesse, and PCCE telemetry stitched into a single operational view.',
+  },
+  {
+    i: '03',
+    title: 'Real-time observability',
+    body: 'Sub-second signal capture across every leg — from SIP trunk to agent desktop.',
+  },
+  {
+    i: '04',
+    title: 'AI-assisted resilience',
+    body: 'Predictive failover, anomaly detection, and zero-downtime cutovers as defaults.',
+  },
 ] as const;
 
 export const CoreSection = () => {
@@ -741,58 +758,70 @@ export const CoreSection = () => {
     offset: ['start start', 'end end'],
   });
 
-  const op1 = useTransform(scrollYProgress, [0, 0.06, 0.28, 0.36], [1, 1, 1, 0]);
-  const op2 = useTransform(scrollYProgress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0]);
-  const op3 = useTransform(scrollYProgress, [0.62, 0.7, 1.0], [0, 1, 1]);
+  // Active index 0..3 across scroll
+  const activeIndex = useTransform(scrollYProgress, [0, 0.85], [0, CORE_FEATURES.length - 0.001]);
+  // Sliding highlight Y position (in % of feature stack height)
+  const highlightTop = useTransform(activeIndex, (v) => `${Math.floor(v) * (100 / CORE_FEATURES.length)}%`);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-ink-950 md:h-[300vh] border-t border-hairline">
+    <section ref={containerRef} className="relative w-full bg-ink-950 md:h-[320vh] border-t border-hairline">
       <div className="hidden h-full md:block">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
+          {/* Background */}
           <div className="pointer-events-none absolute inset-0 grid-bg opacity-30 radial-fade" />
           <div className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full bg-accent/10 blur-[140px]" />
-          <div className="pointer-events-none absolute -right-40 bottom-1/3 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[140px]" />
+          <div className="pointer-events-none absolute -right-40 bottom-1/3 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[140px]" />
 
           <span aria-hidden className="pointer-events-none absolute -left-[2vw] -top-[6vw] block font-display font-light leading-none text-[20vw] text-white/[0.025]">
             02
           </span>
 
-          <div className="mx-auto grid h-full max-w-7xl grid-cols-12 gap-4 px-6 lg:px-8">
-            <div className="relative z-10 col-span-5 flex flex-col justify-center">
+          <div className="mx-auto grid h-full max-w-7xl grid-cols-12 items-center gap-8 px-6 lg:px-8">
+            {/* LEFT: heading + feature list with sliding highlight */}
+            <div className="relative z-10 col-span-5 flex flex-col">
               <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
                 Chapter / 02 · The Core
               </p>
-              <h2 className="mb-10 font-display text-[3rem] font-medium leading-[1.0] tracking-[-0.035em] text-white lg:text-[4.5rem]">
+              <h2 className="mb-8 font-display text-[2.75rem] font-bold leading-[1.0] tracking-[-0.04em] text-white lg:text-[4.25rem]">
                 Convergence is the<br />
                 <span className="text-gradient-accent">architecture.</span>
               </h2>
-              <p className="mb-12 max-w-md text-lg font-light leading-relaxed text-slate-400">
-                Cisco calling, contact center, and observability stacks unified into one always-on operational fabric.
+              <p className="mb-10 max-w-md text-base font-light leading-relaxed text-slate-400">
+                Four fragmented stacks become one. As you scroll, each layer slots into place.
               </p>
-              <div className="max-w-md font-mono text-[10px] uppercase leading-[1.9] tracking-[0.18em] text-slate-500">
-                Calling <span className="px-2 text-slate-700">/</span>
-                Contact Center <span className="px-2 text-slate-700">/</span>
-                Cloud <span className="px-2 text-slate-700">/</span>
-                Monitoring <span className="px-2 text-slate-700">/</span>
-                Notifications <span className="px-2 text-slate-700">/</span>
-                Integration
+
+              {/* Sliding feature stack */}
+              <div className="relative">
+                {/* Vertical rail */}
+                <div className="absolute left-0 top-0 h-full w-px bg-white/[0.07]" />
+                {/* Sliding accent bar */}
+                <motion.div
+                  style={{ top: highlightTop, height: `${100 / CORE_FEATURES.length}%` }}
+                  transition={{ type: 'spring', stiffness: 180, damping: 24 }}
+                  className="absolute left-0 w-[2px] rounded-full bg-accent shadow-[0_0_18px_2px_rgba(4,159,217,0.55)]"
+                />
+                {/* Sliding background pane */}
+                <motion.div
+                  style={{ top: highlightTop, height: `${100 / CORE_FEATURES.length}%` }}
+                  transition={{ type: 'spring', stiffness: 180, damping: 24 }}
+                  className="absolute left-[1px] right-0 rounded-xl bg-gradient-to-r from-accent/[0.08] to-transparent"
+                />
+
+                {CORE_FEATURES.map((f, i) => (
+                  <CoreFeatureRow key={f.i} feature={f} index={i} activeIndex={activeIndex} />
+                ))}
               </div>
             </div>
 
+            {/* RIGHT: topology */}
             <div className="relative z-10 col-span-7 flex flex-col items-center justify-center">
-              <div className="relative aspect-square w-full max-w-[640px]">
+              <div className="relative aspect-square w-full max-w-[620px]">
                 <CoreTopology progress={scrollYProgress} />
               </div>
-              <div className="relative mt-6 h-12 w-full max-w-[480px] text-center">
-                {CORE_LABELS.map((label, i) => (
-                  <motion.div
-                    key={i}
-                    style={{ opacity: i === 0 ? op1 : i === 1 ? op2 : op3 }}
-                    className="absolute inset-x-0 top-0"
-                  >
-                    <span className="mr-3 font-mono text-[10px] tracking-[0.3em] text-accent-300">[{label.i}]</span>
-                    <span className="font-body text-[0.95rem] text-slate-400">{label.t}</span>
-                  </motion.div>
+              {/* Active-feature caption under topology */}
+              <div className="relative mt-4 h-8 w-full max-w-[520px] overflow-hidden text-center">
+                {CORE_FEATURES.map((f, i) => (
+                  <CoreCaption key={f.i} index={i} activeIndex={activeIndex} feature={f} />
                 ))}
               </div>
             </div>
@@ -803,17 +832,76 @@ export const CoreSection = () => {
       {/* Mobile */}
       <div className="block px-6 py-24 md:hidden">
         <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">Chapter / 02</p>
-        <h2 className="mb-6 font-display text-[2.5rem] font-medium leading-[1.0] tracking-[-0.03em] text-white">The Core</h2>
-        <p className="mb-12 text-base font-light leading-relaxed text-slate-400">
-          Cisco calling, contact center, and observability unified into one always-on fabric.
+        <h2 className="mb-6 font-display text-[2.5rem] font-bold leading-[1.0] tracking-[-0.03em] text-white">
+          Convergence is the architecture.
+        </h2>
+        <p className="mb-10 text-base font-light leading-relaxed text-slate-400">
+          Four fragmented stacks become one always-on operational fabric.
         </p>
-        {CORE_LABELS.map((label, i) => (
-          <div key={i} className="border-t border-white/10 py-10">
-            <span className="mb-2 block font-mono text-[10px] tracking-[0.3em] text-accent-300">[{label.i}]</span>
-            <span className="text-lg text-slate-300">{label.t}</span>
-          </div>
-        ))}
+        <div className="space-y-3">
+          {CORE_FEATURES.map((f) => (
+            <div key={f.i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
+              <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.24em] text-accent-300">{f.i}</div>
+              <div className="font-display text-lg font-medium text-white">{f.title}</div>
+              <p className="mt-1 text-sm font-light text-slate-400">{f.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
+  );
+};
+
+const CoreFeatureRow = ({
+  feature, index, activeIndex,
+}: {
+  feature: typeof CORE_FEATURES[number];
+  index: number;
+  activeIndex: import('framer-motion').MotionValue<number>;
+}) => {
+  const dim = useTransform(activeIndex, (v) => {
+    const dist = Math.abs(Math.floor(v) - index);
+    return dist === 0 ? 1 : dist === 1 ? 0.55 : 0.32;
+  });
+  const indexColor = useTransform(activeIndex, (v) =>
+    Math.floor(v) === index ? '#049fd9' : 'rgba(148,163,184,0.5)'
+  );
+  return (
+    <motion.div
+      style={{ opacity: dim }}
+      className="relative pl-6 pr-3 py-5"
+    >
+      <div className="flex items-baseline gap-4">
+        <motion.span
+          style={{ color: indexColor }}
+          className="font-mono text-[10px] uppercase tracking-[0.24em]"
+        >
+          {feature.i}
+        </motion.span>
+        <h3 className="font-display text-[1.15rem] font-medium tracking-[-0.01em] text-white">
+          {feature.title}
+        </h3>
+      </div>
+      <p className="mt-1.5 max-w-md pl-10 text-[13px] font-light leading-relaxed text-slate-400">
+        {feature.body}
+      </p>
+    </motion.div>
+  );
+};
+
+const CoreCaption = ({
+  index, activeIndex, feature,
+}: {
+  index: number;
+  activeIndex: import('framer-motion').MotionValue<number>;
+  feature: typeof CORE_FEATURES[number];
+}) => {
+  const opacity = useTransform(activeIndex, (v) => (Math.floor(v) === index ? 1 : 0));
+  const y = useTransform(activeIndex, (v) => (Math.floor(v) === index ? 0 : 8));
+  return (
+    <motion.div style={{ opacity, y }} className="absolute inset-x-0 top-0">
+      <span className="mr-3 font-mono text-[10px] tracking-[0.3em] text-accent-300">[{feature.i}]</span>
+      <span className="font-body text-[0.95rem] text-slate-400">{feature.title}</span>
+    </motion.div>
   );
 };

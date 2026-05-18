@@ -45,7 +45,7 @@ export const Products = () => {
              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80" alt="Notification Network" className="w-full h-full object-cover opacity-10 mix-blend-screen group-hover:scale-105 transition-transform duration-1000" loading="lazy" referrerPolicy="no-referrer" />
           </div>
           <div className="lg:w-1/2 p-12 lg:p-20 flex flex-col justify-center relative z-10 bg-gradient-to-r from-[#020617] to-transparent">
-             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#6366f1]/8 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3 group-hover:bg-indigo-500/30 transition-colors duration-700"></div>
+             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#049fd9]/8 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3 group-hover:bg-indigo-500/30 transition-colors duration-700"></div>
              <div className="relative z-10">
                <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center mb-8">
                  <Activity className="w-8 h-8 text-indigo-400" />
@@ -218,7 +218,7 @@ export const ProfessionalServices = () => {
         <div className="absolute inset-0 z-0">
           <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2850&q=80" alt="Consulting" fetchPriority="high" className="w-full h-full object-cover opacity-20 sepia-[.3] hue-rotate-[200deg] mix-blend-luminosity" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/80 to-[#020617]/30"></div>
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#6366f1]/10 blur-[110px] rounded-full"></div>
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#049fd9]/10 blur-[110px] rounded-full"></div>
         </div>
         <div className="absolute inset-x-0 top-0 hidden lg:block h-full opacity-30 pointer-events-auto z-0">
           <NetworkTopology />
@@ -245,7 +245,7 @@ export const ProfessionalServices = () => {
 
       {/* Services Breakdown */}
       <div className="py-32 relative bg-[#020617]">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#6366f1]/30 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#049fd9]/30 to-transparent"></div>
         <div className="px-6 max-w-7xl mx-auto space-y-32">
           
           {/* Item 1 */}
@@ -376,8 +376,8 @@ export const About = () => {
         </script>
       </Helmet>
       
-      <div className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-[#6366f1]/8 blur-[110px] rounded-full pointer-events-none z-0"></div>
-      <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-[#6366f1]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
+      <div className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-[#049fd9]/8 blur-[110px] rounded-full pointer-events-none z-0"></div>
+      <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-[#049fd9]/5 blur-[110px] rounded-full pointer-events-none z-0"></div>
 
       {/* Hero with full-bleed image background */}
       <div className="relative pt-40 pb-32 overflow-hidden border-b border-white/10 z-10 w-full mb-16">
@@ -434,7 +434,7 @@ export const About = () => {
             <div className="rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl relative aspect-[4/5]">
                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Data Analytics" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-60 mix-blend-luminosity" loading="lazy" referrerPolicy="no-referrer" />
                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/40 to-transparent"></div>
-               <div className="absolute inset-0 bg-[#6366f1]/8 mix-blend-color"></div>
+               <div className="absolute inset-0 bg-[#049fd9]/8 mix-blend-color"></div>
                
                <div className="absolute bottom-10 left-10 right-10 p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
                  <div className="flex items-center gap-6 mb-6">
@@ -458,9 +458,9 @@ export const About = () => {
             <p className="text-slate-400 max-w-2xl mx-auto text-lg">Strict focus areas where we deliver uncompromising Cisco architectural excellence.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <InteractiveCard className="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-[#6366f1]/40 transition-colors">
+            <InteractiveCard className="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-[#049fd9]/40 transition-colors">
               <div className="relative z-10">
-                <div className="w-12 h-12 bg-[#6366f1]/15 text-[#6366f1] rounded-xl flex items-center justify-center mb-6 border border-[#6366f1]/20">
+                <div className="w-12 h-12 bg-[#049fd9]/15 text-[#049fd9] rounded-xl flex items-center justify-center mb-6 border border-[#049fd9]/20">
                   <Cloud className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-normal text-white mb-2">Cloud Center Mapping</h3>
@@ -469,24 +469,24 @@ export const About = () => {
               </div>
             </InteractiveCard>
 
-            <InteractiveCard className="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-[#6366f1]/40 transition-colors">
+            <InteractiveCard className="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-[#049fd9]/40 transition-colors">
               <div className="relative z-10">
-                <div className="w-12 h-12 bg-[#6366f1]/15 text-[#6366f1] rounded-xl flex items-center justify-center mb-6 border border-[#6366f1]/20">
+                <div className="w-12 h-12 bg-[#049fd9]/15 text-[#049fd9] rounded-xl flex items-center justify-center mb-6 border border-[#049fd9]/20">
                   <Code className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-normal text-white mb-2">Custom Automations</h3>
-                <div className="text-xs font-mono text-[#6366f1] font-normal tracking-widest uppercase mb-4">Finesse / API / Dev</div>
+                <div className="text-xs font-mono text-[#049fd9] font-normal tracking-widest uppercase mb-4">Finesse / API / Dev</div>
                 <p className="text-slate-400 leading-relaxed">Writing custom software, middleware, and notification systems that fill the gaps standard CC deployments have.</p>
               </div>
             </InteractiveCard>
 
-            <InteractiveCard className="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-[#6366f1]/40 transition-colors">
+            <InteractiveCard className="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-[#049fd9]/40 transition-colors">
               <div className="relative z-10">
-                <div className="w-12 h-12 bg-[#6366f1]/15 text-[#6366f1] rounded-xl flex items-center justify-center mb-6 border border-[#6366f1]/20">
+                <div className="w-12 h-12 bg-[#049fd9]/15 text-[#049fd9] rounded-xl flex items-center justify-center mb-6 border border-[#049fd9]/20">
                   <Shield className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-normal text-white mb-2">Zero-Trust Backbone</h3>
-                <div className="text-xs font-mono text-[#6366f1] font-normal tracking-widest uppercase mb-4">Sovereign Focus</div>
+                <div className="text-xs font-mono text-[#049fd9] font-normal tracking-widest uppercase mb-4">Sovereign Focus</div>
                 <p className="text-slate-400 leading-relaxed">Guaranteeing data integrity through air-gapped or localized logic loops, strictly designed for highly regulated Fortune 500 networks.</p>
               </div>
             </InteractiveCard>
@@ -548,7 +548,7 @@ export const Contact = () => {
              <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/90 to-[#020617]/50"></div>
           </div>
           
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#6366f1]/8 blur-[100px] rounded-full pointer-events-none translate-x-1/3 -translate-y-1/3 z-0"></div>
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#049fd9]/8 blur-[100px] rounded-full pointer-events-none translate-x-1/3 -translate-y-1/3 z-0"></div>
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#2b3c98]/30 blur-[100px] rounded-full pointer-events-none -translate-x-1/3 translate-y-1/3 z-0"></div>
           
           <div className="relative z-10">

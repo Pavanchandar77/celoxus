@@ -8,7 +8,7 @@ import { NotFound } from './pages/NotFound';
 import { PrivacyPolicy, TermsOfService } from './pages/Legal';
 import { SmoothScroll } from './components/SmoothScroll';
 import { IntelligenceSection } from './components/IntelligenceSection';
-import { OutcomesSection } from './components/OutcomesSection';
+import { ProcessSection } from './components/ProcessSection';
 import { RuptureSection } from './components/RuptureSection';
 import { CustomCursor } from './components/CustomCursor';
 
@@ -21,7 +21,7 @@ const Home = () => {
       <RuptureSection />
       <BentoGrid />
       <IntelligenceSection />
-      <OutcomesSection />
+      <ProcessSection />
       <SplitMission />
       <CTASection />
     </>
