@@ -1,109 +1,188 @@
 import { motion } from 'framer-motion';
-import { NetworkTopology } from './NetworkTopology';
+import { Compass, PenTool, Activity, ArrowUpRight } from 'lucide-react';
 
 /**
- * ProcessSection — white-on-white architectural band. Three numbered phases
- * with their own muted, customer-facing copy. A small light-theme topology
- * sits to the right of the headline to reinforce the architectural read.
+ * ProcessSection — light "white paper" band on a warm paper tone.
+ * Three phases connected by a horizontal timeline rail. Strong typographic
+ * hierarchy with readable medium-weight body (no thin text on pure white).
  */
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const PHASES = [
   {
     n: '01',
+    Icon: Compass,
+    eyebrow: 'Audit',
     title: 'Discover',
     body: 'A CCIE-led audit of your current calling, contact-center, and observability footprint. We map every dependency before we touch a thing.',
     items: ['Topology audit', 'Risk register', 'Zero-downtime plan'],
+    duration: '2–4 weeks',
   },
   {
     n: '02',
+    Icon: PenTool,
+    eyebrow: 'Blueprint',
     title: 'Architect',
-    body: 'A bespoke blueprint that reuses what works and replaces what limits you. Always vendor-honest. Always reversible.',
+    body: 'A bespoke design that reuses what works and replaces what limits you. Vendor-honest, sequenced, and always reversible.',
     items: ['Reference architecture', 'Sequenced cutover', 'Custom middleware spec'],
+    duration: '4–8 weeks',
   },
   {
     n: '03',
+    Icon: Activity,
+    eyebrow: 'Run',
     title: 'Operate',
     body: 'We don\'t hand you a system and disappear. Persistent observability, on-call escalation, and quarterly architecture reviews.',
     items: ['24/7 NOC integration', 'Quarterly review', 'Architecture warranty'],
+    duration: 'Ongoing',
   },
 ];
 
-const SIGNAL_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
 export const ProcessSection = () => {
   return (
-    <section className="relative bg-white text-slate-900 py-32 overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-px bg-slate-200"></div>
-      <div className="absolute inset-x-0 bottom-0 h-px bg-slate-200"></div>
+    <section className="relative overflow-hidden bg-[#f5f3ee] py-32 text-slate-900">
+      {/* Soft hairline separators */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-300/70" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-slate-300/70" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      {/* Blueprint grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(15,23,42,0.045) 1px, transparent 1px),' +
+            'linear-gradient(to bottom, rgba(15,23,42,0.045) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          maskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 50%, #000 50%, transparent 100%)',
+        }}
+      />
+
+      {/* Warm accent wash */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.12),transparent_70%)] blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-          <div className="lg:col-span-7">
-            <p className="font-mono text-[11px] text-[#049fd9] uppercase tracking-[0.28em] mb-6">
-              Chapter / 07 — Process
-            </p>
-            <h2 className="font-display font-light text-slate-900 text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] leading-[1.0] tracking-tight">
-              Architecture, in three considered movements.
-            </h2>
-            <p className="mt-8 font-light text-slate-500 text-lg leading-relaxed max-w-xl">
-              We engage in deliberate phases — not sprints. Every cutover is a planned migration with a known fall-back path.
-            </p>
-          </div>
-
-          {/* Light topology panel */}
-          <div className="lg:col-span-5 hidden lg:block">
-            <div className="relative aspect-[4/3] w-full border border-slate-200 bg-slate-50/50">
-              <NetworkTopology interactive={false} theme="light" showLabels={false} />
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] text-slate-500 uppercase tracking-[0.18em]">
-                <span>celoxus.observe</span>
-                <span className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#049fd9]"></span>
-                  Live topology
-                </span>
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="mb-20 grid grid-cols-12 items-end gap-8"
+        >
+          <div className="col-span-12 lg:col-span-8">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_2px_10px_rgba(15,23,42,0.04)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-700">
+                Chapter / 07 · Process
+              </span>
             </div>
+            <h2 className="font-display text-[2.5rem] font-bold leading-[1.0] tracking-[-0.035em] text-slate-900 sm:text-5xl lg:text-[3.75rem]">
+              Architecture, in three
+              <span className="block text-accent-600">considered movements.</span>
+            </h2>
           </div>
-        </div>
+          <div className="col-span-12 lg:col-span-4">
+            <p className="max-w-md text-base font-medium leading-relaxed text-slate-700">
+              We engage in deliberate phases — not sprints. Every cutover is a planned
+              migration with a known fall-back path.
+            </p>
+          </div>
+        </motion.div>
 
-        {/* Phases */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-px lg:bg-slate-200 lg:border lg:border-slate-200">
-          {PHASES.map((p, i) => (
+        {/* Timeline rail */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative mb-10 hidden lg:block"
+        >
+          <div className="relative h-px w-full bg-slate-300/80">
             <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
+              style={{ transformOrigin: 'left' }}
+              className="absolute inset-0 h-px bg-gradient-to-r from-accent via-accent/60 to-transparent"
+            />
+          </div>
+          {/* Phase markers */}
+          <div className="absolute inset-x-0 -top-1.5 grid grid-cols-3">
+            {PHASES.map((p, i) => (
+              <div key={p.n} className={`flex ${i === 0 ? 'justify-start' : i === 1 ? 'justify-center' : 'justify-end'}`}>
+                <div className="relative">
+                  <div className="h-3 w-3 rounded-full bg-white ring-2 ring-accent shadow-[0_4px_10px_rgba(4,159,217,0.25)]" />
+                  <div className="absolute left-1/2 top-5 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
+                    {p.duration}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Phase cards */}
+        <div className="mt-16 grid grid-cols-1 gap-5 lg:mt-20 lg:grid-cols-3">
+          {PHASES.map((p, i) => (
+            <motion.article
               key={p.n}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: SIGNAL_EASE }}
-              className="bg-white p-10 lg:p-12 group relative border-b border-slate-200 lg:border-b-0"
-              data-cursor="hover"
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_60px_-20px_rgba(4,159,217,0.25)] lg:p-8"
+              style={{ boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(15,23,42,0.04), 0 20px 40px -28px rgba(15,23,42,0.18)' }}
             >
-              <div className="flex items-baseline justify-between mb-8">
-                <span className="font-display font-light text-[#049fd9] text-[3rem] leading-none">
+              {/* Top hairline */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+
+              {/* Phase header */}
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent">
+                    <p.Icon className="h-5 w-5" />
+                  </div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
+                    {p.eyebrow}
+                  </div>
+                </div>
+                <span className="font-display text-[2.5rem] font-bold leading-none tracking-[-0.04em] text-accent">
                   {p.n}
                 </span>
-                <span className="font-mono text-[10px] text-slate-400 uppercase tracking-[0.22em]">
-                  Phase
-                </span>
               </div>
-              <h3 className="font-display font-light text-slate-900 text-[1.75rem] mb-5 tracking-tight">
+
+              {/* Title + body */}
+              <h3 className="mt-7 font-display text-2xl font-bold tracking-[-0.02em] text-slate-900">
                 {p.title}
               </h3>
-              <p className="font-light text-slate-600 text-base leading-relaxed mb-8">
+              <p className="mt-3 text-[15px] font-medium leading-[1.65] text-slate-600">
                 {p.body}
               </p>
-              <ul className="border-t border-slate-200 pt-6 space-y-2">
+
+              {/* Deliverables */}
+              <ul className="mt-6 space-y-2 border-t border-slate-200/80 pt-5">
                 {p.items.map((it) => (
-                  <li key={it} className="font-mono text-[10px] text-slate-500 uppercase tracking-[0.22em] flex items-center gap-3">
-                    <span className="w-1 h-1 bg-[#049fd9] rounded-full"></span>
+                  <li key={it} className="flex items-center gap-3 text-[13px] font-medium text-slate-700">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-accent/10">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                    </span>
                     {it}
                   </li>
                 ))}
               </ul>
 
-              {/* Hairline that grows on hover */}
-              <div className="absolute left-10 right-10 bottom-10 lg:bottom-12 h-px bg-slate-200 group-hover:bg-[#049fd9] transition-colors duration-700"></div>
-            </motion.div>
+              {/* Footer hover affordance */}
+              <div className="mt-7 flex items-center justify-between border-t border-slate-200/80 pt-5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
+                  {p.duration}
+                </span>
+                <ArrowUpRight className="h-4 w-4 text-slate-400 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+              </div>
+            </motion.article>
           ))}
         </div>
       </div>
