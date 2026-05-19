@@ -25,7 +25,7 @@ const PageHero = ({
   sub: string;
   visual?: React.ReactNode;
 }) => (
-  <section className="relative overflow-hidden bg-ink-950 pt-40 pb-24">
+  <section className="relative overflow-hidden bg-ink-950 pt-32 pb-20 sm:pt-40 sm:pb-24">
     <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-60" />
     <div className="pointer-events-none absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.22),transparent_70%)] blur-3xl" />
     <div className="pointer-events-none absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -46,7 +46,7 @@ const PageHero = ({
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.05, ease: EASE_SOFT }}
-        className="font-display mx-auto max-w-5xl text-balance text-[2.75rem] font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-6xl lg:text-[5.5rem]"
+        className="font-display mx-auto max-w-5xl text-balance text-[2.25rem] font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-6xl lg:text-[5.5rem]"
       >
         {title}{' '}
         <span className="block text-gradient-accent">{accent}</span>
@@ -66,7 +66,7 @@ const PageHero = ({
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.4, ease: EASE_SOFT }}
-          className="relative mx-auto mt-16"
+          className="relative mx-auto mt-10 sm:mt-16"
         >
           {visual}
         </motion.div>
@@ -83,7 +83,7 @@ const PageHero = ({
 const ProductsHeroVisual = () => {
   const reduce = useReducedMotion();
   return (
-    <div className="relative mx-auto h-[300px] w-full max-w-3xl">
+    <div className="relative mx-auto h-[260px] w-full max-w-3xl sm:h-[300px]">
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.18),transparent_70%)] blur-2xl" />
 
@@ -122,7 +122,7 @@ const ProductsHeroVisual = () => {
         initial={{ opacity: 0, y: 30, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.2, delay: 0.7, ease: EASE_SOFT }}
-        className="absolute left-1/2 top-[14%] w-72 -translate-x-1/2"
+        className="absolute left-1/2 top-[18%] w-[88%] max-w-[18rem] -translate-x-1/2 sm:top-[14%] sm:w-72"
       >
         <motion.div
           animate={reduce ? undefined : { y: [0, -6, 0] }}
@@ -322,7 +322,7 @@ const AboutHeroVisual = () => {
     [0, 1], [1, 2], [2, 3], [0, 4], [1, 3], [0, 2],
   ];
   return (
-    <div className="relative mx-auto h-[280px] w-full max-w-3xl">
+    <div className="relative mx-auto h-[240px] w-full max-w-3xl sm:h-[280px]">
       <svg viewBox="0 0 400 220" className="absolute inset-0 h-full w-full">
         <defs>
           <radialGradient id="globeFill" cx="50%" cy="50%" r="50%">
@@ -421,7 +421,7 @@ const AboutHeroVisual = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 1.4 + i * 0.12, ease: EASE_SOFT }}
-          className={`absolute ${s.pos} rounded-full border border-white/[0.08] bg-ink-900/70 px-3 py-1.5 backdrop-blur-md`}
+          className={`absolute ${s.pos} hidden rounded-full border border-white/[0.08] bg-ink-900/70 px-3 py-1.5 backdrop-blur-md sm:block`}
         >
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -445,10 +445,12 @@ const ContactHeroVisual = () => {
       <div className="relative flex items-center justify-between gap-2 px-2">
         {/* Source */}
         <RoutingChip Icon={Send} primary>You</RoutingChip>
-        {/* Hops */}
-        <RoutingChip Icon={Zap}>Edge</RoutingChip>
-        <RoutingChip Icon={Activity}>Routing</RoutingChip>
-        <RoutingChip Icon={MapPin}>Bangalore</RoutingChip>
+        {/* Hops — hidden on mobile, the line + photon still convey routing */}
+        <span className="hidden sm:contents">
+          <RoutingChip Icon={Zap}>Edge</RoutingChip>
+          <RoutingChip Icon={Activity}>Routing</RoutingChip>
+          <RoutingChip Icon={MapPin}>Bangalore</RoutingChip>
+        </span>
         {/* Endpoint */}
         <RoutingChip Icon={Headphones} accent>
           <span className="flex items-center gap-1.5">
@@ -637,7 +639,7 @@ export const Products = () => {
         visual={<ProductsHeroVisual />}
       />
 
-      <div className="mx-auto max-w-7xl space-y-32 px-6 py-24">
+      <div className="mx-auto max-w-7xl space-y-24 px-6 py-16 sm:space-y-32 sm:py-24">
         <FeatureRow
           index="01"
           eyebrow="Finesse Notifications"
@@ -811,7 +813,7 @@ export const ProfessionalServices = () => {
         visual={<ServicesHeroVisual />}
       />
 
-      <div className="mx-auto max-w-7xl space-y-32 px-6 py-24">
+      <div className="mx-auto max-w-7xl space-y-24 px-6 py-16 sm:space-y-32 sm:py-24">
         <FeatureRow
           index="01"
           eyebrow="Cisco Calling Solution"

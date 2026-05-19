@@ -52,7 +52,7 @@ export const IntelligenceSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden border-t border-white/[0.06] bg-ink-950 py-32 lg:py-40"
+      className="relative w-full overflow-hidden border-t border-white/[0.06] bg-ink-950 py-24 sm:py-32 lg:py-40"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-25 radial-fade" />
@@ -69,7 +69,7 @@ export const IntelligenceSection = () => {
             <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
               Chapter / 04 · Intelligence
             </p>
-            <h2 className="font-display text-[2.75rem] font-bold leading-[0.98] tracking-[-0.04em] text-white sm:text-[3.5rem] lg:text-[5rem]">
+            <h2 className="font-display text-[2.25rem] font-bold leading-[0.98] tracking-[-0.04em] text-white sm:text-[3rem] lg:text-[5rem]">
               A system that
               <span className="block text-gradient-accent">thinks in real time.</span>
             </h2>
@@ -97,7 +97,7 @@ export const IntelligenceSection = () => {
 
           {/* RIGHT: live decision telemetry */}
           <div className="col-span-12 lg:col-span-5">
-            <div className="relative rounded-2xl border border-white/[0.07] bg-ink-900/60 p-5 backdrop-blur-xl">
+            <div className="relative rounded-2xl border border-white/[0.07] bg-ink-900/60 p-4 backdrop-blur-xl sm:p-5">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
               <div className="mb-4 flex items-center justify-between">

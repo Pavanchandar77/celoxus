@@ -42,7 +42,7 @@ const PHASES = [
 
 export const ProcessSection = () => {
   return (
-    <LightSlab chapter="Chapter / 07 · Process" className="py-32 text-slate-900">
+    <LightSlab chapter="Chapter / 07 · Process" className="py-24 text-slate-900 sm:py-32">
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <motion.div

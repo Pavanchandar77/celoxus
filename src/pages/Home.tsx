@@ -39,14 +39,18 @@ export const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen w-full overflow-hidden bg-ink-950 pt-32 pb-28"
+      className="relative min-h-screen w-full overflow-hidden bg-ink-950 pt-28 pb-20 sm:pt-32 sm:pb-28"
     >
       {/* Animated grid */}
       <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-50" />
 
       {/* The Celoxus signature: living intelligence mesh */}
-      <div className="pointer-events-none absolute inset-0 radial-fade opacity-90">
+      <div className="pointer-events-none absolute inset-0 hidden radial-fade opacity-90 md:block">
         <LiveMesh density={0.8} connectionDistance={140} />
+      </div>
+      {/* Mobile mesh — sparser, lighter, no cursor follow */}
+      <div className="pointer-events-none absolute inset-0 radial-fade opacity-70 md:hidden">
+        <LiveMesh density={0.45} connectionDistance={120} interactive={false} maxOpacity={0.75} />
       </div>
 
       {/* Aurora gradient */}
@@ -88,7 +92,7 @@ export const Hero = () => {
           variants={fadeUp}
           initial="hidden"
           animate="shown"
-          className="font-display mx-auto max-w-5xl text-balance text-center text-[3rem] font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-7xl lg:text-[6.5rem]"
+          className="font-display mx-auto max-w-5xl text-balance text-center text-[2.5rem] font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-6xl lg:text-[6.5rem]"
         >
           Voice infrastructure
           <span className="block text-gradient-accent">that thinks.</span>
@@ -100,7 +104,7 @@ export const Hero = () => {
           variants={fadeUp}
           initial="hidden"
           animate="shown"
-          className="mx-auto mt-7 max-w-2xl text-balance text-center text-[17px] font-light leading-[1.6] text-slate-400 sm:text-xl"
+          className="mx-auto mt-6 max-w-2xl text-balance text-center text-[15px] font-light leading-[1.55] text-slate-400 sm:mt-7 sm:text-[17px] sm:leading-[1.6] md:text-xl"
         >
           Celoxus is the intelligence layer beneath every enterprise call —
           quietly running routing, decisions, and revenue at the world's most
@@ -152,7 +156,7 @@ export const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.6, delay: 0.45, ease: EASE_SOFT }}
-          className="relative mx-auto mt-24 w-full max-w-[1320px]"
+          className="relative mx-auto mt-12 w-full max-w-[1320px] sm:mt-20 md:mt-24"
         >
           <OperationalTheatre />
         </motion.div>
@@ -666,7 +670,7 @@ const DashboardMock = () => {
         </div>
 
         {/* Body */}
-        <div className="grid grid-cols-12 gap-4 p-5">
+        <div className="grid grid-cols-12 gap-3 p-3 sm:gap-4 sm:p-5">
           {/* Sidebar */}
           <div className="col-span-3 hidden flex-col gap-1 md:flex">
             {['Overview', 'Voice Routing', 'Contact Center', 'Webex Cloud', 'Observability', 'Integrations'].map((label, i) => (
@@ -685,16 +689,16 @@ const DashboardMock = () => {
           {/* Main */}
           <div className="col-span-12 md:col-span-9">
             {/* KPI row */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {[
                 { k: 'Active sessions', v: '24,816', d: '+12.4%', tone: 'emerald' },
                 { k: 'Avg. handle time', v: '1m 42s', d: '−8.1%', tone: 'emerald' },
                 { k: 'SLA', v: '99.997%', d: 'Nominal', tone: 'indigo' },
               ].map((kpi) => (
-                <div key={kpi.k} className="rounded-xl border border-white/5 bg-white/[0.02] p-4">
-                  <div className="text-[11px] uppercase tracking-wider text-slate-500">{kpi.k}</div>
-                  <div className="mt-1 font-display text-2xl font-medium tracking-tight text-white">{kpi.v}</div>
-                  <div className={`mt-1 text-[11px] ${kpi.tone === 'emerald' ? 'text-emerald-400' : 'text-accent-300'}`}>{kpi.d}</div>
+                <div key={kpi.k} className="rounded-xl border border-white/5 bg-white/[0.02] p-3 sm:p-4">
+                  <div className="text-[10px] uppercase tracking-wider text-slate-500 sm:text-[11px]">{kpi.k}</div>
+                  <div className="mt-1 font-display text-lg font-medium tracking-tight text-white sm:text-2xl">{kpi.v}</div>
+                  <div className={`mt-1 text-[10px] sm:text-[11px] ${kpi.tone === 'emerald' ? 'text-emerald-400' : 'text-accent-300'}`}>{kpi.d}</div>
                 </div>
               ))}
             </div>
@@ -733,7 +737,7 @@ const DashboardMock = () => {
             </div>
 
             {/* Live rows */}
-            <div className="mt-3 grid grid-cols-2 gap-3">
+            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
               {[
                 { l: 'Calling Cluster · APAC', s: 'Healthy', t: 'emerald' },
                 { l: 'Contact Center · EMEA', s: 'Healthy', t: 'emerald' },
@@ -792,7 +796,7 @@ export const TrustBanner = () => {
    ============================================================ */
 export const Manifesto = () => {
   return (
-    <LightSlab chapter="Manifesto · Why we exist" className="py-32 lg:py-40">
+    <LightSlab chapter="Manifesto · Why we exist" className="py-24 sm:py-32 lg:py-40">
       <div className="relative z-10 mx-auto max-w-5xl px-6">
         <motion.blockquote
           initial={{ opacity: 0, y: 22 }}
@@ -830,7 +834,7 @@ export const Manifesto = () => {
    ============================================================ */
 export const BentoGrid = () => {
   return (
-    <section className="relative overflow-hidden bg-ink-950 py-40 lg:py-48">
+    <section className="relative overflow-hidden bg-ink-950 py-24 sm:py-32 lg:py-48">
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-30 radial-fade" />
       <div className="pointer-events-none absolute -top-40 left-1/3 h-[500px] w-[500px] rounded-full bg-accent/10 blur-[140px]" />
 
@@ -929,7 +933,7 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)]"
+        className="ring-gradient group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-5 backdrop-blur-xl hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_40px_120px_-30px_rgba(4,159,217,0.45)] sm:p-7"
         style={{ transition: 'transform 700ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 700ms cubic-bezier(0.16, 1, 0.3, 1), border-color 600ms cubic-bezier(0.16, 1, 0.3, 1)' }}
       >
         {/* Cursor spotlight */}
@@ -967,7 +971,7 @@ const BentoCard = ({ className = '', icon: Icon, eyebrow, title, body, featured 
    ============================================================ */
 export const SplitMission = () => {
   return (
-    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-40 lg:py-48">
+    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-24 sm:py-32 lg:py-48">
       <div className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[140px]" />
 
       <div className="relative mx-auto max-w-7xl px-6">
@@ -1033,7 +1037,7 @@ export const SplitMission = () => {
             transition={{ duration: 1, ease: EASE_SOFT }}
             className="relative"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/70 p-8 backdrop-blur-2xl shadow-card">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/70 p-6 backdrop-blur-2xl shadow-card sm:p-8">
               <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-accent/20 blur-3xl" />
 
               <div className="flex items-center justify-between">
@@ -1107,7 +1111,7 @@ export const SplitMission = () => {
    ============================================================ */
 export const CTASection = () => {
   return (
-    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-40">
+    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-24 sm:py-32 md:py-40">
       <div className="pointer-events-none absolute inset-0 grid-bg radial-fade opacity-40" />
       {/* Signature mesh — subtle echo of the hero */}
       <div className="pointer-events-none absolute inset-0 radial-fade opacity-70">
