@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { MagneticButton } from '../components/MagneticButton';
 import { CoreTopology } from '../components/CoreTopology';
 import { LiveMesh } from '../components/LiveMesh';
-import { LightSlab } from '../components/LightSlab';
 
 // Premium easing curves
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];        // signal-ease
@@ -767,9 +766,12 @@ const DashboardMock = () => {
 export const TrustBanner = () => {
   const logos = ['Cisco', 'Webex', 'AWS', 'Azure', 'ServiceNow', 'Splunk', 'Salesforce'];
   return (
-    <LightSlab chapter="Built on · Integrated with" className="py-20 lg:py-24">
+    <section className="relative overflow-hidden border-y border-hairline bg-ink-950 py-20 lg:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
-        <h3 className="mx-auto max-w-2xl font-display text-2xl font-semibold leading-[1.2] tracking-[-0.025em] text-slate-900 sm:text-3xl">
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">
+          Built on · Integrated with
+        </p>
+        <h3 className="mx-auto mt-4 max-w-2xl font-display text-2xl font-semibold leading-[1.2] tracking-[-0.025em] text-white sm:text-3xl">
           The stack our customers already run.
         </h3>
         <div className="mt-12 grid grid-cols-2 items-center gap-x-10 gap-y-8 sm:grid-cols-4 lg:grid-cols-7">
@@ -780,30 +782,34 @@ export const TrustBanner = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.85, delay: i * 0.05, ease: EASE_SOFT }}
-              className="font-display text-xl font-semibold tracking-tight text-slate-400 transition-colors duration-500 hover:text-slate-900"
+              className="font-display text-xl font-semibold tracking-tight text-slate-500 transition-colors duration-500 hover:text-white"
             >
               {logo}
             </motion.div>
           ))}
         </div>
       </div>
-    </LightSlab>
+    </section>
   );
 };
 
 /* ============================================================
-   MANIFESTO — light paper section, breaks the dark mid-page
+   MANIFESTO — quiet editorial moment on dark
    ============================================================ */
 export const Manifesto = () => {
   return (
-    <LightSlab chapter="Manifesto · Why we exist" className="py-24 sm:py-32 lg:py-40">
+    <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-24 sm:py-32 lg:py-40">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.08),transparent_70%)] blur-3xl" />
       <div className="relative z-10 mx-auto max-w-5xl px-6">
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+          Manifesto · Why we exist
+        </p>
         <motion.blockquote
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1.1, ease: EASE_SOFT }}
-          className="font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-slate-900 sm:text-4xl lg:text-[3rem]"
+          className="mt-6 font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-white sm:text-4xl lg:text-[3rem]"
         >
           A bad minute in a contact center is paid for in dollars, in trust,
           and in the next quarter's revenue.
@@ -817,7 +823,7 @@ export const Manifesto = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.9, delay: 0.25, ease: EASE_SOFT }}
-          className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-slate-300/70 pt-8 text-slate-700"
+          className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-hairline pt-8 text-slate-300"
         >
           <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">
             — Engineering principle
@@ -825,7 +831,7 @@ export const Manifesto = () => {
           <span className="text-[15px] font-medium">Ship voice software that runs quietly.</span>
         </motion.div>
       </div>
-    </LightSlab>
+    </section>
   );
 };
 

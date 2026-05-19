@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MagneticButton } from './MagneticButton';
-import { LightSlab } from './LightSlab';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const EASE_SOFT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -521,7 +520,7 @@ const RoutingChip = ({
 );
 
 /* ============================================================
-   Reusable PrincipleSlab — light architectural page for inner pages
+   Reusable PrincipleSlab — quiet editorial moment on dark
    ============================================================ */
 const PrincipleSlab = ({
   chapter, quote, attribution, principle,
@@ -531,14 +530,18 @@ const PrincipleSlab = ({
   attribution: string;
   principle: string;
 }) => (
-  <LightSlab chapter={chapter} className="py-32 lg:py-36">
+  <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-24 sm:py-32">
+    <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.08),transparent_70%)] blur-3xl" />
     <div className="relative z-10 mx-auto max-w-5xl px-6">
+      <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+        {chapter}
+      </p>
       <motion.blockquote
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 1.1, ease: EASE_SOFT }}
-        className="font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-slate-900 sm:text-4xl lg:text-[3rem]"
+        className="mt-6 font-display text-3xl font-semibold leading-[1.18] tracking-[-0.025em] text-white sm:text-4xl lg:text-[3rem]"
       >
         {quote}
       </motion.blockquote>
@@ -547,7 +550,7 @@ const PrincipleSlab = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.9, delay: 0.18, ease: EASE_SOFT }}
-        className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-slate-300/70 pt-8 text-slate-700"
+        className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-hairline pt-8 text-slate-300"
       >
         <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">
           — {attribution}
@@ -555,7 +558,7 @@ const PrincipleSlab = ({
         <span className="text-[15px] font-medium">{principle}</span>
       </motion.div>
     </div>
-  </LightSlab>
+  </section>
 );
 
 /* ============================================================ */
@@ -1010,13 +1013,17 @@ export const About = () => {
 
       </div>
 
-      {/* Engineering Matrix — light slab */}
-      <LightSlab chapter="Engineering matrix" className="py-32 lg:py-36 text-slate-900">
+      {/* Engineering Matrix */}
+      <section className="relative overflow-hidden border-t border-hairline bg-ink-950 py-24 sm:py-32">
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(4,159,217,0.10),transparent_70%)] blur-3xl" />
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="mx-auto max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-slate-900 sm:text-5xl lg:text-[3.5rem]">
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-accent-300">
+              Engineering matrix
+            </p>
+            <h2 className="mx-auto mt-5 max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.5rem]">
               Three disciplines.<br />
-              <span className="text-accent-600">Zero compromise.</span>
+              <span className="text-gradient-accent">Zero compromise.</span>
             </h2>
           </div>
 
@@ -1032,21 +1039,20 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.95, delay: i * 0.08, ease: EASE_SOFT }}
-                className="group relative rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_30px_70px_-25px_rgba(4,159,217,0.25)]"
-                style={{ boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(15,23,42,0.04), 0 20px 40px -28px rgba(15,23,42,0.18)' }}
+                className="group ring-gradient relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/60 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_30px_70px_-25px_rgba(4,159,217,0.45)] sm:p-7"
               >
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/20 bg-accent/10">
                   <c.Icon className="h-5 w-5 text-accent" />
                 </div>
                 <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">{c.eyebrow}</div>
-                <h3 className="mt-2 font-display text-xl font-bold tracking-[-0.02em] text-slate-900">{c.h}</h3>
-                <p className="mt-3 text-[14px] font-medium leading-[1.6] text-slate-600">{c.b}</p>
+                <h3 className="mt-2 font-display text-xl font-bold tracking-[-0.02em] text-white">{c.h}</h3>
+                <p className="mt-3 text-[14px] font-light leading-[1.6] text-slate-400">{c.b}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </LightSlab>
+      </section>
 
       <ClosingCTA title="See if we're the right fit." cta="Start a conversation" />
     </div>
